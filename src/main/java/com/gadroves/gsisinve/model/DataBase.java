@@ -1,5 +1,6 @@
 package com.gadroves.gsisinve.model;
 
+import com.gadroves.gsisinve.utils.R;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class DataBase extends Observable implements Observer {
         InputStream fis;
         basicDataSource = new BasicDataSource();
         try {
-            fis = getClass().getClassLoader().getResourceAsStream("database/connection.properties");
+            fis = R.getDBPropertiesAsStream();
             props.load(fis);
             this.host = props.getProperty("DBUrl");
             this.pass = props.getProperty("DBPass");
