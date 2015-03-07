@@ -31,6 +31,8 @@ public class LoginController implements Initializable, ControlledScreen {
             System.out.println("Debe llenar los campos");
         } else {
             System.out.println(username1 +" "+ password1);
+            //validate username and password
+            myController.setScreen("main");
         }
     }
 

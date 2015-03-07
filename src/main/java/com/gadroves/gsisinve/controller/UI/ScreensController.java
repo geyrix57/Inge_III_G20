@@ -49,9 +49,12 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class ScreensController  extends StackPane {
@@ -68,7 +71,7 @@ public class ScreensController  extends StackPane {
             myScreenController.setScreenParent(this);
             return loadScreen;
         } catch (Exception e) {
-            System.out.println(e.getMessage()+" No se encontro el archivo fxml con clave "+name+" en ViewId.properties");
+            System.out.println(e.getMessage()+" fxml file can't be loaded!");
             return null;
         }
     }
@@ -86,6 +89,7 @@ public class ScreensController  extends StackPane {
                     public void handle(ActionEvent t) {
                         getChildren().remove(0);                    //remove the displayed screen
                         getChildren().add(0, screen);     //add the screen
+                        ((Group)getParent()).getScene().getWindow().sizeToScene();// cambiar
                         Timeline fadeIn = new Timeline(
                                 new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                 new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
@@ -93,6 +97,7 @@ public class ScreensController  extends StackPane {
                     }
                 }, new KeyValue(opacity, 0.0)));
                 fade.play();
+
             } else {
                 setOpacity(0.0);
                 getChildren().add(screen);       //no one else been displayed, then just show
