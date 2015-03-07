@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="513.0" prefWidth="744.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.PrincipalController">
+    <stylesheets>
+        <URL value="@/views/styles/principal.css" />
+    </stylesheets>
+   <children>
+      <MenuBar layoutX="-1.0" prefHeight="23.0" prefWidth="744.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <SplitPane dividerPositions="0.1711590296495957" layoutX="-2.0" layoutY="25.0" prefHeight="491.0" prefWidth="744.0">
+         <items>
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="489.0" prefWidth="165.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <children>
+                  <Pane prefHeight="79.0" prefWidth="124.0">
+                     <children>
+                        <Label layoutX="46.0" layoutY="31.0" text="GSISINVE" />
+                     </children>
+                  </Pane>
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="145.0" text="Venta" />
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="142.0" text="Compra" />
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="144.0" text="Bodega" />
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="142.0" text="Reparación" />
+                  <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="146.0" text="Usuarios" />
+                  <ImageView fitHeight="127.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/gadroves3.jpg" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <TitledPane animated="false" collapsible="false" prefHeight="489.0" prefWidth="568.0" />
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
