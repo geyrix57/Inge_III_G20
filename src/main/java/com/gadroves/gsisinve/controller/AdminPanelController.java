@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 /**
  * Created by geykel on 07/03/2015.
  */
-public class MainController implements Initializable, ControlledScreen {
+public class AdminPanelController implements Initializable, ControlledScreen {
 
     private ScreensController myController;
 
