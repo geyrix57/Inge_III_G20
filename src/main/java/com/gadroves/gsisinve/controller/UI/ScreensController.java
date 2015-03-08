@@ -89,10 +89,11 @@ public class ScreensController  extends StackPane {
                     public void handle(ActionEvent t) {
                         getChildren().remove(0);                    //remove the displayed screen
                         getChildren().add(0, screen);     //add the screen
-                        ((Group)getParent()).getScene().getWindow().sizeToScene();// cambiar
+                        ((Group)getParent()).getScene().getWindow().sizeToScene();
+                        ((Group)getParent()).getScene().getWindow().centerOnScreen();
                         Timeline fadeIn = new Timeline(
                                 new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0)));
+                                new KeyFrame(new Duration(1000), new KeyValue(opacity, 1.0)));
                         fadeIn.play();
                     }
                 }, new KeyValue(opacity, 0.0)));

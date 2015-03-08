@@ -28,10 +28,13 @@ public class MainApp extends Application {
             root.getChildren().addAll(mainContainer);
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
+            //primaryStage.setResizable(false);
             primaryStage.setTitle("GSISINVE");
-            primaryStage.initStyle(StageStyle.UTILITY);
+            //primaryStage.initStyle(StageStyle.UTILITY);
             primaryStage.show();
+
+            mainContainer.prefWidthProperty().bind(scene.widthProperty());
+            mainContainer.prefHeightProperty().bind(scene.heightProperty());
         }
     }
 }

@@ -1,0 +1,29 @@
+.accordion {
+    -fx-background-color: black;
+}
+
+.accordion .titled-pane .title {
+    -fx-background-color: black;
+    -fx-background-radius: 15;
+}
+
+.accordion .titled-pane > *.content {
+    -fx-background-color: black;
+    -fx-border-color: black;
+}
+
+.accordion .titled-pane .title:hover{
+    -fx-background-color: #0f9C27, #0187ab;
+}
+
+.accordion .titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: lawngreen;
+}
+
+.accordion .titled-pane .title .arrow-button .arrow{
+    -fx-background-color: white;
+}
+
+/*.accordion .titled-pane:focused > .title{
+    -fx-background-color: #0f9C27, #0187ab;
+}*/
