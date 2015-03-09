@@ -22,6 +22,5 @@
 }
 
 .button:hover {
-    -fx-background-color: #0f9C27, #0187ab;
-    -fx-text-fill: darkorange;
+    -fx-background-color: #0f9C27, #00B1EB;
 }
