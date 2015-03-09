@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import java.lang.*?>
@@ -10,14 +11,19 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.FacturarController">
-   <center>
-      <TableView prefHeight="267.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+   <stylesheets>
+        <URL value="@../styles/facturar.css" />
+        <URL value="@../styles/default.css" />
+    </stylesheets>
+    
+    <center>
+      <TableView prefHeight="267.0" prefWidth="800.0" styleClass="table" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn prefWidth="107.0" text="Cód. Articulo" />
             <TableColumn prefWidth="49.0" text="Cant" />
           <TableColumn prefWidth="199.0" text="Descripción" />
-            <TableColumn prefWidth="89.0" text="Precio" />
-            <TableColumn prefWidth="95.0" text="Impuesto" />
+            <TableColumn minWidth="0.0" prefWidth="101.0" text="Precio" />
+            <TableColumn minWidth="0.0" prefWidth="83.0" text="Impuesto" />
             <TableColumn prefWidth="122.0" text="Descuento" />
             <TableColumn prefWidth="138.0" text="Total" />
         </columns>
@@ -28,17 +34,17 @@
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu mnemonicParsing="false" text="Archivo">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem mnemonicParsing="false" text="Salir" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu mnemonicParsing="false" text="Editar">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Delete" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
                     <MenuItem mnemonicParsing="false" text="About" />
                   </items>
@@ -47,7 +53,7 @@
             </MenuBar>
          </top>
          <left>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane id="grid" styleClass="grid" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -64,7 +70,7 @@
                   <Label text="N° Factura" />
                   <Label text="####" GridPane.columnIndex="1" />
                   <Label text="Fecha:" GridPane.rowIndex="1" />
-                  <Label fx:id="fecha" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label id=".grid" fx:id="fecha" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Hora" GridPane.rowIndex="2" />
                   <Label GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label fx:id="hora" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -72,7 +78,7 @@
             </GridPane>
          </left>
          <right>
-            <GridPane prefHeight="142.0" prefWidth="285.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="142.0" prefWidth="285.0" styleClass="grid" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -85,7 +91,7 @@
                <children>
                   <Label text="Código Vendedor:" />
                   <Label text="Nombre Vendedor:" GridPane.rowIndex="1" />
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label id="grid" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Label" GridPane.columnIndex="1" />
                </children>
                <opaqueInsets>
@@ -97,7 +103,7 @@
             </GridPane>
          </right>
          <center>
-            <GridPane BorderPane.alignment="CENTER">
+            <GridPane styleClass="grid" BorderPane.alignment="CENTER">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -126,7 +132,7 @@
    <bottom>
       <HBox prefHeight="192.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <GridPane prefHeight="100.0" prefWidth="239.0">
+            <GridPane prefHeight="100.0" prefWidth="239.0" styleClass="grid">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="91.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="118.0" />
@@ -138,14 +144,14 @@
                <children>
                   <Label text="Tipo Pago:" />
                   <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-                  <Label prefHeight="17.0" prefWidth="81.0" text="Observaciones:" GridPane.rowIndex="1" />
+                  <Label prefHeight="17.0" prefWidth="81.0" text="Observación:" GridPane.rowIndex="1" />
                   <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" />
                </padding>
             </GridPane>
-            <GridPane prefHeight="174.0" prefWidth="316.0">
+            <GridPane prefHeight="174.0" prefWidth="316.0" styleClass="grid">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.0" minWidth="10.0" prefWidth="92.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="226.0" minWidth="10.0" prefWidth="209.0" />
@@ -160,7 +166,7 @@
                   <Label text="Dirección:" GridPane.rowIndex="1" />
                   <TextArea prefHeight="70.0" prefWidth="141.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Costo Envío:" GridPane.rowIndex="2" />
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
                         <Label text="¢">
                            <padding>
@@ -170,7 +176,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="186.0" />
+                        <TextField prefHeight="25.0" prefWidth="122.0" />
                      </children>
                      <GridPane.margin>
                         <Insets top="15.0" />
@@ -178,10 +184,10 @@
                   </HBox>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <left>
-                        <RadioButton fx:id="entregasi" mnemonicParsing="false" text="Sí" BorderPane.alignment="CENTER" />
+                        <RadioButton fx:id="entregasi" mnemonicParsing="false" text="Sí" textFill="WHITE" BorderPane.alignment="CENTER" />
                      </left>
                      <center>
-                        <RadioButton fx:id="entregano" mnemonicParsing="false" text="No" BorderPane.alignment="CENTER" />
+                        <RadioButton fx:id="entregano" mnemonicParsing="false" text="No" textFill="WHITE" BorderPane.alignment="CENTER" />
                      </center>
                   </BorderPane>
                </children>
@@ -189,7 +195,7 @@
                   <Insets bottom="15.0" left="15.0" top="15.0" />
                </padding>
             </GridPane>
-            <GridPane prefHeight="192.0" prefWidth="242.0">
+            <GridPane prefHeight="192.0" prefWidth="242.0" styleClass="grid">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -202,8 +208,8 @@
                <children>
                   <Label text="Sub Total:" />
                   <Label text="Total:" GridPane.rowIndex="1" />
-                  <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label text="Label" GridPane.columnIndex="1" />
+                  <Label text="¢" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="¢" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" text="Cancelar" GridPane.rowIndex="2" />
                   <Button mnemonicParsing="false" text="Aceptar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
