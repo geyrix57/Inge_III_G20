@@ -1,29 +1,98 @@
-.accordion {
+/*menu bar*/
+.menu-bar{
     -fx-background-color: black;
 }
 
+.menu-bar .menu-button {
+    -fx-background-radius: 15 15 15 0;
+}
+
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background-color: #00B1EB;
+}
+
+.menu-bar .menu .label{
+    -fx-text-fill: ghostwhite;
+}
+
+.menu-bar .context-menu {
+    -fx-background-radius: 0 15 15 15;
+}
+
+.menu-bar .context-menu {
+    -fx-background-color: #BCBCBC;
+}
+
+.menu-bar .context-menu .menu-item{
+    -fx-background-radius: 0 15 15 15;
+}
+
+.menu-bar .context-menu .menu-item .label{
+    -fx-text-fill: black;
+}
+
+/*panel left*/
+.accordion {
+    -fx-background-color: #2A2A2A;
+}
+
 .accordion .titled-pane .title {
-    -fx-background-color: black;
+    -fx-background-color: #2A2A2A;
     -fx-background-radius: 15;
 }
 
 .accordion .titled-pane > *.content {
-    -fx-background-color: black;
-    -fx-border-color: black;
+    -fx-background-color: #2A2A2A;
+    -fx-border-color: #2A2A2A;
 }
 
 .accordion .titled-pane .title:hover{
-    -fx-background-color: #0f9C27, #0187ab;
+    -fx-background-color: #00B1EB;
 }
 
 .accordion .titled-pane:focused > .title > .arrow-button .arrow {
-    -fx-background-color: lawngreen;
+    -fx-background-color: #79C5FF;
 }
 
 .accordion .titled-pane .title .arrow-button .arrow{
     -fx-background-color: white;
 }
 
-/*.accordion .titled-pane:focused > .title{
-    -fx-background-color: #0f9C27, #0187ab;
+/*Buttons*/
+.button{
+    -fx-text-fill: #1097FF;
+    -fx-background-color: transparent;
+}
+
+.button:hover {
+    /*-fx-font-size: 14;
+    -fx-font-weight: bold;*/
+    -fx-base: #1097FF;
+    -fx-underline: true;
+}
+
+.button:focused {
+    -fx-color: -fx-focused-base;
+    -fx-border-color: -fx-focus-color;
+    -fx-border-style: dotted;
+    -fx-border-width: 3px;
+    -fx-border-radius: 15;
+}
+/*Hyperlinks
+.hyperlink {
+    -fx-text-fill: #1097FF;
+}
+.hyperlink:focused {
+    -fx-color: -fx-focused-base;
+    -fx-border-color: -fx-focus-color;
+    -fx-border-style: dotted;
+    -fx-border-width: 3px;
+    -fx-border-radius: 15;
+}
+.hyperlink:hover {
+    -fx-underline: no;
+}
+.hyperlink:visited {
+    -fx-text-fill: #1097FF;
+    -fx-underline: no;
 }*/
