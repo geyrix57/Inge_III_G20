@@ -2,6 +2,7 @@ package com.gadroves.gsisinve.controller;
 
 import com.gadroves.gsisinve.controller.UI.ControlledScreen;
 import com.gadroves.gsisinve.controller.UI.ScreensController;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -11,6 +12,9 @@ import java.util.ResourceBundle;
  * Created by geykel on 07/03/2015.
  */
 public class AdminPanelController implements Initializable, ControlledScreen {
+
+    @FXML
+
 
     private ScreensController myController;
 
