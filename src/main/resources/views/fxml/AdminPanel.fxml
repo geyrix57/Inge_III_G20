@@ -17,6 +17,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.AdminPanelController">
     <stylesheets>
         <URL value="@../styles/adminPanel.css" />
+        <URL value="@../styles/default.css" />
     </stylesheets>
     <children>
       <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -41,17 +42,17 @@
       </MenuBar>
       <SplitPane dividerPositions="0.30515759312320917" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="grid">
                <children>
-                  <VBox alignment="CENTER" layoutX="53.0" layoutY="47.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #2A2A2A;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox alignment="CENTER" layoutX="53.0" layoutY="47.0" prefHeight="200.0" prefWidth="100.0" styleClass="grid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Accordion prefHeight="400.0">
+                        <Accordion prefHeight="400.0" styleClass="grid">
                           <panes>
-                            <TitledPane text="Ventas" textFill="WHITE">
+                            <TitledPane styleClass="grid" text="Ventas" textFill="WHITE">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid">
                                        <children>
-                                          <VBox alignment="TOP_CENTER" layoutX="43.0" layoutY="-13.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <VBox alignment="TOP_CENTER" layoutX="43.0" layoutY="-13.0" prefHeight="200.0" prefWidth="100.0" styleClass="grid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
                                                 <Button mnemonicParsing="false" text="Facturación">
                                                    <VBox.margin>
@@ -116,41 +117,41 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                             </TitledPane>
-                              <TitledPane text="Clientes" textFill="WHITE">
+                              <TitledPane styleClass="grid" text="Clientes" textFill="WHITE">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
                                 </content>
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </TitledPane>
-                            <TitledPane text="Compras" textFill="WHITE">
+                            <TitledPane styleClass="grid" text="Compras" textFill="WHITE">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
                               </content>
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                             </TitledPane>
-                            <TitledPane text="Bodegas" textAlignment="JUSTIFY" textFill="WHITE">
+                            <TitledPane styleClass="grid" text="Bodegas" textAlignment="JUSTIFY" textFill="WHITE">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
                               </content>
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                             </TitledPane>
-                              <TitledPane text="Reparación" textFill="WHITE">
+                              <TitledPane styleClass="grid" text="Reparación" textFill="WHITE">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
                                 </content>
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </TitledPane>
-                              <TitledPane text="Usuarios" textFill="WHITE">
+                              <TitledPane styleClass="grid" text="Usuarios" textFill="WHITE">
                                 <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
                                 </content>
                                  <font>
                                     <Font name="System Bold" size="13.0" />
