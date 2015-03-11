@@ -7,25 +7,15 @@ package com.gadroves.gsisinve.controller;
 
 import com.gadroves.gsisinve.controller.UI.ControlledScreen;
 import com.gadroves.gsisinve.controller.UI.ScreensController;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.ResourceBundle;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import com.gadroves.gsisinve.utils.CustomDate;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
-import com.gadroves.gsisinve.utils.CustomDate;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 /**
  * FXML Controller class
  *
@@ -43,8 +33,6 @@ public class FacturarController implements Initializable, ControlledScreen {
     RadioButton entregano;
     
     private ScreensController myController;
-
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

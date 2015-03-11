@@ -2,29 +2,17 @@ package com.gadroves.gsisinve.controller;
 
 import com.gadroves.gsisinve.controller.UI.ControlledScreen;
 import com.gadroves.gsisinve.controller.UI.ScreensController;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by geykel on 07/03/2015.
+ * Created by geykel on 11/03/2015.
  */
-public class AdminPanelController implements Initializable, ControlledScreen {
+public class StockController implements Initializable, ControlledScreen {
 
     private ScreensController myController;
-
-    @FXML
-    private void openFacturar(ActionEvent event) {
-        myController.setScreen("facturar");
-    }
-
-    @FXML
-    private void openStock(ActionEvent envet) {
-        myController.setScreen("stock");
-    }
 
     @Override
     public void setScreenParent(ScreensController screenPage) {
@@ -36,3 +24,4 @@ public class AdminPanelController implements Initializable, ControlledScreen {
 
     }
 }
+
