@@ -2,6 +2,8 @@ package com.gadroves.gsisinve.model.daos;
 
 import com.gadroves.gsisinve.model.DataBase;
 import com.gadroves.gsisinve.model.beans.Inventario;
+import com.gadroves.gsisinve.model.daos.funtionalInterfaces.IntermediateSelect;
+import com.gadroves.gsisinve.model.daos.funtionalInterfaces.ResultSetProcessor;
 import com.gadroves.gsisinve.utils.TwoTuple;
 
 import java.sql.*;
