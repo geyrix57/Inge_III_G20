@@ -1,36 +1,43 @@
-/*panel left*/
-.accordion .titled-pane .title {
+/*left panel*/
+.left .accordion .titled-pane .title {
     -fx-background-color: #2A2A2A;
     -fx-background-radius: 15;
 }
 
-.accordion .titled-pane .title:hover{
+.left .accordion .titled-pane .title:hover{
     -fx-background-color: #00B1EB;
 }
 
-.accordion .titled-pane:focused > .title > .arrow-button .arrow {
+.left .accordion .titled-pane:focused > .title > .arrow-button .arrow {
     -fx-background-color: #79C5FF;
 }
 
-.accordion .titled-pane .title .arrow-button .arrow{
+.left .accordion .titled-pane .title .arrow-button .arrow{
     -fx-background-color: white;
 }
 
 /*Buttons*/
-.button{
+.left .button{
     -fx-text-fill: #1097FF;
     -fx-background-color: transparent;
 }
 
-.button:hover {
+.left .button:hover {
     -fx-base: #1097FF;
     -fx-underline: true;
 }
 
-.button:focused {
+.left .button:focused {
     -fx-color: -fx-focused-base;
     -fx-border-color: -fx-focus-color;
     -fx-border-style: dotted;
     -fx-border-width: 3px;
     -fx-border-radius: 15;
+}
+
+/*right panel*/
+.right {
+    -fx-background-color: white;
+   /* -fx-border-width: 0 0 0 5px;
+    -fx-border-color: #CFCFCF;*/
 }

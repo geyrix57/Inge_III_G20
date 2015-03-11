@@ -1,7 +1,8 @@
 /*Paneles*/
 .grid {
     -fx-background-color: #2A2A2A;
-    -fx-border-color: #2A2A2A;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
 }
 
 .grid > *.content{
@@ -21,7 +22,7 @@
     -fx-background-color: #00B1EB;
 }
 
-.menu-bar .menu .label{
+.menu-bar .menu .label {
     -fx-text-fill: ghostwhite;
 }
 
@@ -40,26 +41,22 @@
 .menu-bar .context-menu .menu-item .label{
     -fx-text-fill: black;
 }
+
 /*labels*/
 .label{
-    
-    -fx-text-fill:white;
-    -fx-font-width:bold;
-    -fx-font-size:13;
-    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+   /* -fx-font-family: "Segoe UI Light";*/
 }
 
 /*Table View*/
-.table-view {
-}
-
 .table-view .column-header {
     -fx-background-color: #BCBCBC;
 }
 
-
 .table-view .column-header .label {
     -fx-font-size: 10pt;
-    -fx-font-family: "Segoe UI Light";
+    /*-fx-font-family: "Segoe UI Light";*/
     -fx-text-fill: Black;
 }

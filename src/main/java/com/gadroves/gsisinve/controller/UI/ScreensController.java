@@ -49,13 +49,12 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-public class ScreensController  extends StackPane {
+public class ScreensController  extends AnchorPane {
 
     public ScreensController() {
         super();
@@ -87,8 +86,8 @@ public class ScreensController  extends StackPane {
                     public void handle(ActionEvent t) {
                         getChildren().remove(0);                    //remove the displayed screen
                         getChildren().add(0, screen);     //add the screen
-                        ((Group)getParent()).getScene().getWindow().sizeToScene();
-                        ((Group)getParent()).getScene().getWindow().centerOnScreen();
+                        getParent().getScene().getWindow().sizeToScene();
+                        getParent().getScene().getWindow().centerOnScreen();
                         Timeline fadeIn = new Timeline(
                                 new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
                                 new KeyFrame(new Duration(1000), new KeyValue(opacity, 1.0)));
@@ -105,6 +104,10 @@ public class ScreensController  extends StackPane {
                         new KeyFrame(new Duration(2500), new KeyValue(opacity, 1.0)));
                 fadeIn.play();
             }
+            setTopAnchor(screen,0d);
+            setBottomAnchor(screen,0d);
+            setLeftAnchor(screen,0d);
+            setRightAnchor(screen,0d);
             return true;
         } else {
             System.out.println("screen hasn't been loaded!!! \n");

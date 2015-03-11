@@ -5,8 +5,6 @@
  */
 package com.gadroves.gsisinve.utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +13,9 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.util.Duration;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
