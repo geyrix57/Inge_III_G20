@@ -1,4 +1,4 @@
-package com.gadroves.gsisinve.model.daos;
+package com.gadroves.gsisinve.model.daos.funtionalInterfaces;
 
 import java.util.List;
 import java.util.function.Predicate;
