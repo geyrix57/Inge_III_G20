@@ -4,14 +4,13 @@ import com.gadroves.gsisinve.model.DataBase;
 import com.gadroves.gsisinve.model.beans.Articulo;
 import com.gadroves.gsisinve.model.beans.Bodega;
 import com.gadroves.gsisinve.model.beans.Inventario;
-import com.gadroves.gsisinve.model.daos.funtionalInterfaces.IntermediateSelect;
-import com.gadroves.gsisinve.model.daos.funtionalInterfaces.ResultSetProcessor;
+import com.gadroves.gsisinve.model.daos.DAOInterfaces.IntermediateSelect;
+import com.gadroves.gsisinve.model.daos.DAOInterfaces.IntermediateUpdate;
+import com.gadroves.gsisinve.model.daos.DAOInterfaces.ResultSetProcessor;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -183,6 +182,64 @@ public class ArticuloDAO {
                 e.printStackTrace();
             }
             return articulos;
+        }
+    }
+    public class IntermdiateArticuuloUpdate implements IntermediateUpdate<Articulo, String> {
+        @Override
+        public boolean updateSingle(Articulo reference) {
+            String sql = "UPDATE TB_Articulo SET cost = ? , util = ?, grav = ?, TB_Articulo.desc = ? WHERE id = ?";
+            try (Connection c = DataBase.getInstance().getConnection()) {
+                PreparedStatement stm = c.prepareStatement(sql);
+                stm.setDouble(1,reference.getCosto());
+                stm.setDouble(2,reference.getUtilidad());
+                int b = reference.isEsGrabado() ? 1 : 0 ;
+                stm.setInt(3,b);
+                stm.setString(4,reference.getDescripcion());
+                stm.setString(5,reference.getCodigo());
+                return stm.executeUpdate() > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean updateCollection(Collection<Articulo> collection) {
+            boolean flag = false;
+            String sql = "UPDATE TB_Articulo SET cost = ? , util = ?, grav = ?, TB_Articulo.desc = ? WHERE id = ?";
+            try (Connection c = DataBase.getInstance().getConnection()) {
+                PreparedStatement stm = c.prepareStatement(sql);
+                for(Articulo reference : collection ) {
+                    stm.setDouble(1, reference.getCosto());
+                    stm.setDouble(2, reference.getUtilidad());
+                    int b = reference.isEsGrabado() ? 1 : 0;
+                    stm.setInt(3, b);
+                    stm.setString(4, reference.getDescripcion());
+                    stm.setString(5, reference.getCodigo());
+                    if(stm.executeUpdate() > 0) flag = true;
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean updateIf(Articulo ref, Predicate<Articulo>... what) {
+            if(what.length<1) return updateSingle(ref);
+            Predicate<Articulo> ini = what[0];
+            for(int i = 1; i<what.length; i++) ini = ini.and(what[i]);
+             return  ini.test(ref)? updateSingle(ref) : false;
+        }
+
+        @Override
+        public boolean updateCollectionWhen(Collection<Articulo> refs, Predicate<Articulo>... what) {
+            if(what.length<1) return updateCollection(refs);
+            Predicate<Articulo> ini = what[0];
+            for(int i = 1; i<what.length; i++) ini = ini.and(what[i]);
+            List<Articulo> oks = refs.stream().filter(ini).collect(Collectors.toList());
+            return updateCollection(oks);
         }
     }
 }

@@ -3,7 +3,6 @@ package com.gadroves.gsisinve;
  * Created by geykel on 04/03/2015.
  */
 
-
 import com.gadroves.gsisinve.controller.UI.ScreensController;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -11,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 
 public class MainApp extends Application {
 
@@ -35,6 +33,7 @@ public class MainApp extends Application {
 
             mainContainer.prefWidthProperty().bind(scene.widthProperty());
             mainContainer.prefHeightProperty().bind(scene.heightProperty());
+
         }
     }
 }

@@ -4,6 +4,14 @@ package com.gadroves.gsisinve.model.beans;
 import javafx.beans.property.*;
 
 public class Articulo {
+    /**
+     * Constructor
+     * @param codigo codigo del articulo
+     * @param descripcion descripcion del articulo
+     * @param costo costo del articuolo
+     * @param utilidad utilidad del articulo
+     * @param esGrabado es o no gravado
+     */
     public Articulo(String codigo, String descripcion, double costo, double utilidad, boolean esGrabado) {
         this.codigo = new SimpleStringProperty(codigo);
         this.descripcion = new SimpleStringProperty(descripcion);

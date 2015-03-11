@@ -1,4 +1,4 @@
-package com.gadroves.gsisinve.model.daos.funtionalInterfaces;
+package com.gadroves.gsisinve.model.daos.DAOInterfaces;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
