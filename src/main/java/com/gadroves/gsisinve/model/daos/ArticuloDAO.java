@@ -235,7 +235,7 @@ public class ArticuloDAO {
 
         @Override
         public boolean updateCollectionWhen(Collection<Articulo> refs, Predicate<Articulo>... what) {
-            if(what.length<1) return updateCollection(refs);
+            if(what.length < 1) return updateCollection(refs);
             Predicate<Articulo> ini = what[0];
             for(int i = 1; i<what.length; i++) ini = ini.and(what[i]);
             List<Articulo> oks = refs.stream().filter(ini).collect(Collectors.toList());
