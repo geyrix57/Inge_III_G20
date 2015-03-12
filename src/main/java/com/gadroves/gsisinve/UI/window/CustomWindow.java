@@ -3,6 +3,7 @@ package com.gadroves.gsisinve.UI.window;
 
 import com.gadroves.gsisinve.utils.R;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ public class CustomWindow {
     public CustomWindow(Stage st, Node clientArea) {
         this.stage = st;
         this.clientArea = clientArea;
+        this.clientArea.setCursor(Cursor.DEFAULT);
     }
 
     public void show(double width, double height) throws IOException {

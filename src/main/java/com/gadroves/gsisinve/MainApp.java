@@ -23,7 +23,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws IOException {
         if(mainContainer.setScreen("main")) {
             CustomWindow window = new CustomWindow(primaryStage,mainContainer);
-            window.show(860,650);
+            window.show(860,660);
         }
     }
 }
