@@ -37,7 +37,7 @@
 
 /*right panel*/
 .right {
-    -fx-background-color: white;
+    -fx-background-color: lightgrey;
    /* -fx-border-width: 0 0 0 5px;
     -fx-border-color: #CFCFCF;*/
 }

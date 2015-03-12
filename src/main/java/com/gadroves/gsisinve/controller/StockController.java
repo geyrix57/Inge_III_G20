@@ -1,7 +1,7 @@
 package com.gadroves.gsisinve.controller;
 
-import com.gadroves.gsisinve.controller.UI.ControlledScreen;
-import com.gadroves.gsisinve.controller.UI.ScreensController;
+import com.gadroves.gsisinve.UI.controller.ControlledScreen;
+import com.gadroves.gsisinve.UI.controller.ScreensController;
 import javafx.fxml.Initializable;
 
 import java.net.URL;

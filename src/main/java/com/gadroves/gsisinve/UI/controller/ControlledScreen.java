@@ -37,7 +37,7 @@
  * only if the new code is made subject to such option by the copyright
  * holder.
  */ 
-package com.gadroves.gsisinve.controller.UI;
+package com.gadroves.gsisinve.UI.controller;
 
 public interface ControlledScreen {
     public void setScreenParent(ScreensController screenPage);

@@ -5,8 +5,8 @@
  */
 package com.gadroves.gsisinve.controller;
 
-import com.gadroves.gsisinve.controller.UI.ControlledScreen;
-import com.gadroves.gsisinve.controller.UI.ScreensController;
+import com.gadroves.gsisinve.UI.controller.ControlledScreen;
+import com.gadroves.gsisinve.UI.controller.ScreensController;
 import com.gadroves.gsisinve.utils.CustomDate;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,12 +36,11 @@ public class FacturarController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        CustomDate customdate= new CustomDate(fecha.textProperty(),hora.textProperty()); 
+        CustomDate customdate = new CustomDate(fecha.textProperty(),hora.textProperty());
         customdate.start();
         ToggleGroup group = new ToggleGroup();
         this.entregasi.setToggleGroup(group);
         this.entregano.setToggleGroup(group);
-        
     }
 
     @Override

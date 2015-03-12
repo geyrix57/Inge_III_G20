@@ -2,8 +2,8 @@
 package com.gadroves.gsisinve.controller;
 
 
-import com.gadroves.gsisinve.controller.UI.ControlledScreen;
-import com.gadroves.gsisinve.controller.UI.ScreensController;
+import com.gadroves.gsisinve.UI.controller.ControlledScreen;
+import com.gadroves.gsisinve.UI.controller.ScreensController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +27,7 @@ public class LoginController implements Initializable, ControlledScreen {
 
         String username1 = username.getText();
         String password1 = password.getText();
-        
+
         if (username1.equals("") || password1.equals("")) {
             System.out.println("Debe llenar los campos");
         } else {

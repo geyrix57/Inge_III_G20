@@ -36,9 +36,9 @@
  * and therefore, elected the GPL Version 2 license, then the option applies
  * only if the new code is made subject to such option by the copyright
  * holder.
- */ 
+ */
 
-package com.gadroves.gsisinve.controller.UI;
+package com.gadroves.gsisinve.UI.controller;
 
 
 import com.gadroves.gsisinve.utils.R;
@@ -47,10 +47,8 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
@@ -63,8 +61,8 @@ public class ScreensController  extends AnchorPane {
     private Node loadScreen(String name) {
         try {
             FXMLLoader myLoader = new FXMLLoader(R.getFxml(name));
-            Parent loadScreen = (Parent) myLoader.load();
-            ControlledScreen myScreenController = ((ControlledScreen) myLoader.getController());
+            Node loadScreen =  myLoader.load();
+            ControlledScreen myScreenController = myLoader.getController();
             myScreenController.setScreenParent(this);
             return loadScreen;
         } catch (Exception e) {
@@ -81,21 +79,20 @@ public class ScreensController  extends AnchorPane {
             if (!getChildren().isEmpty()) {    //if there is more than one screen
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-                        new KeyFrame(new Duration(1000), new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent t) {
+                        new KeyFrame(new Duration(1000), (ActionEvent t) ->{
                         getChildren().remove(0);                    //remove the displayed screen
                         getChildren().add(0, screen);     //add the screen
                         getParent().getScene().getWindow().sizeToScene();
                         getParent().getScene().getWindow().centerOnScreen();
                         Timeline fadeIn = new Timeline(
                                 new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-                                new KeyFrame(new Duration(1000), new KeyValue(opacity, 1.0)));
+                                new KeyFrame(new Duration(800), new KeyValue(opacity, 1.0))
+                        );
                         fadeIn.play();
-                    }
-                }, new KeyValue(opacity, 0.0)));
+                    },
+                    new KeyValue(opacity, 0.0))
+                );
                 fade.play();
-
             } else {
                 setOpacity(0.0);
                 getChildren().add(screen);       //no one else been displayed, then just show
@@ -105,7 +102,7 @@ public class ScreensController  extends AnchorPane {
                 fadeIn.play();
             }
             setTopAnchor(screen,0d);
-            setBottomAnchor(screen,0d);
+            setBottomAnchor(screen, 0d);
             setLeftAnchor(screen,0d);
             setRightAnchor(screen,0d);
             return true;
