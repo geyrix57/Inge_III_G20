@@ -16,7 +16,7 @@ public class ResizeListener implements EventHandler<MouseEvent> {
     double initY;
     double deltaX;
     double deltaY;
-    double border = 5;
+    double border = 10;
     double minH;
     double minW;
     boolean moveH;
@@ -26,8 +26,8 @@ public class ResizeListener implements EventHandler<MouseEvent> {
     Scene scene;
     Stage stage;
 
-    public ResizeListener(Stage stage, Scene sc, double minH, double minW){
-        this.scene = sc;
+    public ResizeListener(Stage stage, double minH, double minW){
+        this.scene = stage.getScene();
         this.scene.setOnMouseMoved(this);
         this.scene.setOnMousePressed(this);
         this.scene.setOnMouseDragged(this);
@@ -108,22 +108,28 @@ public class ResizeListener implements EventHandler<MouseEvent> {
                 if (stage.getWidth() <= this.minW/*minSize.width*/) {
                     if (moveH) {
                         deltaX = stage.getX() - t.getScreenX();
-                        if (t.getX() < 0) {// if new > old, it's permitted
-                            stage.setWidth(deltaX + stage.getWidth());
-                            stage.setX(t.getScreenX());
+                        if (t.getX() < 0 ) {// if new > old, it's permitted
+                            if(deltaX + stage.getWidth() >= this.minW) {
+                                stage.setWidth(deltaX + stage.getWidth());
+                                stage.setX(t.getScreenX());
+                            }
                         }
                     } else {
                         if (t.getX() + dx - stage.getWidth() > 0) {
-                            stage.setWidth(t.getX() + dx);
+                            if(t.getX() + dx >= this.minW)
+                                stage.setWidth(t.getX() + dx);
                         }
                     }
                 } else if (stage.getWidth() > this.minW/*minSize.width*/) {
                     if (moveH) {
                         deltaX = stage.getX() - t.getScreenX();
-                        stage.setWidth(deltaX + stage.getWidth());
-                        stage.setX(t.getScreenX());
+                        if(deltaX + stage.getWidth() >= this.minW) {
+                            stage.setWidth(deltaX + stage.getWidth());
+                            stage.setX(t.getScreenX());
+                        }
                     } else {
-                        stage.setWidth(t.getX() + dx);
+                        if(t.getX() + dx >= this.minW)
+                            stage.setWidth(t.getX() + dx);
                     }
                 }
             }
@@ -132,29 +138,33 @@ public class ResizeListener implements EventHandler<MouseEvent> {
                     if (moveV) {
                         deltaY = stage.getY() - t.getScreenY();
                         if (t.getY() < 0) {// if new > old, it's permitted
-                            stage.setHeight(deltaY + stage.getHeight());
-                            stage.setY(t.getScreenY());
+                            if(deltaY + stage.getHeight() >= this.minH) {
+                                stage.setHeight(deltaY + stage.getHeight());
+                                stage.setY(t.getScreenY());
+                            }
                         }
                     } else {
                         if (t.getY() + dy - stage.getHeight() > 0) {
-                            stage.setHeight(t.getY() + dy);
+                            if(t.getY() + dy >= this.minH)
+                                stage.setHeight(t.getY() + dy);
                         }
                     }
                 } else if (stage.getHeight() > this.minH/*minSize.width*/) {
                     if (moveV) {
                         deltaY = stage.getY() - t.getScreenY();
-                        stage.setHeight(deltaY + stage.getHeight());
-                        stage.setY(t.getScreenY());
+                        if(deltaY + stage.getHeight() >= this.minH) {
+                            stage.setHeight(deltaY + stage.getHeight());
+                            stage.setY(t.getScreenY());
+                        }
                     } else {
-                        stage.setHeight(t.getY() + dy);
+                        if(t.getY() + dy >= this.minH)
+                            stage.setHeight(t.getY() + dy);
                     }
                 }
             }
             else{
                 if(stage.isMaximized()){
                     stage.setMaximized(false);
-                    stage.setX(initX);
-                    stage.setY(initY);
                 }
                 else {
                     stage.setX(t.getScreenX() - initX);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import javafx.scene.image.*?>
@@ -38,9 +39,6 @@
           </menus>
       </MenuBar>
    </top>
-   <center>
-      <AnchorPane prefHeight="575.0" prefWidth="600.0" styleClass="right" BorderPane.alignment="CENTER" />
-   </center>
    <left>
       <GridPane prefHeight="573.0" prefWidth="202.0" style="-fx-border-width: 0 5 0 0;" styleClass="left" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -68,7 +66,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid">
                            <children>
-                              <VBox alignment="TOP_CENTER" layoutX="43.0" layoutY="-13.0" prefHeight="200.0" prefWidth="100.0" styleClass="grid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="TOP_CENTER" layoutX="43.0" layoutY="-13.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" styleClass="grid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <Button id="facturar" mnemonicParsing="false" onAction="#openFacturar" text="Facturación">
                                        <cursor>
@@ -78,18 +76,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" onAction="#openStock" text="Stock">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
+                                          <Insets />
                                        </VBox.margin>
                                     </Button>
                                     <Button mnemonicParsing="false" text="Consultar">
@@ -100,7 +87,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets bottom="5.0" />
+                                          <Insets />
                                        </VBox.margin>
                                     </Button>
                                     <Button mnemonicParsing="false" text="Garantia">
@@ -111,7 +98,7 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets bottom="5.0" />
+                                          <Insets />
                                        </VBox.margin>
                                     </Button>
                                     <Button mnemonicParsing="false" text="Orden de Compra">
@@ -122,13 +109,43 @@
                                           <Font name="System Bold" size="12.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets bottom="5.0" />
+                                          <Insets />
                                        </VBox.margin>
                                     </Button>
                                  </children>
                               </VBox>
                            </children>
                         </AnchorPane>
+                     </content>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TitledPane>
+                  <TitledPane styleClass="grid" text="Bodegas" textAlignment="JUSTIFY" textFill="WHITE">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#openStock" text="Stock">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#openStock" text="Proveedores">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children></AnchorPane>
                      </content>
                      <font>
                         <Font name="System Bold" size="13.0" />
@@ -143,14 +160,6 @@
                      </font>
                   </TitledPane>
                   <TitledPane styleClass="grid" text="Compras" textFill="WHITE">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
-                     </content>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </TitledPane>
-                  <TitledPane styleClass="grid" text="Bodegas" textAlignment="JUSTIFY" textFill="WHITE">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
                      </content>
@@ -182,4 +191,11 @@
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <WebView fx:id="browser" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </center>
 </BorderPane>

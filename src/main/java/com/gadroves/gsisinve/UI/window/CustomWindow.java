@@ -19,15 +19,22 @@ import java.io.IOException;
  */
 public class CustomWindow {
 
+    public CustomWindow(Node clientArea){
+        this.stage = new Stage();
+        this.clientArea = clientArea;
+        this.clientArea.setCursor(Cursor.DEFAULT);
+    }
+
     public CustomWindow(Stage st, Node clientArea) {
         this.stage = st;
         this.clientArea = clientArea;
         this.clientArea.setCursor(Cursor.DEFAULT);
     }
 
-    public void show(double width, double height) throws IOException {
-        build(width, height);
+    public void show() throws IOException {
+        build();
         this.stage.show();
+        new ResizeListener(this.stage, stage.getHeight(),stage.getWidth());
     }
 
     private void setActionToButton(WindowController wc) {
@@ -38,7 +45,7 @@ public class CustomWindow {
             stage.setIconified(true);
         });
         wc.getMaximize().setOnAction(ev -> {
-            stage.setMaximized(true);
+            stage.setMaximized(!stage.isMaximized());
         });
     }
 
@@ -49,21 +56,19 @@ public class CustomWindow {
         return  window;
     }
 
-    private void build(double width, double height) throws IOException {
+    private void build() throws IOException {
         AnchorPane root = (AnchorPane)loadWindow();
         root.getChildren().addAll(clientArea);
-        root.setTopAnchor(clientArea, 35d);
-        root.setBottomAnchor(clientArea, 0d);
-        root.setLeftAnchor(clientArea, 0d);
-        root.setRightAnchor(clientArea, 0d);
+        root.setTopAnchor(clientArea, 30d);
+        root.setBottomAnchor(clientArea, 5d);
+        root.setLeftAnchor(clientArea, 5d);
+        root.setRightAnchor(clientArea, 5d);
         Scene sc = new Scene(root);
         stage.setScene(sc);
         sc.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
-        resizeListener = new ResizeListener(this.stage, sc, height, width);
     }
 
-    private ResizeListener resizeListener;
     final private Node clientArea;
     final private Stage stage;
 }

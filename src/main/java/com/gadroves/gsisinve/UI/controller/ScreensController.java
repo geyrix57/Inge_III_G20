@@ -58,7 +58,7 @@ public class ScreensController  extends AnchorPane {
         super();
     }
 
-    private Node loadScreen(String name) {
+    public Node loadScreen(String name) {
         try {
             FXMLLoader myLoader = new FXMLLoader(R.getFxml(name));
             Node loadScreen =  myLoader.load();
