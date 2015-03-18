@@ -4,9 +4,8 @@ import com.gadroves.gsisinve.model.DataBase;
 import com.gadroves.gsisinve.model.beans.Articulo;
 import com.gadroves.gsisinve.model.beans.Bodega;
 import com.gadroves.gsisinve.model.beans.Inventario;
-import com.gadroves.gsisinve.model.daos.DAOInterfaces.IntermediateSelect;
-import com.gadroves.gsisinve.model.daos.DAOInterfaces.IntermediateUpdate;
-import com.gadroves.gsisinve.model.daos.DAOInterfaces.ResultSetProcessor;
+import com.gadroves.gsisinve.model.daos.DAOInterfaces.*;
+import com.gadroves.gsisinve.utils.Dataformat;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -35,6 +34,15 @@ public class ArticuloDAO {
 
     public IntermediateArticuloSelect select() {
         return new IntermediateArticuloSelect();
+    }
+    public IntermdiateArticuuloUpdate update() {
+        return new IntermdiateArticuuloUpdate();
+    }
+    public IntermediateArticuloInsert insert() {
+        return new IntermediateArticuloInsert();
+    }
+    public IntermediateArticuloDelete delete() {
+        return new IntermediateArticuloDelete();
     }
 
     public class IntermediateArticuloSelect implements IntermediateSelect<Articulo, String> {
@@ -242,4 +250,107 @@ public class ArticuloDAO {
             return updateCollection(oks);
         }
     }
+    public class IntermediateArticuloInsert implements IntermediateInsert<Articulo>{
+        @Override
+        public boolean single(Articulo ref) {
+            try(Connection c = DataBase.getInstance().getConnection()){
+                int isg = ref.isEsGrabado()?1:0;
+                String cod = Dataformat.asSqlString(ref.getCodigo());
+                String des = Dataformat.asSqlString(ref.getDescripcion());
+                String sql = "INSERT INTO TB_Articulo VALUES (".concat(cod+", ").concat(des+", ")+ ref.getCosto() +", "+ref.getUtilidad()+ ", "+ isg +")";
+                Statement st = c.createStatement();
+                return  st.executeUpdate(sql) > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean aCollection(Collection<Articulo> refs) {
+            boolean flag = false;
+            try(Connection c = DataBase.getInstance().getConnection()){
+                for(Articulo ref : refs) {
+                    int isg = ref.isEsGrabado() ? 1 : 0;
+                    String cod = Dataformat.asSqlString(ref.getCodigo());
+                    String des = Dataformat.asSqlString(ref.getDescripcion());
+                    String sql = "INSERT INTO TB_Articulo VALUES (".concat(cod + ", ").concat(des + ", ") + ref.getCosto() + ", " + ref.getUtilidad() + ", " + isg + ")";
+                    Statement st = c.createStatement();
+                    if(st.executeUpdate(sql)>0) flag = true;
+                }
+                return  flag;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean aCollectionWhere(Collection<Articulo> refs, Predicate<Articulo>... conds) {
+            boolean flag = false;
+            if(conds.length > 0) {
+                Predicate<Articulo> acc = conds[0];
+                for(int i = 1; i<conds.length ; i++) acc = acc.and(conds[i]);
+                refs = refs.stream().filter(acc).collect(Collectors.toList());
+            }
+            try(Connection c = DataBase.getInstance().getConnection()){
+                for(Articulo ref : refs) {
+                    int isg = ref.isEsGrabado() ? 1 : 0;
+                    String cod = Dataformat.asSqlString(ref.getCodigo());
+                    String des = Dataformat.asSqlString(ref.getDescripcion());
+                    String sql = "INSERT INTO TB_Articulo VALUES (".concat(cod + ", ").concat(des + ", ") + ref.getCosto() + ", " + ref.getUtilidad() + ", " + isg + ")";
+                    Statement st = c.createStatement();
+                    if(st.executeUpdate(sql)>0) flag = true;
+                }
+                return  flag;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+    }
+    public class IntermediateArticuloDelete implements IntermediateDelete<Articulo>{
+        @Override
+        public void single(Articulo ref) {
+            try (Connection c = DataBase.getInstance().getConnection()){
+                Statement stm = c.createStatement();
+                String sql = "DELETE FROM TB_Articulo WHERE id = " + Dataformat.asSqlString(ref.getCodigo());
+                stm.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void aCollection(Collection<Articulo> refs) {
+            try (Connection c = DataBase.getInstance().getConnection()){
+                Statement stm = c.createStatement();
+                for(Articulo ref : refs) {
+                    String sql = "DELETE FROM TB_Articulo WHERE id = " + Dataformat.asSqlString(ref.getCodigo());
+                    stm.executeUpdate(sql);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void aCollectionWhere(Collection<Articulo> refs, Predicate<Articulo>... conds) {
+            if(conds.length > 0) {
+                Predicate<Articulo> acc = conds[0];
+                for(int i = 1; i<conds.length ; i++) acc = acc.and(conds[i]);
+                refs = refs.stream().filter(acc).collect(Collectors.toList());
+            }
+            try (Connection c = DataBase.getInstance().getConnection()){
+                Statement stm = c.createStatement();
+                for(Articulo ref : refs) {
+                    String sql = "DELETE FROM TB_Articulo WHERE id = " + Dataformat.asSqlString(ref.getCodigo());
+                    stm.executeUpdate(sql);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

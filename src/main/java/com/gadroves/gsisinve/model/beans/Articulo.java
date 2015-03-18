@@ -73,7 +73,7 @@ public class Articulo {
     }
 
     public String toString() {
-        return this.getCodigo();
+        return this.getCodigo()+ " " +this.getDescripcion();
     }
 
     private StringProperty codigo;
