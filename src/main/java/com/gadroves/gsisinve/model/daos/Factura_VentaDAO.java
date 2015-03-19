@@ -1,5 +1,6 @@
 package com.gadroves.gsisinve.model.daos;
 
+import com.gadroves.gsisinve.model.beans.Cliente_Cuenta;
 import com.gadroves.gsisinve.model.beans.Factura_Venta;
 import com.gadroves.gsisinve.model.daos.DAOInterfaces.*;
 
@@ -58,7 +59,10 @@ public class Factura_VentaDAO {
         public List<Factura_Venta> byCuentaCliente(String nombreCliente){
             return null;
         }
-        public List<Factura_Venta> byCuentaClienteNDate(String nombreCliente,Date d){
+        public List<Factura_Venta> byCuentaClienteNDate(Cliente_Cuenta Cliente,Date d){
+            return null;
+        }
+        public List<Factura_Venta> betweenDates(Date d1,Date d2){
             return null;
         }
     }
