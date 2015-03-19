@@ -1,15 +1,17 @@
 package com.gadroves.gsisinve.model.beans;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
  * Created by Casa on 24/01/2015.
  */
 public class Cliente_Factura {
-    public Cliente_Factura(StringProperty name, StringProperty address, StringProperty id) {
-        this.name = name;
-        this.address = address;
-        this.id = id;
+    public Cliente_Factura(String name, String address, String id, String contact) {
+        this.name = new SimpleStringProperty(name);
+        this.address = new SimpleStringProperty(address);
+        this.id = new SimpleStringProperty(id);
+        this.contact = new SimpleStringProperty(contact);
     }
 
     public String getName() {

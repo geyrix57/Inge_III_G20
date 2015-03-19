@@ -5,8 +5,6 @@
  */
 package com.gadroves.gsisinve.model.beans;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -14,13 +12,13 @@ import javafx.beans.property.StringProperty;
  *
  * @author Juan
  */
-public class Cliente {
+public class Cliente_Cuenta {
     
-    public Cliente(String nombre, String email, String telefono, Integer codigo, String direccion){
+    public Cliente_Cuenta(String nombre, String email, String telefono, String codigo, String direccion){
         this.nombre = new SimpleStringProperty(nombre);
         this.email = new SimpleStringProperty(email);
         this.telefono = new SimpleStringProperty(telefono);
-        this.codigo = new SimpleIntegerProperty(codigo);
+        this.codigo = new SimpleStringProperty(codigo);
         this.direccion = new SimpleStringProperty(direccion);
     }
     
@@ -30,7 +28,7 @@ public class Cliente {
     public StringProperty emailProperty(){
         return this.email;
     }
-    public IntegerProperty codigoProperty(){
+    public StringProperty codigoProperty(){
         return this.codigo;
     }
     public StringProperty telefonoProperty(){
@@ -56,11 +54,11 @@ public class Cliente {
         this.email.set(email);
     }
 
-    public Integer getCodigo() {
+    public String getCodigo() {
         return codigo.get();
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(String codigo) {
         this.codigo.set(codigo);
     }
 
@@ -83,7 +81,7 @@ public class Cliente {
     
     private StringProperty nombre;
     private StringProperty email;
-    private IntegerProperty codigo;
+    private StringProperty codigo;
     private StringProperty telefono;
     private StringProperty direccion;
     
