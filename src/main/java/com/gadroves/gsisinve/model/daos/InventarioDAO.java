@@ -252,7 +252,7 @@ public class InventarioDAO {
     }
     public class IntermediateInventoryDelete implements IntermediateDelete<Inventario>{
         @Override
-        public void single(Inventario ref) {
+        public boolean single(Inventario ref) {
             try(Connection c = DataBase.getInstance().getConnection()){
                 Statement stm = c.createStatement();
                 String sql = "DELETE FROM TB_Inventario WHERE code_art = " + Dataformat.asSqlString(ref.getCodigo_articulo()) + " AND code_bod = " + Dataformat.asSqlString(ref.getCodigo_bodega());
@@ -260,6 +260,7 @@ public class InventarioDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return false;
         }
 
         @Override

@@ -104,7 +104,8 @@ public class LineaFacturaVentaDAO {
     }
     public class IntermediateLineaFacturaVentaDelete implements IntermediateDelete<Linea_Factura> {
         @Override
-        public void single(Linea_Factura ref) {
+        public boolean single(Linea_Factura ref) {
+            return false;
         }
 
         @Override

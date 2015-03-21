@@ -11,7 +11,7 @@ public interface IntermediateDelete<T> {
      * Borra una instancia de la DB
      * @param ref el objeto a eliminar
      */
-    public void single(T ref);
+    public boolean single(T ref);
 
     /**
      * Borra una collecion de onjectos de la DB

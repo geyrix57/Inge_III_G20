@@ -8,10 +8,7 @@ import com.gadroves.gsisinve.model.daos.DAOInterfaces.*;
 import com.gadroves.gsisinve.utils.Dataformat;
 import com.gadroves.gsisinve.utils.DateConvertUtils;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Casa on 18/03/2015.
  */
-//TODO Terminmar
+//TODO Terminmar DELETE
 public class Factura_VentaDAO {
     private static Factura_VentaDAO instance = new Factura_VentaDAO();
     public static ResultSetProcessor<Factura_Venta> processor = (rs, rw) -> {
@@ -180,52 +177,200 @@ public class Factura_VentaDAO {
     public class IntermediateFacturaVentaUpdate implements IntermediateUpdate<Factura_Venta, Integer> {
         @Override
         public boolean updateSingle(Factura_Venta reference) {
+            try(Connection c = DataBase.getInstance().getConnection()){
+                PreparedStatement pps = c.prepareStatement("UPDATE TB_Factura_Venta SET fac_date = ? ,sub = ?,total = ?,tax = ?,address = ? WHERE id = ?");
+                java.sql.Date date = new java.sql.Date(reference.getFechaD().getTime());
+                pps.setDate(1,date);
+                pps.setDouble(2,reference.getSubtotal());
+                pps.setDouble(3,reference.getTotal());
+                pps.setDouble(4,reference.getImpuestos());
+                pps.setNString(5,reference.getDireccion());
+                pps.setInt(6,reference.getNumero());
+                return pps.executeUpdate() > 0;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             return false;
         }
 
         @Override
         public boolean updateCollection(Collection<Factura_Venta> collection) {
+            boolean flag = false;
+            try(Connection c = DataBase.getInstance().getConnection()){
+                PreparedStatement pps = c.prepareStatement("UPDATE TB_Factura_Venta SET fac_date = ? ,sub = ?,total = ?,tax = ?,address = ? WHERE id = ?");
+                java.sql.Date date;
+                for(Factura_Venta reference : collection) {
+                     date = new java.sql.Date(reference.getFechaD().getTime());
+                    pps.setDate(1, date);
+                    pps.setDouble(2, reference.getSubtotal());
+                    pps.setDouble(3, reference.getTotal());
+                    pps.setDouble(4, reference.getImpuestos());
+                    pps.setNString(5, reference.getDireccion());
+                    pps.setInt(6, reference.getNumero());
+                    if(pps.executeUpdate() > 0) flag = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             return false;
         }
 
         @Override
         public boolean updateIf(Factura_Venta ref, Predicate<Factura_Venta>... what) {
+            Predicate<Factura_Venta> acc = what[0];
+            for(int i = 1; i<what.length ; i++) acc = acc.and(what[i]);
+            if(acc.test(ref)) {this.updateSingle(ref); return true;}
             return false;
         }
 
         @Override
         public boolean updateCollectionWhen(Collection<Factura_Venta> refs, Predicate<Factura_Venta>... what) {
-            return false;
+            if(what.length > 0) {
+                Predicate<Factura_Venta> acc = what[0];
+                for(int i = 1; i<what.length ; i++) acc = acc.and(what[i]);
+                refs = refs.stream().filter(acc).collect(Collectors.toList());
+            }
+            return this.updateCollection(refs);
         }
     }
     public class IntermediateFacturaVentaInsert implements IntermediateInsert<Factura_Venta> {
+        /**
+         * Incluir una factura en la base de datos, este metodo se encarga de insertar la factura las lineas y el cliente
+         * @param ref la referencia a Insertar
+         * @return true si se inserto correctamente false otherwise
+         */
         @Override
         public boolean single(Factura_Venta ref) {
-            return false;
+            boolean allOk = false;
+            if(ref.getCliente_factura() == null) {
+                throw new NullPointerException("Se requiere que este seteado el puntero de Clietne factura");
+            }
+            try(Connection c = DataBase.getInstance().getConnection()) {
+                PreparedStatement pps = c.prepareStatement("INSERT INTO TB_Factura_Venta (fac_date, sub, total, tax, address)  VALUES (?, ?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+                java.sql.Date date = new java.sql.Date(ref.getFechaD().getTime());
+                pps.setDate(1, date);
+                pps.setDouble(2, ref.getSubtotal());
+                pps.setDouble(3, ref.getTotal());
+                pps.setDouble(4, ref.getImpuestos());
+                pps.setNString(5, ref.getDireccion());
+                pps.executeUpdate();
+                ResultSet generatedKeys = pps.getGeneratedKeys();
+                ref.setNumero(generatedKeys.getInt(1));
+                allOk=true;
+                if(allOk)
+                    allOk = LineaFacturaVentaDAO.instance().insert().aCollection(ref.getLineas());
+                if(allOk)
+                    allOk = Cliente_Factura_DAO.getInstance().insert().single(ref.getCliente_factura());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            return allOk;
         }
 
         @Override
         public boolean aCollection(Collection<Factura_Venta> refs) {
-            return false;
+            boolean allOk = false;
+            Connection c = null;
+            try {
+                c = DataBase.getInstance().getConnection();
+                c.setAutoCommit(false);
+                PreparedStatement pps = c.prepareStatement("INSERT INTO TB_Factura_Venta (fac_date, sub, total, tax, address)  VALUES (?, ?, ?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+                java.sql.Date date;
+                for(Factura_Venta ref : refs) {
+                    date = new java.sql.Date(ref.getFechaD().getTime());
+                    pps.setDate(1, date);
+                    pps.setDouble(2, ref.getSubtotal());
+                    pps.setDouble(3, ref.getTotal());
+                    pps.setDouble(4, ref.getImpuestos());
+                    pps.setNString(5, ref.getDireccion());
+                    pps.executeUpdate();
+                    ResultSet generatedKeys = pps.getGeneratedKeys();
+                    ref.setNumero(generatedKeys.getInt(1));
+                    allOk = true;
+                    if (allOk)
+                        allOk = LineaFacturaVentaDAO.instance().insert().aCollection(ref.getLineas());
+                    if (allOk)
+                            allOk = Cliente_Factura_DAO.getInstance().insert().single(ref.getCliente_factura());
+                    c.commit();
+                }
+            } catch (SQLException e) {
+                allOk = false;
+                try {
+                    c.setAutoCommit(true);
+                    if (c != null) c.rollback();
+                    e.printStackTrace();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            } catch (ParseException e) {
+                allOk = false;
+                e.printStackTrace();
+            }
+            finally {
+
+                if(c!=null) try {
+                    c.setAutoCommit(true);
+                    c.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            return allOk;
+
         }
 
         @Override
         public boolean aCollectionWhere(Collection<Factura_Venta> refs, Predicate<Factura_Venta>... conds) {
-            return false;
+            if(conds.length > 0) {
+                Predicate<Factura_Venta> acc = conds[0];
+                for(int i = 1; i<conds.length ; i++) acc = acc.and(conds[i]);
+                refs = refs.stream().filter(acc).collect(Collectors.toList());
+            }
+            return this.aCollection(refs);
         }
     }
     public class IntermediateFacturaVentaDelete implements IntermediateDelete<Factura_Venta> {
         @Override
-        public void single(Factura_Venta ref) {
+        public boolean single(Factura_Venta ref) {
+           try(Connection c = DataBase.getInstance().getConnection()){
+               Statement statement = c.createStatement();
+               return statement.executeUpdate("DELETE FROM TB_Factura_Venta tbf WHERE tbf.id = " + ref.getNumero()) > 0;
+           } catch (SQLException e) {
+               e.printStackTrace();
+           }
+            return false;
         }
 
         @Override
         public void aCollection(Collection<Factura_Venta> refs) {
+            try(Connection c = DataBase.getInstance().getConnection()){
+                Statement statement = c.createStatement();
+                StringBuilder sb = new StringBuilder();
+                Factura_Venta[] facs = (Factura_Venta[]) refs.toArray();
+                for(int i = 0 ; i< refs.size()-1; i++) sb.append(facs[i]+", ");
+                sb.append(facs[refs.size()-1]);
+                    statement.executeUpdate("DELETE FROM TB_Factura_Venta tbf WHERE tbf.id IN ("+sb.toString()+")" );
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public void aCollectionWhere(Collection<Factura_Venta> refs, Predicate<Factura_Venta>... conds) {
+            if(conds.length > 0) {
+                Predicate<Factura_Venta> acc = conds[0];
+                for(int i = 1; i<conds.length ; i++) acc = acc.and(conds[i]);
+                refs = refs.stream().filter(acc).collect(Collectors.toList());
+            }
+            this.aCollection(refs);
         }
+
     }
 
 }

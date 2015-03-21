@@ -311,7 +311,7 @@ public class ArticuloDAO {
     }
     public class IntermediateArticuloDelete implements IntermediateDelete<Articulo>{
         @Override
-        public void single(Articulo ref) {
+        public boolean single(Articulo ref) {
             try (Connection c = DataBase.getInstance().getConnection()){
                 Statement stm = c.createStatement();
                 String sql = "DELETE FROM TB_Articulo WHERE id = " + Dataformat.asSqlString(ref.getCodigo());
@@ -319,6 +319,7 @@ public class ArticuloDAO {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return false;
         }
 
         @Override

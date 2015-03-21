@@ -85,7 +85,8 @@ public class Cliente_Factura_DAO {
     }
     public class IntermediateClientFactDelete implements IntermediateDelete<Cliente_Factura>{
         @Override
-        public void single(Cliente_Factura ref) {
+        public boolean single(Cliente_Factura ref) {
+            return false;
         }
 
         @Override
