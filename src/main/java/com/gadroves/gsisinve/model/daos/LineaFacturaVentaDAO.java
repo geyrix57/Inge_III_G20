@@ -8,6 +8,7 @@ import com.gadroves.gsisinve.model.daos.DAOInterfaces.IntermediateSelect;
 import com.gadroves.gsisinve.model.daos.DAOInterfaces.IntermediateUpdate;
 import com.gadroves.gsisinve.utils.TwoTuple;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -18,6 +19,17 @@ import java.util.function.Predicate;
 
 //TODO NExT para terminar
 public class LineaFacturaVentaDAO {
+
+    private static LineaFacturaVentaDAO instance = null;
+
+    private LineaFacturaVentaDAO(){
+
+    }
+
+    public static LineaFacturaVentaDAO instance(){
+        if(instance == null) instance = new LineaFacturaVentaDAO();
+        return instance;
+    }
 
     public IntermediateLineaFacturaVentaSelect select() {
         return new IntermediateLineaFacturaVentaSelect();
@@ -49,7 +61,8 @@ public class LineaFacturaVentaDAO {
         }
 
         public List<Linea_Factura> byFactura(Factura_Venta fb){
-            return null;
+            List<Linea_Factura> lineas = new ArrayList<>();
+            return lineas;
         }
     }
     public class IntermediateLineaFacturaVentaUpdate implements IntermediateUpdate<Linea_Factura, TwoTuple<Integer,String>> {

@@ -41,6 +41,8 @@ public class Factura_Venta {
         this.subtotal = new SimpleDoubleProperty(0);
         this.total = new SimpleDoubleProperty(0);
         this.lineas = new ArrayList<>();
+        this.direccion = new SimpleStringProperty("");
+        cliente_factura = null;
     }
 
     public int getNumero() {
