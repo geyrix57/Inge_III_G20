@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="grid" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.FacturarController">
    <stylesheets>
         <URL value="@../styles/default.css" />
     </stylesheets>
-    
-    <center>
-      <TableView prefHeight="267.0" prefWidth="800.0" styleClass="table" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn prefWidth="107.0" text="Cód. Articulo" />
-            <TableColumn prefWidth="49.0" text="Cant" />
-          <TableColumn prefWidth="199.0" text="Descripción" />
-            <TableColumn minWidth="0.0" prefWidth="101.0" text="Precio" />
-            <TableColumn minWidth="0.0" prefWidth="83.0" text="Impuesto" />
-            <TableColumn prefWidth="122.0" text="Descuento" />
-            <TableColumn prefWidth="138.0" text="Total" />
-        </columns>
-      </TableView>
-   </center>
    <top>
       <BorderPane prefHeight="167.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT">
          <top>
@@ -148,7 +139,7 @@
                <children>
                   <Label text="Envio:" />
                   <Label text="Dirección:" GridPane.rowIndex="1" />
-                  <TextArea prefHeight="70.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextArea fx:id="direccion" prefHeight="70.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Costo Envío:" GridPane.rowIndex="2" />
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
@@ -176,7 +167,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="25.0" prefWidth="122.0" />
+                        <TextField fx:id="costenvio" prefHeight="25.0" prefWidth="122.0" />
                      </children>
                   </HBox>
                </children>
@@ -229,4 +220,24 @@
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
+   <center>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <center>
+            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="104.0" text="Cod.Articulo" />
+                <TableColumn prefWidth="46.0" text="Cant" />
+                  <TableColumn prefWidth="120.0" text="Descripción" />
+                  <TableColumn minWidth="0.0" prefWidth="95.0" text="Precio" />
+                  <TableColumn prefWidth="116.0" text="Impuesto" />
+                  <TableColumn prefWidth="128.0" text="Descuento" />
+                  <TableColumn prefWidth="160.0" text="Total" />
+              </columns>
+            </TableView>
+         </center>
+      </BorderPane>
+   </center>
 </BorderPane>

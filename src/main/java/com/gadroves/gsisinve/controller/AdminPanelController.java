@@ -59,7 +59,7 @@ public class AdminPanelController implements Initializable, ControlledScreen {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.webEngine = this.browser.getEngine();
-        webEngine.load("https://hotmail.com");
+        webEngine.load("https://gmail.com");
     }
 
 }
