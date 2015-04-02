@@ -60,3 +60,6 @@
     /*-fx-font-family: "Segoe UI Light";*/
     -fx-text-fill: Black;
 }
+.radio-buttom{
+    -fx-text-fill: White;
+}
