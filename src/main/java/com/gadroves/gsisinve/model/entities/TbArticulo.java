@@ -1,7 +1,6 @@
 package com.gadroves.gsisinve.model.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Collection;
 
 /**
@@ -12,10 +11,10 @@ import java.util.Collection;
 public class TbArticulo {
     private String id;
     private String desc;
-    private BigDecimal cost;
-    private BigDecimal util;
-    private byte grav;
-    private byte estado;
+    private double cost;
+    private double util;
+    private boolean grav;
+    private boolean estado;
     private TbArticuloProveedor tbArticuloProveedorById;
     private Collection<TbInventario> tbInventariosById;
     private Collection<TbLineaFac> tbLineaFacsById;
@@ -42,69 +41,72 @@ public class TbArticulo {
 
     @Basic
     @Column(name = "cost", nullable = false, insertable = true, updatable = true, precision = 3)
-    public BigDecimal getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(BigDecimal cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 
     @Basic
     @Column(name = "util", nullable = false, insertable = true, updatable = true, precision = 3)
-    public BigDecimal getUtil() {
+    public double getUtil() {
         return util;
     }
 
-    public void setUtil(BigDecimal util) {
+    public void setUtil(double util) {
         this.util = util;
     }
 
     @Basic
     @Column(name = "grav", nullable = false, insertable = true, updatable = true)
-    public byte getGrav() {
+    public boolean getGrav() {
         return grav;
     }
 
-    public void setGrav(byte grav) {
+    public void setGrav(boolean grav) {
         this.grav = grav;
     }
 
     @Basic
     @Column(name = "estado", nullable = false, insertable = true, updatable = true)
-    public byte getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbArticulo)) return false;
 
         TbArticulo that = (TbArticulo) o;
 
+        if (Double.compare(that.cost, cost) != 0) return false;
+        if (Double.compare(that.util, util) != 0) return false;
         if (grav != that.grav) return false;
         if (estado != that.estado) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (desc != null ? !desc.equals(that.desc) : that.desc != null) return false;
-        if (cost != null ? !cost.equals(that.cost) : that.cost != null) return false;
-        if (util != null ? !util.equals(that.util) : that.util != null) return false;
+        if (!id.equals(that.id)) return false;
+        return desc.equals(that.desc);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (desc != null ? desc.hashCode() : 0);
-        result = 31 * result + (cost != null ? cost.hashCode() : 0);
-        result = 31 * result + (util != null ? util.hashCode() : 0);
-        result = 31 * result + (int) grav;
-        result = 31 * result + (int) estado;
+        int result;
+        long temp;
+        result = id.hashCode();
+        result = 31 * result + desc.hashCode();
+        temp = Double.doubleToLongBits(cost);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(util);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (grav ? 1 : 0);
+        result = 31 * result + (estado ? 1 : 0);
         return result;
     }
 

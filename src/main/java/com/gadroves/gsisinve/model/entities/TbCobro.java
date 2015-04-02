@@ -19,6 +19,7 @@ public class TbCobro {
     private TbFacturaVenta tbFacturaVentaByFacturaAsociada;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "num_recibo", nullable = false, insertable = true, updatable = true)
     public int getNumRecibo() {
         return numRecibo;

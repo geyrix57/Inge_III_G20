@@ -23,6 +23,7 @@ public class TbFacturaCompra {
     private Collection<TbLineaCompra> tbLineaComprasById;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;

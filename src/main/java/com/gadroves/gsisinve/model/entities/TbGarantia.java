@@ -17,6 +17,7 @@ public class TbGarantia {
     private TbFacturaVenta tbFacturaVentaByFacturaAsociada;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "consecutivo", nullable = false, insertable = true, updatable = true)
     public int getConsecutivo() {
         return consecutivo;

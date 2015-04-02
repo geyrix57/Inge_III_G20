@@ -58,6 +58,7 @@ public class TbPagoCuentaPagar {
     }
 
     @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "pago_id", nullable = false, insertable = true, updatable = true)
     public int getPagoId() {
         return pagoId;

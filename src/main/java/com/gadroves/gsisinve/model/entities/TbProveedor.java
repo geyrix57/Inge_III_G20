@@ -12,7 +12,7 @@ public class TbProveedor {
     private String codigo;
     private String nombre;
     private String direccion;
-    private byte estado;
+    private boolean estado;
     private CuentaAPagar cuentaAPagarByCodigo;
     private Collection<TbArticuloProveedor> tbArticuloProveedorsByCodigo;
     private TbContactoProveedores tbContactoProveedoresByCodigo;
@@ -50,35 +50,34 @@ public class TbProveedor {
 
     @Basic
     @Column(name = "estado", nullable = false, insertable = true, updatable = true)
-    public byte getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbProveedor)) return false;
 
         TbProveedor that = (TbProveedor) o;
 
         if (estado != that.estado) return false;
-        if (codigo != null ? !codigo.equals(that.codigo) : that.codigo != null) return false;
-        if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
-        if (direccion != null ? !direccion.equals(that.direccion) : that.direccion != null) return false;
+        if (!codigo.equals(that.codigo)) return false;
+        if (!nombre.equals(that.nombre)) return false;
+        return direccion.equals(that.direccion);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = codigo != null ? codigo.hashCode() : 0;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (direccion != null ? direccion.hashCode() : 0);
-        result = 31 * result + (int) estado;
+        int result = codigo.hashCode();
+        result = 31 * result + nombre.hashCode();
+        result = 31 * result + direccion.hashCode();
+        result = 31 * result + (estado ? 1 : 0);
         return result;
     }
 

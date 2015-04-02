@@ -12,7 +12,7 @@ public class CuentaAPagar {
     private String cuenta;
     private double total;
     private double saldo;
-    private byte estado;
+    private boolean estado;
     private TbProveedor tbProveedorByCuenta;
     private Collection<TbFacturasCuentaPagar> tbFacturasCuentaPagarsByCuenta;
     private Collection<TbPagoCuentaPagar> tbPagoCuentaPagarsByCuenta;
@@ -49,39 +49,37 @@ public class CuentaAPagar {
 
     @Basic
     @Column(name = "estado", nullable = false, insertable = true, updatable = true)
-    public byte getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(byte estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof CuentaAPagar)) return false;
 
         CuentaAPagar that = (CuentaAPagar) o;
 
         if (Double.compare(that.total, total) != 0) return false;
         if (Double.compare(that.saldo, saldo) != 0) return false;
         if (estado != that.estado) return false;
-        if (cuenta != null ? !cuenta.equals(that.cuenta) : that.cuenta != null) return false;
-
-        return true;
+        return cuenta.equals(that.cuenta);
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = cuenta != null ? cuenta.hashCode() : 0;
+        result = cuenta.hashCode();
         temp = Double.doubleToLongBits(total);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(saldo);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (int) estado;
+        result = 31 * result + (estado ? 1 : 0);
         return result;
     }
 
