@@ -7,22 +7,21 @@ package com.gadroves.gsisinve.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 
-public class GarantiaController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author Aaron
+ */
+public class ConsultProveedorController implements Initializable {
 
-    @FXML
-    RadioButton activo;
-    @FXML
-    RadioButton inactivo;
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ToggleGroup group = new ToggleGroup();
-        this.activo.setToggleGroup(group);
-        this.inactivo.setToggleGroup(group);
+        // TODO
     }    
     
 }

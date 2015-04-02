@@ -10,19 +10,18 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 
-public class GarantiaController implements Initializable {
+/**
+ * FXML Controller class
+ *
+ * @author Aaron
+ */
+public class ProveedorController implements Initializable {
 
-    @FXML
-    RadioButton activo;
-    @FXML
-    RadioButton inactivo;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ToggleGroup group = new ToggleGroup();
-        this.activo.setToggleGroup(group);
-        this.inactivo.setToggleGroup(group);
+        // TODO
     }    
     
 }
