@@ -5,23 +5,15 @@
  */
 package com.gadroves.gsisinve.controller;
 
-import com.gadroves.gsisinve.UI.controller.ControlledScreen;
-import com.gadroves.gsisinve.UI.controller.ScreensController;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
-public class ConsultFacturaController implements Initializable, ControlledScreen {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    private ScreensController myController;
+public class ConsultFacturaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-    @Override
-    public void setScreenParent(ScreensController screenPage) {
-        this.myController = screenPage;
     }
 }
