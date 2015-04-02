@@ -16,6 +16,27 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+        /*EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("DB_SISGADROVES");
+        EntityManager em = entityManagerFactory.createEntityManager();
+
+        JinqJPAStreamProvider streams = new JinqJPAStreamProvider(entityManagerFactory);
+        JinqStream<TbBodega> Bodegas = streams.streamAll(em, TbBodega.class);
+
+        Bodegas.toList().forEach(System.out::println);
+
+        TbBodega b = new TbBodega();
+        b.setCode("7");
+        b.setDesc("Limon");
+
+        em.getTransaction().begin();
+        em.persist(b);
+        em.getTransaction().commit();
+
+
+        em.close();
+        entityManagerFactory.close();*/
+
+        //System.out.println(Tb_Test.where(t->t.getVal() > 25).getDebugQueryString());
     }
 
     @Override

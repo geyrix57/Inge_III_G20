@@ -5,29 +5,21 @@
  */
 package com.gadroves.gsisinve.controller;
 
-import com.gadroves.gsisinve.UI.controller.ControlledScreen;
-import com.gadroves.gsisinve.UI.controller.ScreensController;
 import com.gadroves.gsisinve.utils.CustomDate;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 
 /**
  * FXML Controller class
  *
  * @author Aaron
  */
-public class FacturarController implements Initializable, ControlledScreen {
+public class FacturarController implements Initializable {
 
     @FXML
     Label fecha;
@@ -41,8 +33,6 @@ public class FacturarController implements Initializable, ControlledScreen {
     TextArea direccion;
     @FXML
     TextField costenvio;
-
-    private ScreensController myController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,11 +54,6 @@ public class FacturarController implements Initializable, ControlledScreen {
                 }
             }
         });
-    }
-
-    @Override
-    public void setScreenParent(ScreensController screenPage) {
-        this.myController = screenPage;
     }
 
 }
