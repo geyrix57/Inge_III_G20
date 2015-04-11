@@ -96,7 +96,7 @@ public class ResizeListener implements EventHandler<MouseEvent> {
             initX = t.getScreenX() - stage.getX();
             initY = t.getScreenY() - stage.getY();
         } else if (MouseEvent.MOUSE_DRAGGED.equals(t.getEventType())) {
-            if (resizeH) {
+            if (resizeH && !stage.isMaximized()) {
                 if (stage.getWidth() <= this.minW/*minSize.width*/) {
                     if (moveH) {
                         deltaX = stage.getX() - t.getScreenX();
@@ -124,7 +124,7 @@ public class ResizeListener implements EventHandler<MouseEvent> {
                             stage.setWidth(t.getX() + dx);
                     }
                 }
-            } else if (resizeV) {
+            } else if (resizeV && !stage.isMaximized()) {
                 if (stage.getHeight() <= this.minH/*minSize.width*/) {
                     if (moveV) {
                         deltaY = stage.getY() - t.getScreenY();

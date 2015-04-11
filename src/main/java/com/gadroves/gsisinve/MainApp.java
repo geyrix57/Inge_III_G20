@@ -20,8 +20,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        new CustomWindow(primaryStage, R.loadScreen("main"))
-                .show();
+        new CustomWindow(primaryStage, R.loadScreen("main")).show();
     }
 
 }
