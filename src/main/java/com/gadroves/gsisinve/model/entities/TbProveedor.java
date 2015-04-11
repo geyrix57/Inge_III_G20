@@ -1,5 +1,10 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -9,53 +14,70 @@ import java.util.Collection;
 @Entity
 @Table(name = "TB_Proveedor", schema = "", catalog = "sisgradoves")
 public class TbProveedor {
-    private String codigo;
-    private String nombre;
-    private String direccion;
-    private boolean estado;
+    private StringProperty codigo = new SimpleStringProperty();
+    private StringProperty nombre = new SimpleStringProperty();
+    private StringProperty direccion = new SimpleStringProperty();
+    private BooleanProperty estado = new SimpleBooleanProperty();
+
     private CuentaAPagar cuentaAPagarByCodigo;
     private Collection<TbArticuloProveedor> tbArticuloProveedorsByCodigo;
     private TbContactoProveedores tbContactoProveedoresByCodigo;
     private Collection<TbFacturaCompra> tbFacturaComprasByCodigo;
 
-    @Id
-    @Column(name = "codigo", nullable = false, insertable = true, updatable = true, length = 32)
-    public String getCodigo() {
+    public StringProperty codigoProperty() {
         return codigo;
     }
 
+    public StringProperty nombreProperty() {
+        return nombre;
+    }
+
+    public StringProperty direccionProperty() {
+        return direccion;
+    }
+
+    public BooleanProperty estadoProperty() {
+        return estado;
+    }
+
+    @Id
+    @Column(name = "codigo", nullable = false, insertable = true, updatable = true, length = 32)
+    public String getCodigo() {
+        return codigo.get();
+    }
+
     public void setCodigo(String codigo) {
-        this.codigo = codigo;
+        this.codigo.set(codigo);
     }
 
     @Basic
     @Column(name = "nombre", nullable = false, insertable = true, updatable = true, length = 32)
     public String getNombre() {
-        return nombre;
+        return nombre.get();
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre.set(nombre);
     }
 
     @Basic
     @Column(name = "direccion", nullable = false, insertable = true, updatable = true, length = 64)
     public String getDireccion() {
-        return direccion;
+        return direccion.get();
     }
 
     public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        this.direccion.set(direccion);
     }
 
     @Basic
     @Column(name = "estado", nullable = false, insertable = true, updatable = true)
     public boolean getEstado() {
-        return estado;
+        return estado.get();
     }
 
     public void setEstado(boolean estado) {
-        this.estado = estado;
+        this.estado.set(estado);
     }
 
     @Override
@@ -65,11 +87,21 @@ public class TbProveedor {
 
         TbProveedor that = (TbProveedor) o;
 
-        if (estado != that.estado) return false;
         if (!codigo.equals(that.codigo)) return false;
         if (!nombre.equals(that.nombre)) return false;
-        return direccion.equals(that.direccion);
+        if (!direccion.equals(that.direccion)) return false;
+        return estado.equals(that.estado);
 
+    }
+
+    @Override
+    public String toString() {
+        return "TbProveedor{" +
+                "codigo=" + codigo.get() +
+                ", nombre=" + nombre.get() +
+                ", direccion=" + direccion.get() +
+                ", estado=" + estado.get() +
+                '}';
     }
 
     @Override
@@ -77,7 +109,7 @@ public class TbProveedor {
         int result = codigo.hashCode();
         result = 31 * result + nombre.hashCode();
         result = 31 * result + direccion.hashCode();
-        result = 31 * result + (estado ? 1 : 0);
+        result = 31 * result + estado.hashCode();
         return result;
     }
 

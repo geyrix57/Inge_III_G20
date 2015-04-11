@@ -2,6 +2,7 @@ package com.gadroves.gsisinve.controller;
 
 import com.gadroves.gsisinve.UI.CustomWindow;
 import com.gadroves.gsisinve.utils.R;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,6 +62,15 @@ public class AdminPanelController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.browser.getEngine().load("https://calendar.google.com");
+        SimpleBooleanProperty log = new SimpleBooleanProperty(true);
+        this.browser.getEngine().documentProperty().addListener((observable, oldDoc, doc) -> {
+            if (doc != null && log.get()) {
+                browser.getEngine().executeScript("document.getElementById('Email').value='GRUPO20SISGRADOV'");
+                browser.getEngine().executeScript("document.getElementById('Passwd').value='sisgradov'");
+                browser.getEngine().executeScript("document.forms['gaia_loginform'].submit();");
+                log.set(false);
+            }
+        });
     }
 
 }

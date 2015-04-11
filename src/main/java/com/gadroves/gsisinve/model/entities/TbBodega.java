@@ -24,7 +24,7 @@ public class TbBodega {
     }
 
     @Basic
-    @Column(name = "\"desc\"", nullable = false, insertable = true, updatable = true, length = 56)
+    @Column(name = "desc", nullable = false, insertable = true, updatable = true, length = 56)
     public String getDesc() {
         return desc;
     }
@@ -41,9 +41,8 @@ public class TbBodega {
         TbBodega tbBodega = (TbBodega) o;
 
         if (code != null ? !code.equals(tbBodega.code) : tbBodega.code != null) return false;
-        if (desc != null ? !desc.equals(tbBodega.desc) : tbBodega.desc != null) return false;
+        return !(desc != null ? !desc.equals(tbBodega.desc) : tbBodega.desc != null);
 
-        return true;
     }
 
     @Override

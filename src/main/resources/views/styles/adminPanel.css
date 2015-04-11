@@ -27,13 +27,13 @@
     -fx-underline: true;
 }
 
-.left .button:focused {
+/*.left .button:focused {
     -fx-color: -fx-focused-base;
     -fx-border-color: -fx-focus-color;
     -fx-border-style: dotted;
     -fx-border-width: 3px;
     -fx-border-radius: 15;
-}
+}*/
 
 /*right panel*/
 .right {

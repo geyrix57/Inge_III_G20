@@ -15,12 +15,16 @@ public class TbArticulo {
     private double util;
     private boolean grav;
     private boolean estado;
+    private Integer categoriaId;
+
     private TbArticuloProveedor tbArticuloProveedorById;
     private Collection<TbInventario> tbInventariosById;
     private Collection<TbLineaFac> tbLineaFacsById;
+    private TbCategoria tbCategoriaByCategoriaId;
+    private Collection<TbResolucionGarantia> tbResolucionGarantiasById;
 
     @Id
-    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true, length = 32)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 32)
     public String getId() {
         return id;
     }
@@ -30,7 +34,7 @@ public class TbArticulo {
     }
 
     @Basic
-    @Column(name = "\"desc\"", nullable = true, insertable = true, updatable = true, length = 255)
+    @Column(name = "desc", nullable = true, insertable = true, updatable = true, length = 255)
     public String getDesc() {
         return desc;
     }
@@ -40,7 +44,7 @@ public class TbArticulo {
     }
 
     @Basic
-    @Column(name = "cost", nullable = false, insertable = true, updatable = true, precision = 3)
+    @Column(name = "cost", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getCost() {
         return cost;
     }
@@ -50,7 +54,7 @@ public class TbArticulo {
     }
 
     @Basic
-    @Column(name = "util", nullable = false, insertable = true, updatable = true, precision = 3)
+    @Column(name = "util", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getUtil() {
         return util;
     }
@@ -77,6 +81,16 @@ public class TbArticulo {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    @Basic
+    @Column(name = "categoria_id", nullable = true, insertable = true, updatable = true)
+    public Integer getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Integer categoriaId) {
+        this.categoriaId = categoriaId;
     }
 
     @Override
@@ -135,5 +149,24 @@ public class TbArticulo {
 
     public void setTbLineaFacsById(Collection<TbLineaFac> tbLineaFacsById) {
         this.tbLineaFacsById = tbLineaFacsById;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", referencedColumnName = "t_id", insertable = false, updatable = false)
+    public TbCategoria getTbCategoriaByCategoriaId() {
+        return tbCategoriaByCategoriaId;
+    }
+
+    public void setTbCategoriaByCategoriaId(TbCategoria tbCategoriaByCategoriaId) {
+        this.tbCategoriaByCategoriaId = tbCategoriaByCategoriaId;
+    }
+
+    @OneToMany(mappedBy = "tbArticuloByIdProducto")
+    public Collection<TbResolucionGarantia> getTbResolucionGarantiasById() {
+        return tbResolucionGarantiasById;
+    }
+
+    public void setTbResolucionGarantiasById(Collection<TbResolucionGarantia> tbResolucionGarantiasById) {
+        this.tbResolucionGarantiasById = tbResolucionGarantiasById;
     }
 }

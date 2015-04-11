@@ -1,7 +1,6 @@
 package com.gadroves.gsisinve.model.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 /**
  * Created by geykel on 01/04/2015.
@@ -12,8 +11,9 @@ import java.math.BigDecimal;
 public class TbLineaFac {
     private int facId;
     private String artId;
-    private short quant;
-    private BigDecimal disc;
+    private boolean quant;
+    private double disc;
+
     private TbArticulo tbArticuloByArtId;
     private TbFacturaVenta tbFacturaVentaByFacId;
 
@@ -39,50 +39,52 @@ public class TbLineaFac {
 
     @Basic
     @Column(name = "quant", nullable = false, insertable = true, updatable = true)
-    public short getQuant() {
+    public boolean getQuant() {
         return quant;
     }
 
-    public void setQuant(short quant) {
+    public void setQuant(boolean quant) {
         this.quant = quant;
     }
 
     @Basic
-    @Column(name = "disc", nullable = false, insertable = true, updatable = true, precision = 3)
-    public BigDecimal getDisc() {
+    @Column(name = "disc", nullable = false, insertable = true, updatable = true, precision = 0)
+    public double getDisc() {
         return disc;
     }
 
-    public void setDisc(BigDecimal disc) {
+    public void setDisc(double disc) {
         this.disc = disc;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbLineaFac)) return false;
 
         TbLineaFac that = (TbLineaFac) o;
 
         if (facId != that.facId) return false;
         if (quant != that.quant) return false;
-        if (artId != null ? !artId.equals(that.artId) : that.artId != null) return false;
-        if (disc != null ? !disc.equals(that.disc) : that.disc != null) return false;
+        if (Double.compare(that.disc, disc) != 0) return false;
+        return artId.equals(that.artId);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = facId;
-        result = 31 * result + (artId != null ? artId.hashCode() : 0);
-        result = 31 * result + (int) quant;
-        result = 31 * result + (disc != null ? disc.hashCode() : 0);
+        int result;
+        long temp;
+        result = facId;
+        result = 31 * result + artId.hashCode();
+        result = 31 * result + (quant ? 1 : 0);
+        temp = Double.doubleToLongBits(disc);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false)})
     public TbArticulo getTbArticuloByArtId() {
         return tbArticuloByArtId;
     }
@@ -92,7 +94,7 @@ public class TbLineaFac {
     }
 
     @ManyToOne
-    @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false)})
     public TbFacturaVenta getTbFacturaVentaByFacId() {
         return tbFacturaVentaByFacId;
     }

@@ -102,9 +102,8 @@ public class TbLineaCompra {
         if (Double.compare(that.imp, imp) != 0) return false;
         if (Double.compare(that.descuento, descuento) != 0) return false;
         if (facOrigen != that.facOrigen) return false;
-        if (codArt != null ? !codArt.equals(that.codArt) : that.codArt != null) return false;
+        return !(codArt != null ? !codArt.equals(that.codArt) : that.codArt != null);
 
-        return true;
     }
 
     @Override
@@ -125,7 +124,7 @@ public class TbLineaCompra {
     }
 
     @ManyToOne
-    @JoinColumn(name = "cod_art", referencedColumnName = "art_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cod_art", referencedColumnName = "art_id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cod_art", referencedColumnName = "art_id", nullable = false)})
     public TbArticuloProveedor getTbArticuloProveedorByCodArt() {
         return tbArticuloProveedorByCodArt;
     }
@@ -135,7 +134,7 @@ public class TbLineaCompra {
     }
 
     @ManyToOne
-    @JoinColumn(name = "fac_origen", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "fac_origen", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "fac_origen", referencedColumnName = "id", nullable = false)})
     public TbFacturaCompra getTbFacturaCompraByFacOrigen() {
         return tbFacturaCompraByFacOrigen;
     }

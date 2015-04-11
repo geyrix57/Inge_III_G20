@@ -13,6 +13,7 @@ public class CuentaAPagar {
     private double total;
     private double saldo;
     private boolean estado;
+
     private TbProveedor tbProveedorByCuenta;
     private Collection<TbFacturasCuentaPagar> tbFacturasCuentaPagarsByCuenta;
     private Collection<TbPagoCuentaPagar> tbPagoCuentaPagarsByCuenta;
@@ -84,7 +85,7 @@ public class CuentaAPagar {
     }
 
     @OneToOne
-    @JoinColumn(name = "cuenta", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cuenta", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta", referencedColumnName = "codigo", nullable = false)})
     public TbProveedor getTbProveedorByCuenta() {
         return tbProveedorByCuenta;
     }

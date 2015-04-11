@@ -36,7 +36,7 @@ public class TbCLienteFactura {
     }
 
     @Basic
-    @Column(name = "\"id\"", nullable = true, insertable = true, updatable = true, length = 10)
+    @Column(name = "id", nullable = true, insertable = true, updatable = true, length = 10)
     public String getId() {
         return id;
     }
@@ -76,9 +76,8 @@ public class TbCLienteFactura {
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (contact != null ? !contact.equals(that.contact) : that.contact != null) return false;
+        return !(contact != null ? !contact.equals(that.contact) : that.contact != null);
 
-        return true;
     }
 
     @Override
@@ -92,7 +91,7 @@ public class TbCLienteFactura {
     }
 
     @OneToOne
-    @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false)})
     public TbFacturaVenta getTbFacturaVentaByFacId() {
         return tbFacturaVentaByFacId;
     }

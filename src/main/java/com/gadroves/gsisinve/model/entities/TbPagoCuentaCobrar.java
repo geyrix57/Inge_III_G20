@@ -12,6 +12,7 @@ public class TbPagoCuentaCobrar {
     private String cuenta;
     private double monto;
     private Date fecha;
+
     private TbCuentaCobrar tbCuentaCobrarByCuenta;
 
     @Id
@@ -53,9 +54,8 @@ public class TbPagoCuentaCobrar {
 
         if (Double.compare(that.monto, monto) != 0) return false;
         if (cuenta != null ? !cuenta.equals(that.cuenta) : that.cuenta != null) return false;
-        if (fecha != null ? !fecha.equals(that.fecha) : that.fecha != null) return false;
+        return !(fecha != null ? !fecha.equals(that.fecha) : that.fecha != null);
 
-        return true;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class TbPagoCuentaCobrar {
     }
 
     @OneToOne
-    @JoinColumn(name = "cuenta", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cuenta", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta", referencedColumnName = "cliente", nullable = false)})
     public TbCuentaCobrar getTbCuentaCobrarByCuenta() {
         return tbCuentaCobrarByCuenta;
     }

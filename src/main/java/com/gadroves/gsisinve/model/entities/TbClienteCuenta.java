@@ -16,7 +16,7 @@ public class TbClienteCuenta {
     private TbCuentaCobrar tbCuentaCobrarById;
 
     @Id
-    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true, length = 12)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 12)
     public String getId() {
         return id;
     }
@@ -76,9 +76,8 @@ public class TbClienteCuenta {
         if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (tel != null ? !tel.equals(that.tel) : that.tel != null) return false;
-        if (direccion != null ? !direccion.equals(that.direccion) : that.direccion != null) return false;
+        return !(direccion != null ? !direccion.equals(that.direccion) : that.direccion != null);
 
-        return true;
     }
 
     @Override

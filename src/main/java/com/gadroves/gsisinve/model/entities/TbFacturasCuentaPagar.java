@@ -54,9 +54,8 @@ public class TbFacturasCuentaPagar {
 
         if (factura != that.factura) return false;
         if (Double.compare(that.monto, monto) != 0) return false;
-        if (cuenta != null ? !cuenta.equals(that.cuenta) : that.cuenta != null) return false;
+        return !(cuenta != null ? !cuenta.equals(that.cuenta) : that.cuenta != null);
 
-        return true;
     }
 
     @Override
@@ -71,7 +70,7 @@ public class TbFacturasCuentaPagar {
     }
 
     @ManyToOne
-    @JoinColumn(name = "cuenta", referencedColumnName = "cuenta", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cuenta", referencedColumnName = "cuenta", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta", referencedColumnName = "cuenta", nullable = false)})
     public CuentaAPagar getCuentaAPagarByCuenta() {
         return cuentaAPagarByCuenta;
     }
@@ -81,7 +80,7 @@ public class TbFacturasCuentaPagar {
     }
 
     @ManyToOne
-    @JoinColumn(name = "factura", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "factura", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "factura", referencedColumnName = "id", nullable = false)})
     public TbFacturaCompra getTbFacturaCompraByFactura() {
         return tbFacturaCompraByFactura;
     }
