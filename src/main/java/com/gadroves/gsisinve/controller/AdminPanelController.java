@@ -1,8 +1,7 @@
 package com.gadroves.gsisinve.controller;
 
-import com.gadroves.gsisinve.UI.controller.ControlledScreen;
-import com.gadroves.gsisinve.UI.controller.ScreensController;
-import com.gadroves.gsisinve.UI.window.CustomWindow;
+import com.gadroves.gsisinve.UI.CustomWindow;
+import com.gadroves.gsisinve.utils.R;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,36 +14,48 @@ import java.util.ResourceBundle;
 /**
  * Created by geykel on 07/03/2015.
  */
-public class AdminPanelController implements Initializable, ControlledScreen {
-
-    private ScreensController myController;
+public class AdminPanelController implements Initializable {
 
     @FXML
     private WebView browser;
 
-    @FXML
-    private void openFacturar(ActionEvent event) {
+    private void openWindow(String name) {
         try {
-            new CustomWindow(myController.loadScreen("facturar"))
+            new CustomWindow(R.loadScreen(name))
                     .show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void openConsultarProveedor() {
+        openWindow("consultarProveedor");
+    }
+
+    @FXML
+    private void openProveedor() {
+        openWindow("proveedor");
+    }
+
+    @FXML
+    private void openGarantia() {
+        openWindow("garantia");
+    }
+
+    @FXML
+    private void openConsultarFacturas() {
+        openWindow("consultarFactura");
+    }
+
+    @FXML
+    private void openFacturar(ActionEvent event) {
+        openWindow("facturar");
     }
 
     @FXML
     private void openStock(ActionEvent event) {
-        try {
-            new CustomWindow(myController.loadScreen("stock"))
-                    .show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void setScreenParent(ScreensController screenPage) {
-        this.myController = screenPage;
+        openWindow("stock");
     }
 
     @Override

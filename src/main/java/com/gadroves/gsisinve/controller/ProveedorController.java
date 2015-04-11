@@ -5,11 +5,10 @@
  */
 package com.gadroves.gsisinve.controller;
 
+import javafx.fxml.Initializable;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
 
 /**
  * FXML Controller class
@@ -18,10 +17,10 @@ import javafx.scene.control.RadioButton;
  */
 public class ProveedorController implements Initializable {
 
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

@@ -23,7 +23,7 @@ public class TbFacturaCompra {
     private Collection<TbLineaCompra> tbLineaComprasById;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
@@ -106,9 +106,8 @@ public class TbFacturaCompra {
         if (Double.compare(that.imp, imp) != 0) return false;
         if (Double.compare(that.saldo, saldo) != 0) return false;
         if (provId != null ? !provId.equals(that.provId) : that.provId != null) return false;
-        if (fecha != null ? !fecha.equals(that.fecha) : that.fecha != null) return false;
+        return !(fecha != null ? !fecha.equals(that.fecha) : that.fecha != null);
 
-        return true;
     }
 
     @Override

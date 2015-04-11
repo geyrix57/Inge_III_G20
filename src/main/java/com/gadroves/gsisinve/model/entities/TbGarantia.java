@@ -17,7 +17,7 @@ public class TbGarantia {
     private TbFacturaVenta tbFacturaVentaByFacturaAsociada;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "consecutivo", nullable = false, insertable = true, updatable = true)
     public int getConsecutivo() {
         return consecutivo;
@@ -79,10 +79,8 @@ public class TbGarantia {
         if (facturaAsociada != that.facturaAsociada) return false;
         if (fechaCreacion != null ? !fechaCreacion.equals(that.fechaCreacion) : that.fechaCreacion != null)
             return false;
-        if (fechaVencimiento != null ? !fechaVencimiento.equals(that.fechaVencimiento) : that.fechaVencimiento != null)
-            return false;
+        return !(fechaVencimiento != null ? !fechaVencimiento.equals(that.fechaVencimiento) : that.fechaVencimiento != null);
 
-        return true;
     }
 
     @Override

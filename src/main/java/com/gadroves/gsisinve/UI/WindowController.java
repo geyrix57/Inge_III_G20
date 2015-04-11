@@ -1,4 +1,4 @@
-package com.gadroves.gsisinve.UI.window;
+package com.gadroves.gsisinve.UI;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,7 +19,7 @@ public class WindowController implements Initializable {
     @FXML
     private Button close;
 
-    public Button getMinimize(){
+    public Button getMinimize() {
         return this.minimize;
     }
 

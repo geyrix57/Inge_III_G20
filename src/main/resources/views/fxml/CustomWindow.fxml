@@ -5,39 +5,46 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane styleClass="body" stylesheets="@../styles/window.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.UI.window.WindowController">
-   <children>
-      <HBox alignment="CENTER_RIGHT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button fx:id="minimize" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="glass-minimize" text="-" textAlignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-               <font>
-                  <Font size="9.0" />
-               </font></Button>
-            <Button fx:id="maximize" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="glass-maximize" text="+" textAlignment="CENTER">
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-               <font>
-                  <Font size="9.0" />
-               </font></Button>
-          <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" styleClass="glass-close" text="x" textAlignment="CENTER">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-               <font>
-                  <Font size="9.0" />
-               </font>
-            </Button>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </HBox>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" styleClass="body" stylesheets="@../styles/window.css"
+            xmlns="http://javafx.com/javafx/8" fx:controller="com.gadroves.gsisinve.UI.WindowController">
+    <children>
+        <HBox alignment="CENTER_RIGHT" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" spacing="10.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Button fx:id="minimize" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0"
+                        styleClass="glass-minimize" text="-" textAlignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                    <font>
+                        <Font size="9.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="maximize" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0"
+                        styleClass="glass-maximize" text="+" textAlignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                    <font>
+                        <Font size="9.0"/>
+                    </font>
+                </Button>
+                <Button fx:id="close" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0"
+                        styleClass="glass-close" text="x" textAlignment="CENTER">
+                    <HBox.margin>
+                        <Insets right="5.0"/>
+                    </HBox.margin>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                    <font>
+                        <Font size="9.0"/>
+                    </font>
+                </Button>
+            </children>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </HBox>
+    </children>
 </AnchorPane>
