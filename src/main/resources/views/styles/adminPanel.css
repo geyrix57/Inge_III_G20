@@ -4,7 +4,7 @@
     -fx-background-radius: 15;
 }
 
-.left .accordion .titled-pane .title:hover{
+.left .accordion .titled-pane .title:hover {
     -fx-background-color: #00B1EB;
 }
 
@@ -12,12 +12,12 @@
     -fx-background-color: #79C5FF;
 }
 
-.left .accordion .titled-pane .title .arrow-button .arrow{
+.left .accordion .titled-pane .title .arrow-button .arrow {
     -fx-background-color: white;
 }
 
 /*Buttons*/
-.left .button{
+.left .button {
     -fx-text-fill: #1097FF;
     -fx-background-color: transparent;
 }
@@ -38,6 +38,6 @@
 /*right panel*/
 .right {
     -fx-background-color: lightgrey;
-   /* -fx-border-width: 0 0 0 5px;
-    -fx-border-color: #CFCFCF;*/
+    /* -fx-border-width: 0 0 0 5px;
+     -fx-border-color: #CFCFCF;*/
 }

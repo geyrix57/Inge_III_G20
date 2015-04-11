@@ -58,7 +58,7 @@ public class TbPagoCuentaPagar {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "pago_id", nullable = false, insertable = true, updatable = true)
     public int getPagoId() {
         return pagoId;
@@ -79,9 +79,8 @@ public class TbPagoCuentaPagar {
         if (pagoId != that.pagoId) return false;
         if (cuentaPago != null ? !cuentaPago.equals(that.cuentaPago) : that.cuentaPago != null) return false;
         if (factura != null ? !factura.equals(that.factura) : that.factura != null) return false;
-        if (fechaPago != null ? !fechaPago.equals(that.fechaPago) : that.fechaPago != null) return false;
+        return !(fechaPago != null ? !fechaPago.equals(that.fechaPago) : that.fechaPago != null);
 
-        return true;
     }
 
     @Override

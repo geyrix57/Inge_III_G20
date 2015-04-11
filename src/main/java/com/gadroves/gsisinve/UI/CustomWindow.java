@@ -1,7 +1,9 @@
-package com.gadroves.gsisinve.UI.window;
-
+package com.gadroves.gsisinve.UI;
 
 import com.gadroves.gsisinve.utils.R;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -11,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -19,7 +22,10 @@ import java.io.IOException;
  */
 public class CustomWindow {
 
-    public CustomWindow(Node clientArea){
+    final private Node clientArea;
+    final private Stage stage;
+
+    public CustomWindow(Node clientArea) {
         this.stage = new Stage();
         this.clientArea = clientArea;
         this.clientArea.setCursor(Cursor.DEFAULT);
@@ -34,14 +40,22 @@ public class CustomWindow {
     public void show() throws IOException {
         build();
         this.stage.show();
-        new ResizeListener(this.stage, stage.getHeight(),stage.getWidth());
+        showEffect();
+        new ResizeListener(this.stage, stage.getHeight(), stage.getWidth());
+    }
+
+    private void showEffect() {
+        Timeline fadeIn = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(this.clientArea.opacityProperty(), 0.0)),
+                new KeyFrame(new Duration(2500), new KeyValue(this.clientArea.opacityProperty(), 1.0)));
+        fadeIn.play();
     }
 
     private void setActionToButton(WindowController wc) {
-        wc.getClose().setOnAction(ev->{
+        wc.getClose().setOnAction(ev -> {
             stage.close();
         });
-        wc.getMinimize().setOnAction(ev->{
+        wc.getMinimize().setOnAction(ev -> {
             stage.setIconified(true);
         });
         wc.getMaximize().setOnAction(ev -> {
@@ -52,23 +66,20 @@ public class CustomWindow {
     private Parent loadWindow() throws IOException {
         FXMLLoader Loader = new FXMLLoader(R.getFxml("window"));
         Parent window = Loader.load();
-        setActionToButton ((WindowController)Loader.getController());
-        return  window;
+        setActionToButton(Loader.getController());
+        return window;
     }
 
     private void build() throws IOException {
-        AnchorPane root = (AnchorPane)loadWindow();
+        AnchorPane root = (AnchorPane) loadWindow();
         root.getChildren().addAll(clientArea);
-        root.setTopAnchor(clientArea, 30d);
-        root.setBottomAnchor(clientArea, 5d);
-        root.setLeftAnchor(clientArea, 5d);
-        root.setRightAnchor(clientArea, 5d);
+        AnchorPane.setTopAnchor(clientArea, 30d);
+        AnchorPane.setBottomAnchor(clientArea, 5d);
+        AnchorPane.setLeftAnchor(clientArea, 5d);
+        AnchorPane.setRightAnchor(clientArea, 5d);
         Scene sc = new Scene(root);
         stage.setScene(sc);
         sc.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
     }
-
-    final private Node clientArea;
-    final private Stage stage;
 }

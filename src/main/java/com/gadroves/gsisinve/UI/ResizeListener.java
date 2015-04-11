@@ -1,4 +1,4 @@
-package com.gadroves.gsisinve.UI.window;
+package com.gadroves.gsisinve.UI;
 
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
@@ -26,7 +26,7 @@ public class ResizeListener implements EventHandler<MouseEvent> {
     Scene scene;
     Stage stage;
 
-    public ResizeListener(Stage stage, double minH, double minW){
+    public ResizeListener(Stage stage, double minH, double minW) {
         this.scene = stage.getScene();
         this.scene.setOnMouseMoved(this);
         this.scene.setOnMousePressed(this);
@@ -36,137 +36,126 @@ public class ResizeListener implements EventHandler<MouseEvent> {
         this.stage = stage;
     }
 
-    public Stage getStage(){
+    public Stage getStage() {
         return this.stage;
     }
 
-    public Scene getScene(){
+    public Scene getScene() {
         return this.scene;
     }
 
     @Override
     public void handle(MouseEvent t) {
-        if(MouseEvent.MOUSE_MOVED.equals(t.getEventType())){
-            if(t.getX() < border && t.getY() < border){
+        if (MouseEvent.MOUSE_MOVED.equals(t.getEventType())) {
+            if (t.getX() < border && t.getY() < border) {
                 scene.setCursor(Cursor.NW_RESIZE);
                 resizeH = true;
                 resizeV = true;
                 moveH = true;
                 moveV = true;
-            }
-            else if(t.getX() < border && t.getY() > scene.getHeight() -border){
+            } else if (t.getX() < border && t.getY() > scene.getHeight() - border) {
                 scene.setCursor(Cursor.SW_RESIZE);
                 resizeH = true;
                 resizeV = true;
                 moveH = true;
                 moveV = false;
-            }
-            else if(t.getX() > scene.getWidth() -border && t.getY() < border){
+            } else if (t.getX() > scene.getWidth() - border && t.getY() < border) {
                 scene.setCursor(Cursor.NE_RESIZE);
                 resizeH = true;
                 resizeV = true;
                 moveH = false;
                 moveV = true;
-            }
-            else if(t.getX() > scene.getWidth() -border && t.getY() > scene.getHeight() -border){
+            } else if (t.getX() > scene.getWidth() - border && t.getY() > scene.getHeight() - border) {
                 scene.setCursor(Cursor.SE_RESIZE);
                 resizeH = true;
                 resizeV = true;
                 moveH = false;
                 moveV = false;
-            }
-            else if(t.getX() < border || t.getX() > scene.getWidth() -border){
+            } else if (t.getX() < border || t.getX() > scene.getWidth() - border) {
                 scene.setCursor(Cursor.E_RESIZE);
                 resizeH = true;
                 resizeV = false;
                 moveH = (t.getX() < border);
                 moveV = false;
-            }
-            else if(t.getY() < border || t.getY() > scene.getHeight() -border){
+            } else if (t.getY() < border || t.getY() > scene.getHeight() - border) {
                 scene.setCursor(Cursor.N_RESIZE);
                 resizeH = false;
                 resizeV = true;
                 moveH = false;
                 moveV = (t.getY() < border);
-            }
-            else{
+            } else {
                 scene.setCursor(Cursor.DEFAULT);
                 resizeH = false;
                 resizeV = false;
                 moveH = false;
                 moveV = false;
             }
-        }
-        else if(MouseEvent.MOUSE_PRESSED.equals(t.getEventType())){
+        } else if (MouseEvent.MOUSE_PRESSED.equals(t.getEventType())) {
             dx = stage.getWidth() - t.getX();
             dy = stage.getHeight() - t.getY();
             initX = t.getScreenX() - stage.getX();
             initY = t.getScreenY() - stage.getY();
-        }
-        else if(MouseEvent.MOUSE_DRAGGED.equals(t.getEventType())) {
+        } else if (MouseEvent.MOUSE_DRAGGED.equals(t.getEventType())) {
             if (resizeH) {
                 if (stage.getWidth() <= this.minW/*minSize.width*/) {
                     if (moveH) {
                         deltaX = stage.getX() - t.getScreenX();
-                        if (t.getX() < 0 ) {// if new > old, it's permitted
-                            if(deltaX + stage.getWidth() >= this.minW) {
+                        if (t.getX() < 0) {// if new > old, it's permitted
+                            if (deltaX + stage.getWidth() >= this.minW) {
                                 stage.setWidth(deltaX + stage.getWidth());
                                 stage.setX(t.getScreenX());
                             }
                         }
                     } else {
                         if (t.getX() + dx - stage.getWidth() > 0) {
-                            if(t.getX() + dx >= this.minW)
+                            if (t.getX() + dx >= this.minW)
                                 stage.setWidth(t.getX() + dx);
                         }
                     }
                 } else if (stage.getWidth() > this.minW/*minSize.width*/) {
                     if (moveH) {
                         deltaX = stage.getX() - t.getScreenX();
-                        if(deltaX + stage.getWidth() >= this.minW) {
+                        if (deltaX + stage.getWidth() >= this.minW) {
                             stage.setWidth(deltaX + stage.getWidth());
                             stage.setX(t.getScreenX());
                         }
                     } else {
-                        if(t.getX() + dx >= this.minW)
+                        if (t.getX() + dx >= this.minW)
                             stage.setWidth(t.getX() + dx);
                     }
                 }
-            }
-            else if (resizeV) {
+            } else if (resizeV) {
                 if (stage.getHeight() <= this.minH/*minSize.width*/) {
                     if (moveV) {
                         deltaY = stage.getY() - t.getScreenY();
                         if (t.getY() < 0) {// if new > old, it's permitted
-                            if(deltaY + stage.getHeight() >= this.minH) {
+                            if (deltaY + stage.getHeight() >= this.minH) {
                                 stage.setHeight(deltaY + stage.getHeight());
                                 stage.setY(t.getScreenY());
                             }
                         }
                     } else {
                         if (t.getY() + dy - stage.getHeight() > 0) {
-                            if(t.getY() + dy >= this.minH)
+                            if (t.getY() + dy >= this.minH)
                                 stage.setHeight(t.getY() + dy);
                         }
                     }
                 } else if (stage.getHeight() > this.minH/*minSize.width*/) {
                     if (moveV) {
                         deltaY = stage.getY() - t.getScreenY();
-                        if(deltaY + stage.getHeight() >= this.minH) {
+                        if (deltaY + stage.getHeight() >= this.minH) {
                             stage.setHeight(deltaY + stage.getHeight());
                             stage.setY(t.getScreenY());
                         }
                     } else {
-                        if(t.getY() + dy >= this.minH)
+                        if (t.getY() + dy >= this.minH)
                             stage.setHeight(t.getY() + dy);
                     }
                 }
-            }
-            else{
-                if(stage.isMaximized()){
+            } else {
+                if (stage.isMaximized()) {
                     stage.setMaximized(false);
-                }
-                else {
+                } else {
                     stage.setX(t.getScreenX() - initX);
                     stage.setY(t.getScreenY() - initY);
                     scene.setCursor(Cursor.MOVE);

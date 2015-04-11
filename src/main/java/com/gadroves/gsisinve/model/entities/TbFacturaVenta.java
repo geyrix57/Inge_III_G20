@@ -23,7 +23,7 @@ public class TbFacturaVenta {
     private Collection<TbLineaFac> tbLineaFacsById;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
@@ -95,9 +95,8 @@ public class TbFacturaVenta {
         if (sub != null ? !sub.equals(that.sub) : that.sub != null) return false;
         if (total != null ? !total.equals(that.total) : that.total != null) return false;
         if (tax != null ? !tax.equals(that.tax) : that.tax != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        return !(address != null ? !address.equals(that.address) : that.address != null);
 
-        return true;
     }
 
     @Override

@@ -18,19 +18,19 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- *
  * @author Aaron
  */
 public class CustomDate {
     StringProperty fecha;
     StringProperty hora;
-    public CustomDate(StringProperty fecha, StringProperty hora){
-        this.fecha=new SimpleStringProperty();
+
+    public CustomDate(StringProperty fecha, StringProperty hora) {
+        this.fecha = new SimpleStringProperty();
         fecha.bind(this.fecha);
-        this.hora=new SimpleStringProperty();
+        this.hora = new SimpleStringProperty();
         hora.bind(this.hora);
     }
-    
+
     public void start() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0),
@@ -42,7 +42,7 @@ public class CustomDate {
                                 SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat("dd-MM-yyyy");
                                 hora.set(simpleDateFormat.format(time.getTime()));
                                 fecha.set(simpleDateFormat2.format(time.getTime()));
-                                
+
                             }
                         }
                 ),

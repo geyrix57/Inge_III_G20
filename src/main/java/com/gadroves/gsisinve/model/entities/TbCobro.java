@@ -19,7 +19,7 @@ public class TbCobro {
     private TbFacturaVenta tbFacturaVentaByFacturaAsociada;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "num_recibo", nullable = false, insertable = true, updatable = true)
     public int getNumRecibo() {
         return numRecibo;
@@ -81,9 +81,8 @@ public class TbCobro {
         if (cuentaCliente != null ? !cuentaCliente.equals(tbCobro.cuentaCliente) : tbCobro.cuentaCliente != null)
             return false;
         if (fecha != null ? !fecha.equals(tbCobro.fecha) : tbCobro.fecha != null) return false;
-        if (monto != null ? !monto.equals(tbCobro.monto) : tbCobro.monto != null) return false;
+        return !(monto != null ? !monto.equals(tbCobro.monto) : tbCobro.monto != null);
 
-        return true;
     }
 
     @Override
