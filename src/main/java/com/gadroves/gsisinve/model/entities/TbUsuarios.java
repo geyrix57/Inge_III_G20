@@ -14,7 +14,7 @@ public class TbUsuarios {
     private int nivel;
 
     @Id
-    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true, length = 16)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 16)
     public String getId() {
         return id;
     }
@@ -52,9 +52,8 @@ public class TbUsuarios {
 
         if (nivel != that.nivel) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (!Arrays.equals(pass, that.pass)) return false;
+        return Arrays.equals(pass, that.pass);
 
-        return true;
     }
 
     @Override

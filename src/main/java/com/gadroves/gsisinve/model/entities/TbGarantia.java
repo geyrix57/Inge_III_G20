@@ -2,6 +2,7 @@ package com.gadroves.gsisinve.model.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
  * Created by geykel on 01/04/2015.
@@ -12,9 +13,11 @@ public class TbGarantia {
     private int consecutivo;
     private Date fechaCreacion;
     private Date fechaVencimiento;
-    private short estado;
+    private boolean estado;
     private int facturaAsociada;
+
     private TbFacturaVenta tbFacturaVentaByFacturaAsociada;
+    private Collection<TbResolucionGarantia> tbResolucionGarantiasByConsecutivo;
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -49,11 +52,11 @@ public class TbGarantia {
 
     @Basic
     @Column(name = "estado", nullable = false, insertable = true, updatable = true)
-    public short getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(short estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
@@ -70,36 +73,44 @@ public class TbGarantia {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbGarantia)) return false;
 
         TbGarantia that = (TbGarantia) o;
 
         if (consecutivo != that.consecutivo) return false;
         if (estado != that.estado) return false;
         if (facturaAsociada != that.facturaAsociada) return false;
-        if (fechaCreacion != null ? !fechaCreacion.equals(that.fechaCreacion) : that.fechaCreacion != null)
-            return false;
-        return !(fechaVencimiento != null ? !fechaVencimiento.equals(that.fechaVencimiento) : that.fechaVencimiento != null);
+        if (!fechaCreacion.equals(that.fechaCreacion)) return false;
+        return fechaVencimiento.equals(that.fechaVencimiento);
 
     }
 
     @Override
     public int hashCode() {
         int result = consecutivo;
-        result = 31 * result + (fechaCreacion != null ? fechaCreacion.hashCode() : 0);
-        result = 31 * result + (fechaVencimiento != null ? fechaVencimiento.hashCode() : 0);
-        result = 31 * result + (int) estado;
+        result = 31 * result + fechaCreacion.hashCode();
+        result = 31 * result + fechaVencimiento.hashCode();
+        result = 31 * result + (estado ? 1 : 0);
         result = 31 * result + facturaAsociada;
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false)})
     public TbFacturaVenta getTbFacturaVentaByFacturaAsociada() {
         return tbFacturaVentaByFacturaAsociada;
     }
 
     public void setTbFacturaVentaByFacturaAsociada(TbFacturaVenta tbFacturaVentaByFacturaAsociada) {
         this.tbFacturaVentaByFacturaAsociada = tbFacturaVentaByFacturaAsociada;
+    }
+
+    @OneToMany(mappedBy = "tbGarantiaByIdGarantia")
+    public Collection<TbResolucionGarantia> getTbResolucionGarantiasByConsecutivo() {
+        return tbResolucionGarantiasByConsecutivo;
+    }
+
+    public void setTbResolucionGarantiasByConsecutivo(Collection<TbResolucionGarantia> tbResolucionGarantiasByConsecutivo) {
+        this.tbResolucionGarantiasByConsecutivo = tbResolucionGarantiasByConsecutivo;
     }
 }

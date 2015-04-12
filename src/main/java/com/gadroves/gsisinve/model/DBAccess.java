@@ -31,15 +31,15 @@ public final class DBAccess {
         return streams.streamAll(em, entity);
     }
 
-    public void Insert(Object var) {
+    public void Insert(Object var) throws Exception {
         em.persist(var);
     }
 
-    public <T> T Update(T t) {
+    public <T> T Update(T t) throws Exception {
         return em.merge(t);
     }
 
-    public void Delete(Object var) {
+    public void Delete(Object var) throws Exception {
         em.remove(var);
     }
 
@@ -52,7 +52,6 @@ public final class DBAccess {
     }
 
     public void Open() {
-        if (this.isOpen()) return;
         entityManagerFactory = Persistence.createEntityManagerFactory("DB_SISGADROVES");
         em = entityManagerFactory.createEntityManager();
         streams = new JinqJPAStreamProvider(entityManagerFactory);

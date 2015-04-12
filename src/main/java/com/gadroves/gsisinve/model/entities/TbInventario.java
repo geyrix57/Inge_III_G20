@@ -78,9 +78,8 @@ public class TbInventario {
         if (minQuant != that.minQuant) return false;
         if (maxQuant != that.maxQuant) return false;
         if (codeArt != null ? !codeArt.equals(that.codeArt) : that.codeArt != null) return false;
-        if (codeBod != null ? !codeBod.equals(that.codeBod) : that.codeBod != null) return false;
+        return !(codeBod != null ? !codeBod.equals(that.codeBod) : that.codeBod != null);
 
-        return true;
     }
 
     @Override
@@ -94,7 +93,7 @@ public class TbInventario {
     }
 
     @ManyToOne
-    @JoinColumn(name = "code_art", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "code_art", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "code_art", referencedColumnName = "id", nullable = false)})
     public TbArticulo getTbArticuloByCodeArt() {
         return tbArticuloByCodeArt;
     }
@@ -104,7 +103,7 @@ public class TbInventario {
     }
 
     @ManyToOne
-    @JoinColumn(name = "code_bod", referencedColumnName = "code", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "code_bod", referencedColumnName = "code", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "code_bod", referencedColumnName = "code", nullable = false)})
     public TbBodega getTbBodegaByCodeBod() {
         return tbBodegaByCodeBod;
     }

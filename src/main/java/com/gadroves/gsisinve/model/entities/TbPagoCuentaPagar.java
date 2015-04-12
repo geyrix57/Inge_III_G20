@@ -14,6 +14,7 @@ public class TbPagoCuentaPagar {
     private Integer factura;
     private Date fechaPago;
     private int pagoId;
+
     private CuentaAPagar cuentaAPagarByCuentaPago;
     private TbFacturaCompra tbFacturaCompraByFactura;
 
@@ -97,7 +98,7 @@ public class TbPagoCuentaPagar {
     }
 
     @ManyToOne
-    @JoinColumn(name = "cuenta_pago", referencedColumnName = "cuenta", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cuenta_pago", referencedColumnName = "cuenta", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta_pago", referencedColumnName = "cuenta", nullable = false)})
     public CuentaAPagar getCuentaAPagarByCuentaPago() {
         return cuentaAPagarByCuentaPago;
     }
@@ -107,7 +108,7 @@ public class TbPagoCuentaPagar {
     }
 
     @ManyToOne
-    @JoinColumn(name = "factura", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "factura", referencedColumnName = "id", insertable = false, updatable = false), @JoinColumn(name = "factura", referencedColumnName = "id")})
     public TbFacturaCompra getTbFacturaCompraByFactura() {
         return tbFacturaCompraByFactura;
     }

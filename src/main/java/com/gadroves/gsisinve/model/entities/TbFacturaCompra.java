@@ -24,7 +24,7 @@ public class TbFacturaCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
     }
@@ -129,7 +129,7 @@ public class TbFacturaCompra {
     }
 
     @ManyToOne
-    @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false)})
     public TbProveedor getTbProveedorByProvId() {
         return tbProveedorByProvId;
     }

@@ -52,9 +52,8 @@ public class TbContactoProveedores {
 
         if (idProveedor != null ? !idProveedor.equals(that.idProveedor) : that.idProveedor != null) return false;
         if (tipo != null ? !tipo.equals(that.tipo) : that.tipo != null) return false;
-        if (valor != null ? !valor.equals(that.valor) : that.valor != null) return false;
+        return !(valor != null ? !valor.equals(that.valor) : that.valor != null);
 
-        return true;
     }
 
     @Override
@@ -66,7 +65,7 @@ public class TbContactoProveedores {
     }
 
     @OneToOne
-    @JoinColumn(name = "id_proveedor", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "id_proveedor", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "id_proveedor", referencedColumnName = "codigo", nullable = false)})
     public TbProveedor getTbProveedorByIdProveedor() {
         return tbProveedorByIdProveedor;
     }

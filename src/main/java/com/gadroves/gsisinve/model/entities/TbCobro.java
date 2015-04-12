@@ -1,7 +1,6 @@
 package com.gadroves.gsisinve.model.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -14,7 +13,7 @@ public class TbCobro {
     private String cuentaCliente;
     private Date fecha;
     private int facturaAsociada;
-    private BigDecimal monto;
+    private double monto;
     private TbCuentaCobrar tbCuentaCobrarByCuentaCliente;
     private TbFacturaVenta tbFacturaVentaByFacturaAsociada;
 
@@ -60,43 +59,45 @@ public class TbCobro {
     }
 
     @Basic
-    @Column(name = "monto", nullable = false, insertable = true, updatable = true, precision = 3)
-    public BigDecimal getMonto() {
+    @Column(name = "monto", nullable = false, insertable = true, updatable = true, precision = 0)
+    public double getMonto() {
         return monto;
     }
 
-    public void setMonto(BigDecimal monto) {
+    public void setMonto(double monto) {
         this.monto = monto;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbCobro)) return false;
 
         TbCobro tbCobro = (TbCobro) o;
 
         if (numRecibo != tbCobro.numRecibo) return false;
         if (facturaAsociada != tbCobro.facturaAsociada) return false;
-        if (cuentaCliente != null ? !cuentaCliente.equals(tbCobro.cuentaCliente) : tbCobro.cuentaCliente != null)
-            return false;
-        if (fecha != null ? !fecha.equals(tbCobro.fecha) : tbCobro.fecha != null) return false;
-        return !(monto != null ? !monto.equals(tbCobro.monto) : tbCobro.monto != null);
+        if (Double.compare(tbCobro.monto, monto) != 0) return false;
+        if (!cuentaCliente.equals(tbCobro.cuentaCliente)) return false;
+        return fecha.equals(tbCobro.fecha);
 
     }
 
     @Override
     public int hashCode() {
-        int result = numRecibo;
-        result = 31 * result + (cuentaCliente != null ? cuentaCliente.hashCode() : 0);
-        result = 31 * result + (fecha != null ? fecha.hashCode() : 0);
+        int result;
+        long temp;
+        result = numRecibo;
+        result = 31 * result + cuentaCliente.hashCode();
+        result = 31 * result + fecha.hashCode();
         result = 31 * result + facturaAsociada;
-        result = 31 * result + (monto != null ? monto.hashCode() : 0);
+        temp = Double.doubleToLongBits(monto);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "cuenta_cliente", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cuenta_cliente", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta_cliente", referencedColumnName = "cliente", nullable = false)})
     public TbCuentaCobrar getTbCuentaCobrarByCuentaCliente() {
         return tbCuentaCobrarByCuentaCliente;
     }
@@ -106,7 +107,7 @@ public class TbCobro {
     }
 
     @ManyToOne
-    @JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false)})
     public TbFacturaVenta getTbFacturaVentaByFacturaAsociada() {
         return tbFacturaVentaByFacturaAsociada;
     }

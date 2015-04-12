@@ -55,9 +55,8 @@ public class TbArticuloProveedor {
 
         if (Double.compare(that.precioCompra, precioCompra) != 0) return false;
         if (artId != null ? !artId.equals(that.artId) : that.artId != null) return false;
-        if (provId != null ? !provId.equals(that.provId) : that.provId != null) return false;
+        return !(provId != null ? !provId.equals(that.provId) : that.provId != null);
 
-        return true;
     }
 
     @Override
@@ -72,7 +71,7 @@ public class TbArticuloProveedor {
     }
 
     @OneToOne
-    @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false)})
     public TbArticulo getTbArticuloByArtId() {
         return tbArticuloByArtId;
     }
@@ -82,7 +81,7 @@ public class TbArticuloProveedor {
     }
 
     @ManyToOne
-    @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false)})
     public TbProveedor getTbProveedorByProvId() {
         return tbProveedorByProvId;
     }

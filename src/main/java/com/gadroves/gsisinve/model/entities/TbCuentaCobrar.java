@@ -12,7 +12,7 @@ import java.util.Collection;
 public class TbCuentaCobrar {
     private String cliente;
     private double saldo;
-    private short estado;
+    private boolean estado;
     private Date fechaApertura;
     private Date fechaSiguiente;
     private Collection<TbCobro> tbCobrosByCliente;
@@ -41,11 +41,11 @@ public class TbCuentaCobrar {
 
     @Basic
     @Column(name = "estado", nullable = false, insertable = true, updatable = true)
-    public short getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(short estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
@@ -72,31 +72,28 @@ public class TbCuentaCobrar {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbCuentaCobrar)) return false;
 
         TbCuentaCobrar that = (TbCuentaCobrar) o;
 
         if (Double.compare(that.saldo, saldo) != 0) return false;
         if (estado != that.estado) return false;
-        if (cliente != null ? !cliente.equals(that.cliente) : that.cliente != null) return false;
-        if (fechaApertura != null ? !fechaApertura.equals(that.fechaApertura) : that.fechaApertura != null)
-            return false;
-        if (fechaSiguiente != null ? !fechaSiguiente.equals(that.fechaSiguiente) : that.fechaSiguiente != null)
-            return false;
+        if (!cliente.equals(that.cliente)) return false;
+        if (!fechaApertura.equals(that.fechaApertura)) return false;
+        return fechaSiguiente.equals(that.fechaSiguiente);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = cliente != null ? cliente.hashCode() : 0;
+        result = cliente.hashCode();
         temp = Double.doubleToLongBits(saldo);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (int) estado;
-        result = 31 * result + (fechaApertura != null ? fechaApertura.hashCode() : 0);
-        result = 31 * result + (fechaSiguiente != null ? fechaSiguiente.hashCode() : 0);
+        result = 31 * result + (estado ? 1 : 0);
+        result = 31 * result + fechaApertura.hashCode();
+        result = 31 * result + fechaSiguiente.hashCode();
         return result;
     }
 
@@ -110,7 +107,7 @@ public class TbCuentaCobrar {
     }
 
     @OneToOne
-    @JoinColumn(name = "cliente", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cliente", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cliente", referencedColumnName = "id", nullable = false)})
     public TbClienteCuenta getTbClienteCuentaByCliente() {
         return tbClienteCuentaByCliente;
     }

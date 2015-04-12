@@ -1,7 +1,6 @@
 package com.gadroves.gsisinve.model.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.Collection;
 
@@ -13,10 +12,11 @@ import java.util.Collection;
 public class TbFacturaVenta {
     private int id;
     private Date facDate;
-    private BigDecimal sub;
-    private BigDecimal total;
-    private BigDecimal tax;
+    private double sub;
+    private double total;
+    private double impuestos;
     private String address;
+
     private TbCLienteFactura tbCLienteFacturaById;
     private Collection<TbCobro> tbCobrosById;
     private Collection<TbGarantia> tbGarantiasById;
@@ -24,7 +24,7 @@ public class TbFacturaVenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true)
+    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id;
     }
@@ -44,33 +44,23 @@ public class TbFacturaVenta {
     }
 
     @Basic
-    @Column(name = "sub", nullable = false, insertable = true, updatable = true, precision = 3)
-    public BigDecimal getSub() {
+    @Column(name = "sub", nullable = false, insertable = true, updatable = true, precision = 0)
+    public double getSub() {
         return sub;
     }
 
-    public void setSub(BigDecimal sub) {
+    public void setSub(double sub) {
         this.sub = sub;
     }
 
     @Basic
-    @Column(name = "total", nullable = false, insertable = true, updatable = true, precision = 3)
-    public BigDecimal getTotal() {
+    @Column(name = "total", nullable = false, insertable = true, updatable = true, precision = 0)
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
-    }
-
-    @Basic
-    @Column(name = "tax", nullable = false, insertable = true, updatable = true, precision = 3)
-    public BigDecimal getTax() {
-        return tax;
-    }
-
-    public void setTax(BigDecimal tax) {
-        this.tax = tax;
     }
 
     @Basic
@@ -83,30 +73,45 @@ public class TbFacturaVenta {
         this.address = address;
     }
 
+    @Basic
+    @Column(name = "impuestos", nullable = false, insertable = true, updatable = true, precision = 0)
+    public double getImpuestos() {
+        return impuestos;
+    }
+
+    public void setImpuestos(double impuestos) {
+        this.impuestos = impuestos;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbFacturaVenta)) return false;
 
         TbFacturaVenta that = (TbFacturaVenta) o;
 
         if (id != that.id) return false;
-        if (facDate != null ? !facDate.equals(that.facDate) : that.facDate != null) return false;
-        if (sub != null ? !sub.equals(that.sub) : that.sub != null) return false;
-        if (total != null ? !total.equals(that.total) : that.total != null) return false;
-        if (tax != null ? !tax.equals(that.tax) : that.tax != null) return false;
-        return !(address != null ? !address.equals(that.address) : that.address != null);
+        if (Double.compare(that.sub, sub) != 0) return false;
+        if (Double.compare(that.total, total) != 0) return false;
+        if (Double.compare(that.impuestos, impuestos) != 0) return false;
+        if (!facDate.equals(that.facDate)) return false;
+        return address.equals(that.address);
 
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (facDate != null ? facDate.hashCode() : 0);
-        result = 31 * result + (sub != null ? sub.hashCode() : 0);
-        result = 31 * result + (total != null ? total.hashCode() : 0);
-        result = 31 * result + (tax != null ? tax.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + facDate.hashCode();
+        temp = Double.doubleToLongBits(sub);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(total);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(impuestos);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + address.hashCode();
         return result;
     }
 
@@ -145,4 +150,5 @@ public class TbFacturaVenta {
     public void setTbLineaFacsById(Collection<TbLineaFac> tbLineaFacsById) {
         this.tbLineaFacsById = tbLineaFacsById;
     }
+
 }
