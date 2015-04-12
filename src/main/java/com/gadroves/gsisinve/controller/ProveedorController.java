@@ -9,6 +9,9 @@ import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 
 /**
  * FXML Controller class
@@ -17,10 +20,16 @@ import java.util.ResourceBundle;
  */
 public class ProveedorController implements Initializable {
 
+    @FXML
+    RadioButton activo;
+    @FXML
+    RadioButton inactivo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ToggleGroup group = new ToggleGroup();
+        this.activo.setToggleGroup(group);
+        this.inactivo.setToggleGroup(group);
     }
 
 }

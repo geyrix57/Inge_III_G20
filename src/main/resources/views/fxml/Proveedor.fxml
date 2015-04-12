@@ -59,8 +59,8 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Activo" textFill="#fffdfd" />
-                        <RadioButton mnemonicParsing="false" text="Inactivo" textFill="#fffefe" />
+                        <RadioButton fx:id="activo" mnemonicParsing="false" text="Activo" textFill="#fffdfd" />
+                        <RadioButton fx:id="inactivo" mnemonicParsing="false" text="Inactivo" textFill="#fffefe" />
                      </children>
                      <padding>
                         <Insets bottom="50.0" top="50.0" />
