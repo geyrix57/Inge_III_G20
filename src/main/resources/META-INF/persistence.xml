@@ -30,10 +30,6 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="usisgradoves"/>
             <property name="javax.persistence.jdbc.password" value="psisgradoves"/>
-            <property name="eclipselink.jdbc.url" value="jdbc:mysql://db4free.net:3306/sisgradoves"/>
-            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="eclipselink.jdbc.user"/>
-            <property name="eclipselink.jdbc.password"/>
         </properties>
     </persistence-unit>
 </persistence>

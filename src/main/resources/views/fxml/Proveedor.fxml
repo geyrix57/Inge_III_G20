@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="415.0" styleClass="grid" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0"
+            prefWidth="415.0"
+            styleClass="grid" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gadroves.gsisinve.controller.ProveedorController">
     <top>
         <MenuBar prefHeight="31.0" prefWidth="603.0" BorderPane.alignment="CENTER">
             <menus>
@@ -41,14 +43,15 @@
           <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="111.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="1" />
+             <TextField fx:id="codigo" prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="1"/>
             <Label text="Código:" />
             <Label text="Dirección:" GridPane.rowIndex="3" />
-            <TextArea prefHeight="135.0" prefWidth="203.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+             <TextArea fx:id="direccion" prefHeight="135.0" prefWidth="203.0" GridPane.columnIndex="1"
+                       GridPane.rowIndex="3"/>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
-                  <Button mnemonicParsing="false" text="Aceptar" />
-                  <Button mnemonicParsing="false" text="Cancelar" />
+                   <Button mnemonicParsing="false" onAction="#aceptar" text="Aceptar"/>
+                   <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar"/>
                </children>
                <padding>
                   <Insets bottom="30.0" right="30.0" top="30.0" />
@@ -68,7 +71,7 @@
                   </HBox>
                </children>
             </HBox>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+             <TextField fx:id="nombre" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <Label text="Nombre:" GridPane.rowIndex="1" />
          </children>
          <padding>
