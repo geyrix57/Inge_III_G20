@@ -82,7 +82,7 @@ public class TbResolucionGarantia {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_producto", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "id_producto", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "id_producto", referencedColumnName = "id", nullable = false)})
     public TbArticulo getTbArticuloByIdProducto() {
         return tbArticuloByIdProducto;
     }
@@ -92,7 +92,7 @@ public class TbResolucionGarantia {
     }
 
     @ManyToOne
-    @JoinColumn(name = "id_garantia", referencedColumnName = "consecutivo", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "id_garantia", referencedColumnName = "consecutivo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "id_garantia", referencedColumnName = "consecutivo", nullable = false)})
     public TbGarantia getTbGarantiaByIdGarantia() {
         return tbGarantiaByIdGarantia;
     }

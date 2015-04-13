@@ -15,7 +15,6 @@ public class TbGarantia {
     private Date fechaVencimiento;
     private boolean estado;
     private int facturaAsociada;
-
     private TbFacturaVenta tbFacturaVentaByFacturaAsociada;
     private Collection<TbResolucionGarantia> tbResolucionGarantiasByConsecutivo;
 
@@ -96,7 +95,7 @@ public class TbGarantia {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "factura_asociada", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbFacturaVenta getTbFacturaVentaByFacturaAsociada() {
         return tbFacturaVentaByFacturaAsociada;
     }

@@ -71,7 +71,7 @@ public class TbArticuloProveedor {
     }
 
     @OneToOne
-    @JoinColumns({@JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbArticulo getTbArticuloByArtId() {
         return tbArticuloByArtId;
     }
@@ -81,7 +81,7 @@ public class TbArticuloProveedor {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false)})
+    @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false)
     public TbProveedor getTbProveedorByProvId() {
         return tbProveedorByProvId;
     }

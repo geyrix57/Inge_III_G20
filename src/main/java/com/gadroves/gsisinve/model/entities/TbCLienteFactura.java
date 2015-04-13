@@ -91,7 +91,7 @@ public class TbCLienteFactura {
     }
 
     @OneToOne
-    @JoinColumns({@JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbFacturaVenta getTbFacturaVentaByFacId() {
         return tbFacturaVentaByFacId;
     }

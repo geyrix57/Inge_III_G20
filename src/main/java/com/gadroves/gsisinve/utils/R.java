@@ -30,8 +30,24 @@ public class R {
     }
 
     public static Node loadScreen(String name) throws IOException {
-        FXMLLoader myLoader = new FXMLLoader(getFxml(name));
-        Node loadScreen = myLoader.load();
+        FXMLLoader loader = new FXMLLoader(getFxml(name));
+        Node loadScreen = loader.load();
+        return loadScreen;
+    }
+
+    /**
+     * Carga una archivo fxml e inserta un objeto el en controlador
+     *
+     * @param name   nombre del FXML sin la extension
+     * @param Object objeto que se va a insertar en el controlador
+     * @param <T>
+     * @return un nodo fxml
+     * @throws IOException
+     */
+    public static <T> Node loadScreen(String name, T Object) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getFxml(name));
+        Node loadScreen = loader.load();
+        loader.<InitData<T>>getController().initData(Object);
         return loadScreen;
     }
 

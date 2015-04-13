@@ -70,7 +70,7 @@ public class TbFacturasCuentaPagar {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "cuenta", referencedColumnName = "cuenta", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta", referencedColumnName = "cuenta", nullable = false)})
+    @JoinColumn(name = "cuenta", referencedColumnName = "cuenta", nullable = false, insertable = false, updatable = false)
     public CuentaAPagar getCuentaAPagarByCuenta() {
         return cuentaAPagarByCuenta;
     }
@@ -80,7 +80,7 @@ public class TbFacturasCuentaPagar {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "factura", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "factura", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "factura", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbFacturaCompra getTbFacturaCompraByFactura() {
         return tbFacturaCompraByFactura;
     }

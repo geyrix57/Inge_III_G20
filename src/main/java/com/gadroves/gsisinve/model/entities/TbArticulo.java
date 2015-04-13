@@ -16,7 +16,6 @@ public class TbArticulo {
     private boolean grav;
     private boolean estado;
     private Integer categoriaId;
-
     private TbArticuloProveedor tbArticuloProveedorById;
     private Collection<TbInventario> tbInventariosById;
     private Collection<TbLineaFac> tbLineaFacsById;
@@ -152,7 +151,7 @@ public class TbArticulo {
     }
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id", referencedColumnName = "t_id", insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "categoria_id", referencedColumnName = "t_id", insertable = false, updatable = false), @JoinColumn(name = "categoria_id", referencedColumnName = "t_id")})
     public TbCategoria getTbCategoriaByCategoriaId() {
         return tbCategoriaByCategoriaId;
     }

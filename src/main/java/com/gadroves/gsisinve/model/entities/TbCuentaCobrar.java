@@ -107,7 +107,7 @@ public class TbCuentaCobrar {
     }
 
     @OneToOne
-    @JoinColumns({@JoinColumn(name = "cliente", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cliente", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "cliente", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbClienteCuenta getTbClienteCuentaByCliente() {
         return tbClienteCuentaByCliente;
     }

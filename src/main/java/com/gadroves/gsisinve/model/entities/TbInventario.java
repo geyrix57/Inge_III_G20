@@ -93,7 +93,7 @@ public class TbInventario {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "code_art", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "code_art", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "code_art", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbArticulo getTbArticuloByCodeArt() {
         return tbArticuloByCodeArt;
     }
@@ -103,7 +103,7 @@ public class TbInventario {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "code_bod", referencedColumnName = "code", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "code_bod", referencedColumnName = "code", nullable = false)})
+    @JoinColumn(name = "code_bod", referencedColumnName = "code", nullable = false, insertable = false, updatable = false)
     public TbBodega getTbBodegaByCodeBod() {
         return tbBodegaByCodeBod;
     }

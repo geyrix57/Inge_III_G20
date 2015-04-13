@@ -24,6 +24,7 @@ public class CustomWindow {
 
     final private Node clientArea;
     final private Stage stage;
+    private WindowController wc;
 
     public CustomWindow(Node clientArea) {
         this.stage = new Stage();
@@ -37,11 +38,16 @@ public class CustomWindow {
         this.clientArea.setCursor(Cursor.DEFAULT);
     }
 
-    public void show() throws IOException {
+    public void setMaximize(boolean f) {
+        wc.getMaximize().setDisable(!f);
+    }
+
+    public CustomWindow show() throws IOException {
         build();
         this.stage.show();
         showEffect();
         new ResizeListener(this.stage, stage.getHeight(), stage.getWidth());
+        return this;
     }
 
     private void showEffect() {
@@ -51,7 +57,7 @@ public class CustomWindow {
         fadeIn.play();
     }
 
-    private void setActionToButton(WindowController wc) {
+    private void setActionToButton() {
         wc.getClose().setOnAction(ev -> {
             stage.close();
         });
@@ -66,17 +72,20 @@ public class CustomWindow {
     private Parent loadWindow() throws IOException {
         FXMLLoader Loader = new FXMLLoader(R.getFxml("window"));
         Parent window = Loader.load();
-        setActionToButton(Loader.getController());
+        wc = Loader.getController();
         return window;
     }
 
     private void build() throws IOException {
         AnchorPane root = (AnchorPane) loadWindow();
+        setActionToButton();
+
         root.getChildren().addAll(clientArea);
         AnchorPane.setTopAnchor(clientArea, 30d);
         AnchorPane.setBottomAnchor(clientArea, 5d);
         AnchorPane.setLeftAnchor(clientArea, 5d);
         AnchorPane.setRightAnchor(clientArea, 5d);
+
         Scene sc = new Scene(root);
         stage.setScene(sc);
         sc.setFill(Color.TRANSPARENT);

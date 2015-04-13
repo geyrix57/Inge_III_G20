@@ -13,7 +13,6 @@ public class TbLineaFac {
     private String artId;
     private boolean quant;
     private double disc;
-
     private TbArticulo tbArticuloByArtId;
     private TbFacturaVenta tbFacturaVentaByFacId;
 
@@ -84,7 +83,7 @@ public class TbLineaFac {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbArticulo getTbArticuloByArtId() {
         return tbArticuloByArtId;
     }
@@ -94,7 +93,7 @@ public class TbLineaFac {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbFacturaVenta getTbFacturaVentaByFacId() {
         return tbFacturaVentaByFacId;
     }

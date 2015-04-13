@@ -20,13 +20,13 @@ public class AdminPanelController implements Initializable {
     @FXML
     private WebView browser;
 
-    private void openWindow(String name) {
+    private CustomWindow openWindow(String name) {
         try {
-            new CustomWindow(R.loadScreen(name))
-                    .show();
+            return new CustomWindow(R.loadScreen(name)).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @FXML
@@ -36,7 +36,7 @@ public class AdminPanelController implements Initializable {
 
     @FXML
     private void openProveedor() {
-        openWindow("proveedor");
+        openWindow("proveedor").setMaximize(false);
     }
 
     @FXML

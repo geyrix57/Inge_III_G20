@@ -129,7 +129,7 @@ public class TbFacturaCompra {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false)})
+    @JoinColumn(name = "prov_id", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false)
     public TbProveedor getTbProveedorByProvId() {
         return tbProveedorByProvId;
     }

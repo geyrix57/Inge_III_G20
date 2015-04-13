@@ -21,7 +21,7 @@ public class TbProveedor {
 
     private CuentaAPagar cuentaAPagarByCodigo;
     private Collection<TbArticuloProveedor> tbArticuloProveedorsByCodigo;
-    private TbContactoProveedores tbContactoProveedoresByCodigo;
+    private Collection<TbContactoProveedores> tbContactoProveedoresByCodigo;
     private Collection<TbFacturaCompra> tbFacturaComprasByCodigo;
 
     public StringProperty codigoProperty() {
@@ -46,8 +46,9 @@ public class TbProveedor {
         return codigo.get();
     }
 
-    public void setCodigo(String codigo) {
+    public TbProveedor setCodigo(String codigo) {
         this.codigo.set(codigo);
+        return this;
     }
 
     @Basic
@@ -56,8 +57,9 @@ public class TbProveedor {
         return nombre.get();
     }
 
-    public void setNombre(String nombre) {
+    public TbProveedor setNombre(String nombre) {
         this.nombre.set(nombre);
+        return this;
     }
 
     @Basic
@@ -66,8 +68,9 @@ public class TbProveedor {
         return direccion.get();
     }
 
-    public void setDireccion(String direccion) {
+    public TbProveedor setDireccion(String direccion) {
         this.direccion.set(direccion);
+        return this;
     }
 
     @Basic
@@ -76,8 +79,9 @@ public class TbProveedor {
         return estado.get();
     }
 
-    public void setEstado(boolean estado) {
+    public TbProveedor setEstado(boolean estado) {
         this.estado.set(estado);
+        return this;
     }
 
     @Override
@@ -131,12 +135,12 @@ public class TbProveedor {
         this.tbArticuloProveedorsByCodigo = tbArticuloProveedorsByCodigo;
     }
 
-    @OneToOne(mappedBy = "tbProveedorByIdProveedor")
-    public TbContactoProveedores getTbContactoProveedoresByCodigo() {
+    @OneToMany(mappedBy = "tbProveedorByIdProvedor")
+    public Collection<TbContactoProveedores> getTbContactoProveedoresByCodigo() {
         return tbContactoProveedoresByCodigo;
     }
 
-    public void setTbContactoProveedoresByCodigo(TbContactoProveedores tbContactoProveedoresByCodigo) {
+    public void setTbContactoProveedoresByCodigo(Collection<TbContactoProveedores> tbContactoProveedoresByCodigo) {
         this.tbContactoProveedoresByCodigo = tbContactoProveedoresByCodigo;
     }
 

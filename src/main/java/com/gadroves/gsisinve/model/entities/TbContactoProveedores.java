@@ -1,5 +1,8 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 
 /**
@@ -8,69 +11,107 @@ import javax.persistence.*;
 @Entity
 @Table(name = "TB_Contacto_Proveedores", schema = "", catalog = "sisgradoves")
 public class TbContactoProveedores {
-    private String idProveedor;
-    private String tipo;
-    private String valor;
-    private TbProveedor tbProveedorByIdProveedor;
+    private int idCons;
+    private String idProvedor;
+    private StringProperty tipo = new SimpleStringProperty();
+    private StringProperty valor = new SimpleStringProperty();
 
-    @Id
-    @Column(name = "id_proveedor", nullable = false, insertable = true, updatable = true, length = 32)
-    public String getIdProveedor() {
-        return idProveedor;
+    private TbProveedor tbProveedorByIdProvedor;
+
+    public StringProperty tipoProperty() {
+        return tipo;
     }
 
-    public void setIdProveedor(String idProveedor) {
-        this.idProveedor = idProveedor;
+    public StringProperty valorProperty() {
+        return valor;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_cons", nullable = false, insertable = true, updatable = true)
+    public int getIdCons() {
+        return idCons;
+    }
+
+    public TbContactoProveedores setIdCons(int idCons) {
+        this.idCons = idCons;
+        return this;
+    }
+
+    @Basic
+    @Column(name = "id_provedor", nullable = false, insertable = true, updatable = true, length = 22)
+    public String getIdProvedor() {
+        return idProvedor;
+    }
+
+    public TbContactoProveedores setIdProvedor(String idProvedor) {
+        this.idProvedor = idProvedor;
+        return this;
     }
 
     @Basic
     @Column(name = "tipo", nullable = true, insertable = true, updatable = true, length = 12)
     public String getTipo() {
-        return tipo;
+        return tipo.get();
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public TbContactoProveedores setTipo(String tipo) {
+        this.tipo.set(tipo);
+        return this;
     }
 
     @Basic
     @Column(name = "valor", nullable = true, insertable = true, updatable = true, length = 64)
     public String getValor() {
-        return valor;
+        return valor.get();
     }
 
-    public void setValor(String valor) {
-        this.valor = valor;
+    public TbContactoProveedores setValor(String valor) {
+        this.valor.set(valor);
+        return this;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_provedor", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false)
+    public TbProveedor getTbProveedorByIdProvedor() {
+        return tbProveedorByIdProvedor;
+    }
+
+    public TbContactoProveedores setTbProveedorByIdProvedor(TbProveedor tbProveedorByIdProvedor) {
+        this.tbProveedorByIdProvedor = tbProveedorByIdProvedor;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "TbContactoProveedores{" +
+                "idCons=" + idCons +
+                ", idProvedor='" + idProvedor + '\'' +
+                ", tipo=" + tipo.get() +
+                ", valor=" + valor.get() +
+                '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbContactoProveedores)) return false;
 
         TbContactoProveedores that = (TbContactoProveedores) o;
 
-        if (idProveedor != null ? !idProveedor.equals(that.idProveedor) : that.idProveedor != null) return false;
-        if (tipo != null ? !tipo.equals(that.tipo) : that.tipo != null) return false;
-        return !(valor != null ? !valor.equals(that.valor) : that.valor != null);
+        if (idCons != that.idCons) return false;
+        if (!idProvedor.equals(that.idProvedor)) return false;
+        if (!tipo.equals(that.tipo)) return false;
+        return valor.equals(that.valor);
 
     }
 
     @Override
     public int hashCode() {
-        int result = idProveedor != null ? idProveedor.hashCode() : 0;
-        result = 31 * result + (tipo != null ? tipo.hashCode() : 0);
-        result = 31 * result + (valor != null ? valor.hashCode() : 0);
+        int result = idCons;
+        result = 31 * result + idProvedor.hashCode();
+        result = 31 * result + tipo.hashCode();
+        result = 31 * result + valor.hashCode();
         return result;
-    }
-
-    @OneToOne
-    @JoinColumns({@JoinColumn(name = "id_proveedor", referencedColumnName = "codigo", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "id_proveedor", referencedColumnName = "codigo", nullable = false)})
-    public TbProveedor getTbProveedorByIdProveedor() {
-        return tbProveedorByIdProveedor;
-    }
-
-    public void setTbProveedorByIdProveedor(TbProveedor tbProveedorByIdProveedor) {
-        this.tbProveedorByIdProveedor = tbProveedorByIdProveedor;
     }
 }

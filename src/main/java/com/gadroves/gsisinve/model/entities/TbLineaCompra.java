@@ -124,7 +124,7 @@ public class TbLineaCompra {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "cod_art", referencedColumnName = "art_id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cod_art", referencedColumnName = "art_id", nullable = false)})
+    @JoinColumn(name = "cod_art", referencedColumnName = "art_id", nullable = false, insertable = false, updatable = false)
     public TbArticuloProveedor getTbArticuloProveedorByCodArt() {
         return tbArticuloProveedorByCodArt;
     }
@@ -134,7 +134,7 @@ public class TbLineaCompra {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "fac_origen", referencedColumnName = "id", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "fac_origen", referencedColumnName = "id", nullable = false)})
+    @JoinColumn(name = "fac_origen", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbFacturaCompra getTbFacturaCompraByFacOrigen() {
         return tbFacturaCompraByFacOrigen;
     }

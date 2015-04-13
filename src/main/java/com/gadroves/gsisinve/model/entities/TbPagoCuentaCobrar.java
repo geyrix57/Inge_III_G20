@@ -70,7 +70,7 @@ public class TbPagoCuentaCobrar {
     }
 
     @OneToOne
-    @JoinColumns({@JoinColumn(name = "cuenta", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta", referencedColumnName = "cliente", nullable = false)})
+    @JoinColumn(name = "cuenta", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false)
     public TbCuentaCobrar getTbCuentaCobrarByCuenta() {
         return tbCuentaCobrarByCuenta;
     }

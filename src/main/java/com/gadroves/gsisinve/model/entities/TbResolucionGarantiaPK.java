@@ -1,5 +1,7 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,8 @@ public class TbResolucionGarantiaPK implements Serializable {
     private int idGarantia;
     private String idProducto;
 
+    @Column(name = "id_garantia", nullable = false, insertable = true, updatable = true)
+    @Id
     public int getIdGarantia() {
         return idGarantia;
     }
@@ -17,6 +21,8 @@ public class TbResolucionGarantiaPK implements Serializable {
         this.idGarantia = idGarantia;
     }
 
+    @Column(name = "id_producto", nullable = false, insertable = true, updatable = true, length = 32)
+    @Id
     public String getIdProducto() {
         return idProducto;
     }
