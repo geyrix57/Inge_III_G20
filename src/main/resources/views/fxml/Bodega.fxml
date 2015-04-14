@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="601.0" styleClass="grid" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="601.0" styleClass="grid" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.BodegaController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -31,28 +26,43 @@
       </MenuBar>
    </top>
    <center>
-      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="413.0" prefWidth="607.0" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets bottom="15.0" left="30.0" right="30.0" top="15.0" />
          </opaqueInsets>
          <top>
-            <Label text="Tabla bodegas" BorderPane.alignment="CENTER">
+            <VBox prefHeight="0.0" prefWidth="541.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="33.0" prefWidth="541.0" text="Tabla bodegas" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="TF_Filter" />
+               </children>
                <padding>
-                  <Insets bottom="30.0" top="30.0" />
+                  <Insets bottom="30.0" />
                </padding>
-            </Label>
+            </VBox>
          </top>
          <center>
-            <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <columns>
-                <TableColumn prefWidth="119.0" text="Código" />
-                <TableColumn prefWidth="421.0" text="Ubicación" />
-              </columns>
-            </TableView>
+            <AnchorPane prefHeight="206.0" prefWidth="541.0">
+               <children>
+                  <TableView fx:id="TV_Bodegas" prefHeight="250.0" prefWidth="541.0" BorderPane.alignment="CENTER">
+                    <columns>
+                      <TableColumn fx:id="TVC_Codigo" prefWidth="119.0" text="Código" />
+                      <TableColumn fx:id="TVC_Descripcion" prefWidth="421.0" text="Ubicación" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
          </center>
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" />
          </padding>
       </BorderPane>
    </center>
+   <bottom>
+      <AnchorPane>
+         <children>
+            <Button fx:id="BTN_PrintMe" mnemonicParsing="false" onAction="#PrintMe" text="Print me!" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" BorderPane.alignment="CENTER" />
+         </children>
+      </AnchorPane>
+   </bottom>
 </BorderPane>

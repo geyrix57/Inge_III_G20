@@ -1,5 +1,8 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -9,28 +12,36 @@ import java.util.Collection;
 @Entity
 @Table(name = "TB_Bodega", schema = "", catalog = "sisgradoves")
 public class TbBodega {
-    private String code;
-    private String desc;
+    private StringProperty code = new SimpleStringProperty();
+    private StringProperty desc = new SimpleStringProperty();
     private Collection<TbInventario> tbInventariosByCode;
 
     @Id
     @Column(name = "code", nullable = false, insertable = true, updatable = true, length = 5)
     public String getCode() {
+        return code.get();
+    }
+
+    public StringProperty codeProperty() {
         return code;
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.code.set(code);
     }
 
     @Basic
-    @Column(name = "desc", nullable = false, insertable = true, updatable = true, length = 56)
+    @Column(name = "\"desc\"", nullable = false, insertable = true, updatable = true, length = 56)
     public String getDesc() {
+        return desc.get();
+    }
+
+    public StringProperty descProperty() {
         return desc;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.desc.set(desc);
     }
 
     @Override

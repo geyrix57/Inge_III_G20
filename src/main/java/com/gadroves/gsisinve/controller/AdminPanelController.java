@@ -59,6 +59,9 @@ public class AdminPanelController implements Initializable {
         openWindow("stock");
     }
 
+    @FXML
+    private void openBodega() { openWindow("buscarBodega");}
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.browser.getEngine().load("https://calendar.google.com");
