@@ -58,13 +58,13 @@ public class CustomWindow {
     }
 
     private void setActionToButton() {
-        wc.getClose().setOnAction(ev -> {
+        wc.getClose().setOnMouseClicked(ev -> {
             stage.close();
         });
-        wc.getMinimize().setOnAction(ev -> {
+        wc.getMinimize().setOnMouseClicked(ev -> {
             stage.setIconified(true);
         });
-        wc.getMaximize().setOnAction(ev -> {
+        wc.getMaximize().setOnMouseClicked(ev -> {
             stage.setMaximized(!stage.isMaximized());
         });
     }

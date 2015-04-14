@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            nodeOrientation="LEFT_TO_RIGHT" prefHeight="387.0" prefWidth="715.0" styleClass="grid"
-            stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane nodeOrientation="LEFT_TO_RIGHT" styleClass="grid" stylesheets="@../styles/default.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.gadroves.gsisinve.controller.ProveedorController">
     <top>
-        <MenuBar prefHeight="31.0" prefWidth="603.0" BorderPane.alignment="CENTER">
+        <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="Archivo">
                     <items>
@@ -28,79 +27,85 @@
             </menus>
         </MenuBar>
     </top>
-   <left>
-       <GridPane BorderPane.alignment="CENTER">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES"/>
-            <ColumnConstraints hgrow="SOMETIMES"/>
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints maxHeight="167.0" minHeight="67.0" prefHeight="67.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-        </rowConstraints>
-         <children>
-             <TextField fx:id="codigo" prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="1"/>
-            <Label text="Código:" />
-            <Label text="Dirección:" GridPane.rowIndex="3" />
-             <TextArea fx:id="direccion" prefHeight="103.0" prefWidth="206.0" GridPane.columnIndex="1"
-                       GridPane.rowIndex="3"/>
-             <HBox alignment="CENTER" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-               <children>
-                   <Button mnemonicParsing="false" onAction="#aceptar" text="Guardar"/>
-                   <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar"/>
-               </children>
-            </HBox>
-            <Label text="Estado:" GridPane.rowIndex="2" />
-             <HBox alignment="CENTER_LEFT" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-               <children>
-                   <RadioButton fx:id="activo" mnemonicParsing="false" text="Activo" textFill="#fffdfd"/>
-                   <RadioButton fx:id="inactivo" mnemonicParsing="false" text="Inactivo" textFill="#fffefe"/>
-               </children>
-            </HBox>
-             <TextField fx:id="nombre" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <Label text="Nombre:" GridPane.rowIndex="1" />
-         </children>
-         <padding>
-             <Insets left="10.0" top="10.0"/>
-         </padding>
-      </GridPane>
-   </left>
     <center>
-        <GridPane alignment="CENTER" prefHeight="356.0" prefWidth="393.0" BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="51.0" minHeight="46.0" prefHeight="46.0" vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <padding>
-                <Insets right="10.0" top="15.0"/>
-            </padding>
-            <children>
-                <HBox alignment="CENTER_LEFT" spacing="30.0">
-                    <children>
-                        <ComboBox fx:id="Cb_Tipo" prefHeight="25.0" prefWidth="124.0"/>
-                        <TextField fx:id="Tf_Info"/>
-                        <Button mnemonicParsing="false" onAction="#agregarInfoContacto" text="Agregar"/>
-                    </children>
-                    <GridPane.margin>
-                        <Insets left="10.0"/>
-                    </GridPane.margin>
-                </HBox>
-                <TableView fx:id="Tb_InfoContacto" prefHeight="290.0" prefWidth="340.0" GridPane.rowIndex="1">
-                    <columns>
-                        <TableColumn fx:id="Col_Tipo" prefWidth="185.0" text="Contacto"/>
-                        <TableColumn fx:id="Col_Info" prefWidth="223.0" text="Informacion"/>
-                    </columns>
-                    <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0"/>
-                    </GridPane.margin>
-                </TableView>
-            </children>
-        </GridPane>
+        <VBox BorderPane.alignment="CENTER">
+         <children>
+             <GridPane hgap="10.0" vgap="10.0">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES"/>
+                     <ColumnConstraints hgrow="SOMETIMES"/>
+                     <ColumnConstraints hgrow="SOMETIMES"/>
+                     <ColumnConstraints hgrow="SOMETIMES"/>
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints vgrow="SOMETIMES"/>
+                     <RowConstraints vgrow="SOMETIMES"/>
+                 </rowConstraints>
+               <children>
+                   <TextField fx:id="codigo" GridPane.columnIndex="1"/>
+                   <Label text="Código:"/>
+                   <Label text="Dirección:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                   <TextArea fx:id="direccion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                             minWidth="-Infinity" prefHeight="73.0" prefWidth="268.0" GridPane.columnIndex="3"
+                             GridPane.rowIndex="1"/>
+                   <Label text="Estado:" GridPane.columnIndex="2"/>
+                   <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="3">
+                       <children>
+                           <RadioButton fx:id="activo" mnemonicParsing="false" text="Activo" textFill="#fffdfd"/>
+                           <RadioButton fx:id="inactivo" mnemonicParsing="false" text="Inactivo" textFill="#fffefe"/>
+                       </children>
+                   </HBox>
+                   <TextField fx:id="nombre" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                   <Label text="Nombre:" GridPane.rowIndex="1"/>
+               </children>
+                 <padding>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="20.0"/>
+                 </padding>
+             </GridPane>
+             <GridPane alignment="CENTER">
+                 <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES"/>
+                 </columnConstraints>
+                 <rowConstraints>
+                     <RowConstraints maxHeight="51.0" minHeight="46.0" prefHeight="46.0" vgrow="SOMETIMES"/>
+                     <RowConstraints vgrow="SOMETIMES"/>
+                     <RowConstraints vgrow="SOMETIMES"/>
+                 </rowConstraints>
+                 <children>
+                     <HBox alignment="CENTER" spacing="30.0" GridPane.rowIndex="2">
+                         <children>
+                             <Button mnemonicParsing="false" onAction="#aceptar" text="Guardar"/>
+                             <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar"/>
+                         </children>
+                         <padding>
+                             <Insets top="10.0"/>
+                         </padding>
+                     </HBox>
+                     <TableView fx:id="Tb_InfoContacto" prefHeight="200.0" GridPane.rowIndex="1">
+                         <columns>
+                             <TableColumn fx:id="Col_Tipo" prefWidth="185.0" text="Tipo Contacto"/>
+                             <TableColumn fx:id="Col_Info" prefWidth="223.0" text="Informacion"/>
+                         </columns>
+                         <GridPane.margin>
+                             <Insets/>
+                         </GridPane.margin>
+                     </TableView>
+                     <HBox alignment="CENTER" spacing="15.0">
+                         <children>
+                             <ComboBox fx:id="Cb_Tipo" prefHeight="25.0" prefWidth="124.0" promptText="Tipo Contacto"/>
+                             <TextField fx:id="Tf_Info"/>
+                             <Button mnemonicParsing="false" onAction="#agregarInfoContacto" text="Agregar"/>
+                         </children>
+                         <GridPane.margin>
+                             <Insets/>
+                         </GridPane.margin>
+                     </HBox>
+                 </children>
+                 <VBox.margin>
+                     <Insets bottom="10.0" left="10.0" right="10.0"/>
+                 </VBox.margin>
+             </GridPane>
+         </children>
+        </VBox>
     </center>
 </BorderPane>
