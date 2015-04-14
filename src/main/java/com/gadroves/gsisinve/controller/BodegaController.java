@@ -46,6 +46,7 @@ public class BodegaController implements Initializable {
     }
 
     /*
+    Ideas pa imprimir
     * A4 Portrait Page, Below is my css: .A4Portrait { padding:30px; background-color:white; width:21cm; height:27.5cm; margin-left:auto; margin-right:auto; box-shadow: 0px 0px 30px rgba(50, 50, 50, 0.75); }
     * http://stackoverflow.com/questions/7355025/create-pdf-with-java
     * */
