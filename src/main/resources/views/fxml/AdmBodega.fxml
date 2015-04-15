@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane maxHeight="221.0" maxWidth="534.0" minHeight="189.0" minWidth="534.0" prefHeight="189.0" prefWidth="534.0" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="135.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" styleClass="grid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Archivo">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Edicion">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Borrar" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="50.0" prefWidth="600.0" styleClass="grid">
+               <children>
+                  <Label text="Número Bodega">
+                     <FlowPane.margin>
+                        <Insets right="20.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="TF_Bodega_ID" prefHeight="25.0" prefWidth="192.0" />
+               </children>
+            </FlowPane>
+            <FlowPane alignment="CENTER" prefHeight="50.0" prefWidth="600.0" styleClass="grid">
+               <children>
+                  <Label text="Descripcion">
+                     <FlowPane.margin>
+                        <Insets right="50.0" />
+                     </FlowPane.margin>
+                  </Label>
+                  <TextField fx:id="TF_Bodega_desc" prefHeight="25.0" prefWidth="192.0">
+                     <FlowPane.margin>
+                        <Insets />
+                     </FlowPane.margin>
+                  </TextField>
+               </children>
+            </FlowPane>
+            <FlowPane alignment="CENTER_RIGHT" columnHalignment="CENTER" prefHeight="47.0" prefWidth="534.0" rowValignment="BASELINE" styleClass="grid">
+               <children>
+                  <Button id="daBtn" fx:id="BTN_guardar" contentDisplay="TOP" mnemonicParsing="false" text="Guardar">
+                     <FlowPane.margin>
+                        <Insets right="30.0" />
+                     </FlowPane.margin>
+                  </Button>
+               </children>
+            </FlowPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
