@@ -1,5 +1,8 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -10,59 +13,71 @@ import java.util.Collection;
 @Table(name = "TB_Categoria", schema = "", catalog = "sisgradoves")
 public class TbCategoria {
     private int tId;
-    private String catName;
-    private String catDesc;
+    private StringProperty catName = new SimpleStringProperty();
+    private StringProperty catDesc = new SimpleStringProperty();
 
     private Collection<TbArticulo> tbArticulosByTId;
 
+    public StringProperty catNameProperty() {
+        return catName;
+    }
+
+    public StringProperty catDescProperty() {
+        return catDesc;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "t_id", nullable = false, insertable = true, updatable = true)
     public int gettId() {
         return tId;
     }
 
-    public void settId(int tId) {
+    public TbCategoria settId(int tId) {
         this.tId = tId;
+        return this;
     }
 
     @Basic
     @Column(name = "cat_name", nullable = false, insertable = true, updatable = true, length = 50)
     public String getCatName() {
-        return catName;
+        return catName.get();
     }
 
-    public void setCatName(String catName) {
-        this.catName = catName;
+    public TbCategoria setCatName(String catName) {
+        this.catName.set(catName);
+        return this;
     }
 
     @Basic
     @Column(name = "cat_desc", nullable = false, insertable = true, updatable = true, length = 128)
     public String getCatDesc() {
-        return catDesc;
+        return catDesc.get();
     }
 
-    public void setCatDesc(String catDesc) {
-        this.catDesc = catDesc;
+    public TbCategoria setCatDesc(String catDesc) {
+        this.catDesc.set(catDesc);
+        return this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbCategoria)) return false;
 
         TbCategoria that = (TbCategoria) o;
 
         if (tId != that.tId) return false;
-        if (catName != null ? !catName.equals(that.catName) : that.catName != null) return false;
-        return !(catDesc != null ? !catDesc.equals(that.catDesc) : that.catDesc != null);
+        if (!catName.equals(that.catName)) return false;
+        return catDesc.equals(that.catDesc);
 
     }
 
     @Override
     public int hashCode() {
         int result = tId;
-        result = 31 * result + (catName != null ? catName.hashCode() : 0);
-        result = 31 * result + (catDesc != null ? catDesc.hashCode() : 0);
+        result = 31 * result + catName.get().hashCode();
+        result = 31 * result + catDesc.get().hashCode();
         return result;
     }
 
@@ -74,4 +89,5 @@ public class TbCategoria {
     public void setTbArticulosByTId(Collection<TbArticulo> tbArticulosByTId) {
         this.tbArticulosByTId = tbArticulosByTId;
     }
+
 }

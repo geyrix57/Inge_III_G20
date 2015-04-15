@@ -131,15 +131,30 @@
                                                         <Font name="System Bold" size="12.0" />
                                                     </font>
                                                 </Button>
-                                    <Button fx:id="openBodega" mnemonicParsing="false" text="Buscar">
+                                                <Button mnemonicParsing="false" onAction="#openCategoria"
+                                                        text="Registro Categoria">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
                                     </Button>
+                                                <Button mnemonicParsing="false" onAction="#openBodega" text="Buscar">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0"/>
+                                                    </font>
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                </Button>
                                     <Button mnemonicParsing="false" onAction="#openAdmBodega" text="Administrar">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
+                                        <cursor>
+                                            <Cursor fx:constant="HAND"/>
+                                        </cursor>
                                     </Button>
                                             </children>
                                         </VBox>
