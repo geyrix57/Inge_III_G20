@@ -131,11 +131,6 @@
                                                         <Font name="System Bold" size="12.0" />
                                                     </font>
                                                 </Button>
-                                    <Button fx:id="btn_bod_buscar" mnemonicParsing="false" onAction="#openBodega" text="Buscar">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Button>
                                             </children>
                                         </VBox>
                                     </children>
@@ -151,7 +146,7 @@
                                     <children>
                                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#openProveedor" text="Registrar Proveedor">
+                                                <Button mnemonicParsing="false" onAction="#openProveedor" text="Registro">
                                                     <cursor>
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
@@ -159,7 +154,7 @@
                                                         <Font name="System Bold" size="12.0" />
                                                     </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#openConsultarProveedor" text="Buscar ">
+                                                <Button mnemonicParsing="false" onAction="#openConsultarProveedor" text="Buscar / Modificar">
                                                     <cursor>
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>

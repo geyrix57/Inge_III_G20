@@ -125,27 +125,33 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
                         .setTbProveedorByIdProvedor(prov));
             DBAccess.getInstance().getTransaction().commit();
             this.limpiar();
-        } else DialogBox.Error(this.getStage(), "Debe llenar todos los campos.!!");
+        } else
+            throw new Exception("Debe llenar todos los campos.!!");//DialogBox.Error(this.getStage(), "Debe llenar todos los campos.!!");
     }
 
     private void actualizarDatos() throws Exception {
         if (this.camposValidos()) {
+            updateProveedor.setNombre(nombre.getText()).setDireccion(direccion.getText());
             updateProveedor.getTbContactoProveedoresByCodigo().removeAll(eliminar);
             updateProveedor.getTbContactoProveedoresByCodigo().addAll(agregar);
+
             DBAccess.getInstance().getTransaction().begin();
             DBAccess.getInstance().Update(updateProveedor);
+
             for (TbContactoProveedores cp : eliminar) DBAccess.getInstance().Delete(cp);
             for (TbContactoProveedores cp : agregar) DBAccess.getInstance().Insert(cp);
-            for (TbContactoProveedores cp : InformacionContacto) {
+            for (TbContactoProveedores cp : InformacionContacto)
                 if (!agregar.contains(cp)) DBAccess.getInstance().Update(cp);
-            }
-        } else DialogBox.Error(this.getStage(), "Debe llenar todos los campos.!!");
+
+            DBAccess.getInstance().getTransaction().commit();
+        } else
+            throw new Exception("Debe llenar todos los campos.!!");//DialogBox.Error(this.getStage(), "Debe llenar todos los campos.!!");
     }
 
     private void bindingTbProveedor() {
-        this.updateProveedor.codigoProperty().bindBidirectional(codigo.textProperty());
-        this.updateProveedor.nombreProperty().bindBidirectional(nombre.textProperty());
-        this.updateProveedor.direccionProperty().bindBidirectional(direccion.textProperty());
+        codigo.setText(this.updateProveedor.getCodigo());
+        nombre.setText(this.updateProveedor.getNombre());
+        direccion.setText(this.updateProveedor.getDireccion());
         group.selectToggle(this.updateProveedor.getEstado() ? activo : inactivo);
         group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             this.updateProveedor.setEstado((boolean) newValue.getUserData());
@@ -173,6 +179,7 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
             else
                 actualizarDatos();
             DialogBox.Informativo(this.getStage(), "El proveedor se ha guardado correctamente.!");
+            if (this.update) this.closeWindow();
         } catch (Exception e) {
             DialogBox.Excepcion(this.getStage(), "Se ha generedo una excepción", e);
         }
