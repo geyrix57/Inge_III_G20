@@ -131,6 +131,16 @@
                                                         <Font name="System Bold" size="12.0" />
                                                     </font>
                                                 </Button>
+                                    <Button fx:id="openBodega" mnemonicParsing="false" text="Buscar">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
+                                    <Button mnemonicParsing="false" onAction="#openAdmBodega" text="Administrar">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Button>
                                             </children>
                                         </VBox>
                                     </children>

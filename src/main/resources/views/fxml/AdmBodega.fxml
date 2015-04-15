@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="221.0" maxWidth="534.0" minHeight="189.0" minWidth="534.0" prefHeight="189.0" prefWidth="534.0" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="221.0" maxWidth="534.0" minHeight="189.0" minWidth="534.0" prefHeight="189.0" prefWidth="534.0" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.AdmBodegaController">
    <children>
       <VBox layoutX="135.0" layoutY="14.0" prefHeight="400.0" prefWidth="600.0" styleClass="grid" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
