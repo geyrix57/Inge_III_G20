@@ -102,6 +102,7 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
         direccion.clear();
         Tf_Info.clear();
         group.selectToggle(activo);
+        update = false;
     }
 
     private boolean camposValidos() {
@@ -188,6 +189,16 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
     @FXML
     private void cancelar() {
         this.closeWindow();
+    }
+
+    @FXML
+    private void nuevo() {
+        limpiar();
+    }
+
+    @FXML
+    private void imprimir() {
+
     }
 
     @Override

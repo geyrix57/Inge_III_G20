@@ -3,7 +3,7 @@ package com.gadroves.gsisinve.model.entities;
 import javax.persistence.*;
 
 /**
- * Created by geykel on 01/04/2015.
+ * Created by geykel on 17/04/2015.
  */
 @Entity
 @Table(name = "TB_Linea_Fac", schema = "", catalog = "sisgradoves")
@@ -13,8 +13,9 @@ public class TbLineaFac {
     private String artId;
     private boolean quant;
     private double disc;
-    private TbArticulo tbArticuloByArtId;
     private TbFacturaVenta tbFacturaVentaByFacId;
+    private TbArticuloProveedor tbArticuloProveedorByArtRelId;
+    private TbArticulo tbArticuloByArtId;
 
     @Id
     @Column(name = "fac_id", nullable = false, insertable = true, updatable = true)
@@ -83,16 +84,6 @@ public class TbLineaFac {
     }
 
     @ManyToOne
-    @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-    public TbArticulo getTbArticuloByArtId() {
-        return tbArticuloByArtId;
-    }
-
-    public void setTbArticuloByArtId(TbArticulo tbArticuloByArtId) {
-        this.tbArticuloByArtId = tbArticuloByArtId;
-    }
-
-    @ManyToOne
     @JoinColumn(name = "fac_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
     public TbFacturaVenta getTbFacturaVentaByFacId() {
         return tbFacturaVentaByFacId;
@@ -100,5 +91,25 @@ public class TbLineaFac {
 
     public void setTbFacturaVentaByFacId(TbFacturaVenta tbFacturaVentaByFacId) {
         this.tbFacturaVentaByFacId = tbFacturaVentaByFacId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "art_rel_id", referencedColumnName = "rel_id", insertable = false, updatable = false)
+    public TbArticuloProveedor getTbArticuloProveedorByArtRelId() {
+        return tbArticuloProveedorByArtRelId;
+    }
+
+    public void setTbArticuloProveedorByArtRelId(TbArticuloProveedor tbArticuloProveedorByArtRelId) {
+        this.tbArticuloProveedorByArtRelId = tbArticuloProveedorByArtRelId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "art_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    public TbArticulo getTbArticuloByArtId() {
+        return tbArticuloByArtId;
+    }
+
+    public void setTbArticuloByArtId(TbArticulo tbArticuloByArtId) {
+        this.tbArticuloByArtId = tbArticuloByArtId;
     }
 }

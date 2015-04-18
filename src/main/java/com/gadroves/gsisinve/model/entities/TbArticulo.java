@@ -1,5 +1,7 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.*;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -9,77 +11,113 @@ import java.util.Collection;
 @Entity
 @Table(name = "TB_Articulo", schema = "", catalog = "sisgradoves")
 public class TbArticulo {
-    private String id;
-    private String desc;
-    private double cost;
-    private double util;
-    private boolean grav;
-    private boolean estado;
+    private StringProperty id = new SimpleStringProperty();
+    private StringProperty desc = new SimpleStringProperty();
+    private DoubleProperty cost = new SimpleDoubleProperty();
+    private DoubleProperty util = new SimpleDoubleProperty();
+    private BooleanProperty grav = new SimpleBooleanProperty();
+    private BooleanProperty estado = new SimpleBooleanProperty();
     private Integer categoriaId;
+
     private TbArticuloProveedor tbArticuloProveedorById;
     private Collection<TbInventario> tbInventariosById;
     private Collection<TbLineaFac> tbLineaFacsById;
     private TbCategoria tbCategoriaByCategoriaId;
     private Collection<TbResolucionGarantia> tbResolucionGarantiasById;
 
-    @Id
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 32)
-    public String getId() {
+    public StringProperty categoriaProperty() {
+        if (tbCategoriaByCategoriaId == null) return null;
+        return tbCategoriaByCategoriaId.catNameProperty();
+    }
+
+    public StringProperty idProperty() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "desc", nullable = true, insertable = true, updatable = true, length = 255)
-    public String getDesc() {
+    public StringProperty descProperty() {
         return desc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public DoubleProperty costProperty() {
+        return cost;
+    }
+
+    public DoubleProperty utilProperty() {
+        return util;
+    }
+
+    public BooleanProperty gravProperty() {
+        return grav;
+    }
+
+    public BooleanProperty estadoProperty() {
+        return estado;
+    }
+
+    @Id
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 32)
+    public String getId() {
+        return id.get();
+    }
+
+    public TbArticulo setId(String id) {
+        this.id.set(id);
+        return this;
+    }
+
+    @Basic
+    @Column(name = "\"desc\"", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getDesc() {
+        return desc.get();
+    }
+
+    public TbArticulo setDesc(String desc) {
+        this.desc.set(desc);
+        return this;
     }
 
     @Basic
     @Column(name = "cost", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getCost() {
-        return cost;
+        return cost.get();
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    public TbArticulo setCost(double cost) {
+        this.cost.set(cost);
+        return this;
     }
 
     @Basic
     @Column(name = "util", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getUtil() {
-        return util;
+        return util.get();
     }
 
-    public void setUtil(double util) {
-        this.util = util;
+    public TbArticulo setUtil(double util) {
+        this.util.set(util);
+        return this;
     }
 
     @Basic
     @Column(name = "grav", nullable = false, insertable = true, updatable = true)
     public boolean getGrav() {
-        return grav;
+        return grav.get();
     }
 
-    public void setGrav(boolean grav) {
-        this.grav = grav;
+    public TbArticulo setGrav(boolean grav) {
+        this.grav.set(grav);
+        return this;
     }
 
     @Basic
     @Column(name = "estado", nullable = false, insertable = true, updatable = true)
     public boolean getEstado() {
-        return estado;
+        return estado.get();
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
+    public TbArticulo setEstado(boolean estado) {
+        this.estado.set(estado);
+        return this;
     }
 
     @Basic
@@ -88,8 +126,9 @@ public class TbArticulo {
         return categoriaId;
     }
 
-    public void setCategoriaId(Integer categoriaId) {
+    public TbArticulo setCategoriaId(Integer categoriaId) {
         this.categoriaId = categoriaId;
+        return this;
     }
 
     @Override
@@ -99,27 +138,25 @@ public class TbArticulo {
 
         TbArticulo that = (TbArticulo) o;
 
-        if (Double.compare(that.cost, cost) != 0) return false;
-        if (Double.compare(that.util, util) != 0) return false;
-        if (grav != that.grav) return false;
-        if (estado != that.estado) return false;
         if (!id.equals(that.id)) return false;
-        return desc.equals(that.desc);
+        if (!desc.equals(that.desc)) return false;
+        if (!cost.equals(that.cost)) return false;
+        if (!util.equals(that.util)) return false;
+        if (!grav.equals(that.grav)) return false;
+        if (!estado.equals(that.estado)) return false;
+        return categoriaId.equals(that.categoriaId);
 
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id.hashCode();
+        int result = id.hashCode();
         result = 31 * result + desc.hashCode();
-        temp = Double.doubleToLongBits(cost);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(util);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (grav ? 1 : 0);
-        result = 31 * result + (estado ? 1 : 0);
+        result = 31 * result + cost.hashCode();
+        result = 31 * result + util.hashCode();
+        result = 31 * result + grav.hashCode();
+        result = 31 * result + estado.hashCode();
+        result = 31 * result + categoriaId.hashCode();
         return result;
     }
 
@@ -151,13 +188,14 @@ public class TbArticulo {
     }
 
     @ManyToOne
-    @JoinColumns({@JoinColumn(name = "categoria_id", referencedColumnName = "t_id", insertable = false, updatable = false), @JoinColumn(name = "categoria_id", referencedColumnName = "t_id")})
+    @JoinColumn(name = "categoria_id", referencedColumnName = "t_id", insertable = false, updatable = false)
     public TbCategoria getTbCategoriaByCategoriaId() {
         return tbCategoriaByCategoriaId;
     }
 
-    public void setTbCategoriaByCategoriaId(TbCategoria tbCategoriaByCategoriaId) {
+    public TbArticulo setTbCategoriaByCategoriaId(TbCategoria tbCategoriaByCategoriaId) {
         this.tbCategoriaByCategoriaId = tbCategoriaByCategoriaId;
+        return this;
     }
 
     @OneToMany(mappedBy = "tbArticuloByIdProducto")

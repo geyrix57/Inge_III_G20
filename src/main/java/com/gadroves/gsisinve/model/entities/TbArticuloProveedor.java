@@ -9,14 +9,27 @@ import java.util.Collection;
 @Entity
 @Table(name = "TB_Articulo_Proveedor", schema = "", catalog = "sisgradoves")
 public class TbArticuloProveedor {
+    private int relId;
     private String artId;
     private String provId;
     private double precioCompra;
+
     private TbArticulo tbArticuloByArtId;
     private TbProveedor tbProveedorByProvId;
     private Collection<TbLineaCompra> tbLineaComprasByArtId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "rel_id", nullable = false, insertable = true, updatable = true)
+    public int getRelId() {
+        return relId;
+    }
+
+    public void setRelId(int relId) {
+        this.relId = relId;
+    }
+
+    @Basic
     @Column(name = "art_id", nullable = false, insertable = true, updatable = true, length = 32)
     public String getArtId() {
         return artId;
@@ -90,12 +103,4 @@ public class TbArticuloProveedor {
         this.tbProveedorByProvId = tbProveedorByProvId;
     }
 
-    @OneToMany(mappedBy = "tbArticuloProveedorByCodArt")
-    public Collection<TbLineaCompra> getTbLineaComprasByArtId() {
-        return tbLineaComprasByArtId;
-    }
-
-    public void setTbLineaComprasByArtId(Collection<TbLineaCompra> tbLineaComprasByArtId) {
-        this.tbLineaComprasByArtId = tbLineaComprasByArtId;
-    }
 }

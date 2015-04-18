@@ -40,8 +40,8 @@ public class DialogBox {
         Dialogs.create()
                 .owner(stage)
                 .title("Excepcion Generada")
-                .masthead(null)
-                .message(ms)
+                .masthead(ms)
+                .message(e.getMessage())
                 .showException(e);
     }
 

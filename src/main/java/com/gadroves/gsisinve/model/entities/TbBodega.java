@@ -26,8 +26,9 @@ public class TbBodega {
         return code;
     }
 
-    public void setCode(String code) {
+    public TbBodega setCode(String code) {
         this.code.set(code);
+        return this;
     }
 
     @Basic
@@ -40,8 +41,9 @@ public class TbBodega {
         return desc;
     }
 
-    public void setDesc(String desc) {
+    public TbBodega setDesc(String desc) {
         this.desc.set(desc);
+        return this;
     }
 
     @Override

@@ -43,6 +43,12 @@
             <artifactId>jinq-jpa</artifactId>
             <version>1.6.2</version>
         </dependency>
+        <!-- Guava Collections -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava-collections</artifactId>
+            <version>r03</version>
+        </dependency>
         <dependency>
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>

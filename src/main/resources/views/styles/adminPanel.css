@@ -27,7 +27,7 @@
     -fx-underline: true;
 }
 
-/*.left .button:focused {
+/*.left .button:pressed {
     -fx-color: -fx-focused-base;
     -fx-border-color: -fx-focus-color;
     -fx-border-style: dotted;

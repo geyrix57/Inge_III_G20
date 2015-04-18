@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -26,7 +27,7 @@ public class CategoriaController implements Initializable {
     @FXML
     TextField Tf_nombre;
     @FXML
-    TextField Tf_descripcion;
+    TextArea Tf_descripcion;
     @FXML
     TextField Tf_buscar;
     @FXML
@@ -85,7 +86,10 @@ public class CategoriaController implements Initializable {
     }
 
     private void guardarDatos() throws Exception {
+        String s = Tf_nombre.getText();
         if (this.camposValidos()) {
+            if (DBAccess.getInstance().Stream(TbCategoria.class).where(categoria -> categoria.getCatName().equals(s)).count() > 0)
+                throw new Exception("El nombre de la categoria ya existe. Ingrese uno nuevo.");
             DBAccess.getInstance().getTransaction().begin();
             TbCategoria c = new TbCategoria()
                     .setCatName(this.Tf_nombre.getText())
@@ -126,7 +130,6 @@ public class CategoriaController implements Initializable {
     private void cargarDatos() {
         this.categorias.clear();
         this.categorias.addAll(DBAccess.getInstance().Stream(TbCategoria.class).toList());
-        //this.categorias.forEach(c -> c.setTbArticulosByTId(null));
     }
 
     @FXML

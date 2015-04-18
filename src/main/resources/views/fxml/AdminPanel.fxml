@@ -97,17 +97,6 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" text="Orden de Compra">
-                                                    <cursor>
-                                                        <Cursor fx:constant="HAND" />
-                                                    </cursor>
-                                                    <font>
-                                                        <Font name="System Bold" size="12.0" />
-                                                    </font>
-                                                    <VBox.margin>
-                                                        <Insets />
-                                                    </VBox.margin>
-                                                </Button>
                                             </children>
                                         </VBox>
                                     </children>
@@ -131,16 +120,17 @@
                                                         <Font name="System Bold" size="12.0" />
                                                     </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#openCategoria"
-                                                        text="Registro Categoria">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
+                                                <Button mnemonicParsing="false" onAction="#openArticulo"
+                                                        text="Registro de Articulo">
                                                     <cursor>
                                                         <Cursor fx:constant="HAND"/>
                                                     </cursor>
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
                                     </Button>
-                                                <Button mnemonicParsing="false" onAction="#openBodega" text="Buscar">
+                                                <Button mnemonicParsing="false" onAction="#openConsultaArticulo"
+                                                        text="Búsqueda Artículos">
                                                     <font>
                                                         <Font name="System Bold" size="12.0"/>
                                                     </font>
@@ -148,13 +138,23 @@
                                                         <Cursor fx:constant="HAND"/>
                                                     </cursor>
                                                 </Button>
-                                    <Button mnemonicParsing="false" onAction="#openAdmBodega" text="Administrar">
+                                                <Button mnemonicParsing="false" onAction="#openBodega"
+                                                        text="Administrar Bodegas">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0"/>
+                                                    </font>
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#openCategoria"
+                                                        text="Administrar Categorias">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
-                                        <cursor>
-                                            <Cursor fx:constant="HAND"/>
-                                        </cursor>
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
                                     </Button>
                                             </children>
                                         </VBox>
@@ -171,7 +171,8 @@
                                     <children>
                                         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#openProveedor" text="Registro">
+                                                <Button mnemonicParsing="false" onAction="#openConsultarProveedor"
+                                                        text="Buscar / Modificar">
                                                     <cursor>
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
@@ -179,7 +180,8 @@
                                                         <Font name="System Bold" size="12.0" />
                                                     </font>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#openConsultarProveedor" text="Buscar / Modificar">
+                                                <Button mnemonicParsing="false" onAction="#openProveedor"
+                                                        text="Registrar">
                                                     <cursor>
                                                         <Cursor fx:constant="HAND" />
                                                     </cursor>
@@ -205,22 +207,6 @@
                             </font>
                         </TitledPane>
                         <TitledPane styleClass="grid" text="Compras" textFill="WHITE">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
-                            </content>
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                        </TitledPane>
-                        <TitledPane styleClass="grid" text="Reparación" textFill="WHITE">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
-                            </content>
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                        </TitledPane>
-                        <TitledPane styleClass="grid" text="Usuarios" textFill="WHITE">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
                             </content>

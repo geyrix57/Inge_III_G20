@@ -4,12 +4,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.*?>
-<BorderPane styleClass="grid" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.CategoriaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="grid"
+            stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gadroves.gsisinve.controller.ConsultArticulosController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
-                <Menu mnemonicParsing="false" onAction="#cargarDatos" text="Archivo">
+                <Menu mnemonicParsing="false" text="Archivo">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#cargarDatos" text="Actualizar">
                             <accelerator>
@@ -21,12 +22,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editar">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#nuevo" text="Nuevo">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
-                            </accelerator>
-                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">
@@ -40,22 +36,21 @@
     <center>
         <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Categoria de Articulos"/>
+                <Label text="Tabla de Articulos"/>
                 <HBox alignment="CENTER" spacing="15.0">
                     <children>
-                        <Label text="Nombre:"/>
-                        <TextField fx:id="Tf_nombre"/>
-                        <Label text="Descripción:"/>
-                        <TextArea fx:id="Tf_descripcion" prefHeight="50.0" prefWidth="180.0"/>
-                        <Button mnemonicParsing="false" onAction="#aceptar" text="Guardar"/>
+                        <TextField fx:id="TF_Buscar" alignment="CENTER" prefHeight="25.0" prefWidth="208.0"
+                                   promptText="Código del Articulo"/>
+                        <ComboBox fx:id="CB_Categorias" prefWidth="150.0" promptText="Categoría"/>
                     </children>
                 </HBox>
-                <Label text="Tabla de Categorias"/>
-                <TextField fx:id="Tf_buscar" alignment="CENTER" promptText="Buscar Categoria"/>
-                <TableView fx:id="Tb_categorias" prefHeight="200.0" prefWidth="200.0">
+                <TableView fx:id="TB_Articulos" onMouseClicked="#doubleClick">
                     <columns>
-                        <TableColumn fx:id="Col_nombre" prefWidth="221.0" text="Nombre"/>
-                        <TableColumn fx:id="Col_descripcion" prefWidth="331.0" text="Descripción"/>
+                        <TableColumn fx:id="Col_Codigo" prefWidth="143.0" text="Código"/>
+                        <TableColumn fx:id="Col_Desc" prefWidth="205.0" text="Descripción"/>
+                        <TableColumn fx:id="Col_Categoria" minWidth="8.0" prefWidth="196.0" text="Categoría"/>
+                        <TableColumn fx:id="Col_Gravamen" prefWidth="75.0" text="Gravamen"/>
+                        <TableColumn fx:id="Col_Estado" prefWidth="59.0" text="Activo"/>
                     </columns>
                 </TableView>
             </children>

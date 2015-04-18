@@ -2,7 +2,6 @@ package com.gadroves.gsisinve.controller;
 
 import com.gadroves.gsisinve.UI.CustomWindow;
 import com.gadroves.gsisinve.utils.R;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,17 +62,24 @@ public class AdminPanelController implements Initializable {
     private void openBodega() { openWindow("buscarBodega");}
 
     @FXML
-    private void openAdmBodega(){ openWindow("admbodega");}
-
-    @FXML
     private void openCategoria() {
         openWindow("categoria");
+    }
+
+    @FXML
+    private void openArticulo() {
+        openWindow("articulo");
+    }
+
+    @FXML
+    private void openConsultaArticulo() {
+        openWindow("listaArticulos");
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.browser.getEngine().load("https://calendar.google.com");
-        SimpleBooleanProperty log = new SimpleBooleanProperty(true);
+        /*SimpleBooleanProperty log = new SimpleBooleanProperty(true);
         this.browser.getEngine().documentProperty().addListener((observable, oldDoc, doc) -> {
             if (doc != null && log.get()) {
                 browser.getEngine().executeScript("document.getElementById('Email').value='GRUPO20SISGRADOV'");
@@ -81,7 +87,7 @@ public class AdminPanelController implements Initializable {
                 browser.getEngine().executeScript("document.forms['gaia_loginform'].submit();");
                 log.set(false);
             }
-        });
+        });*/
     }
 
 }
