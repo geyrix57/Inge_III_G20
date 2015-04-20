@@ -14,6 +14,7 @@ import java.util.Collection;
 public class TbBodega {
     private StringProperty code = new SimpleStringProperty();
     private StringProperty desc = new SimpleStringProperty();
+    private StringProperty ubicacion = new SimpleStringProperty();
     private Collection<TbInventario> tbInventariosByCode;
 
     @Id
@@ -28,6 +29,21 @@ public class TbBodega {
 
     public TbBodega setCode(String code) {
         this.code.set(code);
+        return this;
+    }
+
+    @Basic
+    @Column(name = "ubicacion", nullable = true, insertable = true, updatable = true, length = 255)
+    public String getUbicacion() {
+        return ubicacion.get();
+    }
+
+    public StringProperty ubicacionProperty() {
+        return ubicacion;
+    }
+
+    public TbBodega setUbicacion(String ubicacion) {
+        this.ubicacion.set(ubicacion);
         return this;
     }
 

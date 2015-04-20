@@ -35,11 +35,15 @@ public class BodegaController implements Initializable {
     @FXML
     TextField TF_Bodega_desc;
     @FXML
+    TextField TF_Ubicacion;
+    @FXML
     TableView<TbBodega> TV_Bodegas;
     @FXML
     TableColumn<TbBodega, String> TVC_Codigo;
     @FXML
     TableColumn<TbBodega, String> TVC_Descripcion;
+    @FXML
+    TableColumn<TbBodega, String> TVC_Ubicacion;
 
     private boolean update = false;
     private TbBodega refered = null;
@@ -53,6 +57,7 @@ public class BodegaController implements Initializable {
     private void initTbBodegas() {
         TVC_Codigo.setCellValueFactory(new PropertyValueFactory("code"));
         TVC_Descripcion.setCellValueFactory(new PropertyValueFactory("desc"));
+        TVC_Ubicacion.setCellValueFactory(new PropertyValueFactory("ubicacion"));
 
         filteredData = new FilteredList(this.bodegas, p -> true);
         SortedList<TbBodega> sortedData = new SortedList<>(filteredData);
@@ -66,6 +71,7 @@ public class BodegaController implements Initializable {
                 TF_Bodega_ID.setText(refered.getCode());
                 TF_Bodega_ID.setEditable(false);
                 TF_Bodega_desc.setText(refered.getDesc());
+                TF_Ubicacion.setText(refered.getUbicacion());
             }
         });
 
@@ -93,13 +99,14 @@ public class BodegaController implements Initializable {
         String s = TF_Bodega_ID.getText();
         if (!update && DBAccess.getInstance().Stream(TbBodega.class).where(tb -> tb.getCode().equals(s)).count() > 0)
             throw new Exception("El número de bodega ingresado ya existe. Debe ingresar uno nuevo.");
-        if (!(TF_Bodega_ID != null && TF_Bodega_desc != null && !TF_Bodega_desc.getText().isEmpty() && !TF_Bodega_ID.getText().isEmpty()))
+        if (!(TF_Ubicacion != null && TF_Bodega_ID != null && TF_Bodega_desc != null && !TF_Ubicacion.getText().isEmpty() && !TF_Bodega_desc.getText().isEmpty() && !TF_Bodega_ID.getText().isEmpty()))
             throw new Exception("Debe llenar todos los campos.!!");
     }
 
     private void limpiar() {
         this.TF_Bodega_ID.clear();
         this.TF_Bodega_desc.clear();
+        TF_Ubicacion.clear();
         TF_Bodega_ID.setEditable(true);
         update = false;
     }
@@ -122,13 +129,16 @@ public class BodegaController implements Initializable {
             camposValidos();
             DBAccess.getInstance().getTransaction().begin();
             if (update) {
-                DBAccess.getInstance().Update(refered.setDesc(TF_Bodega_desc.getText()));
+                refered.setUbicacion(TF_Ubicacion.getText())
+                        .setDesc(TF_Bodega_desc.getText());
+                DBAccess.getInstance().Update(refered);
                 update = false;
             } else {
                 TbBodega bodega = new TbBodega();
                 DBAccess.getInstance().Insert(bodega
                         .setCode(TF_Bodega_ID.getText())
-                        .setDesc(TF_Bodega_desc.getText()));
+                        .setDesc(TF_Bodega_desc.getText())
+                        .setUbicacion(TF_Ubicacion.getText()));
                 bodegas.add(bodega);
             }
             DBAccess.getInstance().getTransaction().commit();

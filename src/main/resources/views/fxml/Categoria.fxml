@@ -40,7 +40,7 @@
     <center>
         <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Categoria de Articulos"/>
+                <Label text="Categoría de Artículos"/>
                 <HBox alignment="CENTER" spacing="15.0">
                     <children>
                         <Label text="Nombre:"/>
@@ -50,7 +50,7 @@
                         <Button mnemonicParsing="false" onAction="#aceptar" text="Guardar"/>
                     </children>
                 </HBox>
-                <Label text="Tabla de Categorias"/>
+                <Label text="Tabla de Categorías"/>
                 <TextField fx:id="Tf_buscar" alignment="CENTER" promptText="Buscar Categoria"/>
                 <TableView fx:id="Tb_categorias" prefHeight="200.0" prefWidth="200.0">
                     <columns>

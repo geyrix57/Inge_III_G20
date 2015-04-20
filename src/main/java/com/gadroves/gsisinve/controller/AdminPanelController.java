@@ -54,11 +54,6 @@ public class AdminPanelController implements Initializable {
     }
 
     @FXML
-    private void openStock(ActionEvent event) {
-        openWindow("stock");
-    }
-
-    @FXML
     private void openBodega() { openWindow("buscarBodega");}
 
     @FXML

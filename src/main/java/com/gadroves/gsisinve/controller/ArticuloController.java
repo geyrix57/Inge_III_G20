@@ -84,7 +84,7 @@ public class ArticuloController implements Initializable, InitData<TbArticulo> {
     private void camposValidos() throws Exception {
         String s = TF_Codigo.getText();
         if (!update && dbAccess.Stream(TbArticulo.class).where(tbArticulo -> tbArticulo.getId().equals(s)).count() > 0)
-            throw new Exception("El código del articulo ingresado ya existe. Debe ingresar uno nuevo.");
+            throw new Exception("El código del artículo ingresado ya existe. Debe ingresar uno nuevo.");
         if (!(CB_Categoria.getValue() != null && TF_Codigo.getText() != null && !TF_Codigo.getText().isEmpty() && TF_Desc.getText() != null && !TF_Desc.getText().isEmpty()))
             throw new Exception("Debe llenar todos los campos.!!");
     }
@@ -127,7 +127,7 @@ public class ArticuloController implements Initializable, InitData<TbArticulo> {
                         .setGrav(ChB_Gravamen.isSelected()));
             }
             dbAccess.getTransaction().commit();
-            DialogBox.Informativo(getStage(), "El articulo se guardó exitosamente.!!");
+            DialogBox.Informativo(getStage(), "El artículo se guardó exitosamente.!!");
             limpiar();
         } catch (Exception e) {
             DialogBox.Excepcion(getStage(), "Se ha generado una excepción.", e);

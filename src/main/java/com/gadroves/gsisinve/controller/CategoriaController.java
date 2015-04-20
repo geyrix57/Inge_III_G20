@@ -89,7 +89,7 @@ public class CategoriaController implements Initializable {
         String s = Tf_nombre.getText();
         if (this.camposValidos()) {
             if (DBAccess.getInstance().Stream(TbCategoria.class).where(categoria -> categoria.getCatName().equals(s)).count() > 0)
-                throw new Exception("El nombre de la categoria ya existe. Ingrese uno nuevo.");
+                throw new Exception("El nombre de la categoría ya existe. Ingrese uno nuevo.");
             DBAccess.getInstance().getTransaction().begin();
             TbCategoria c = new TbCategoria()
                     .setCatName(this.Tf_nombre.getText())
@@ -120,7 +120,7 @@ public class CategoriaController implements Initializable {
                 this.update = false;
             }
             this.limpiarCampos();
-            DialogBox.Informativo(getStage(), "La categoria se guardó exitosamente.!!");
+            DialogBox.Informativo(getStage(), "La categoría se guardó exitosamente.!!");
         } catch (Exception e) {
             DialogBox.Excepcion(getStage(), "Se ha generado una excepción.!!", e);
         }
