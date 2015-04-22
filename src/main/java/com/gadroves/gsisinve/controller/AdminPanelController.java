@@ -58,18 +58,21 @@ public class AdminPanelController implements Initializable {
 
     @FXML
     private void openCategoria() {
-        openWindow("categoria");
+        openWindow("categoria").setMaximize(false);
     }
 
     @FXML
     private void openArticulo() {
-        openWindow("articulo");
+        openWindow("articulo").setMaximize(false);
     }
 
     @FXML
     private void openConsultaArticulo() {
-        openWindow("listaArticulos");
+        openWindow("catalogo");
     }
+
+    @FXML
+    private void openInventario() { openWindow("inventario"); }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

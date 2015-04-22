@@ -100,7 +100,7 @@
                      <TableView fx:id="Tb_InfoContacto" prefHeight="200.0" GridPane.rowIndex="1">
                          <columns>
                              <TableColumn fx:id="Col_Tipo" prefWidth="185.0" text="Tipo Contacto"/>
-                             <TableColumn fx:id="Col_Info" prefWidth="223.0" text="Información"/>
+                             <TableColumn fx:id="Col_Info" prefWidth="372.0" text="Información"/>
                          </columns>
                          <GridPane.margin>
                              <Insets/>

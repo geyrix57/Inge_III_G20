@@ -5,11 +5,11 @@
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.*?>
 <BorderPane styleClass="grid" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.CategoriaController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.InventarioController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
-                <Menu mnemonicParsing="false" onAction="#cargarDatos" text="Archivo">
+                <Menu mnemonicParsing="false" text="Archivo">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#cargarDatos" text="Actualizar">
                             <accelerator>
@@ -21,12 +21,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editar">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#nuevo" text="Nuevo">
-                            <accelerator>
-                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
-                                                    shortcut="UP"/>
-                            </accelerator>
-                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ayuda">
@@ -40,30 +35,28 @@
     <center>
         <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Categoría de Artículos"/>
-                <FlowPane alignment="CENTER" hgap="10.0" maxHeight="50.0" minHeight="50.0" orientation="VERTICAL"
+                <Label text="Inventario"/>
+                <FlowPane alignment="CENTER" hgap="15.0" maxHeight="50.0" minHeight="50.0" orientation="VERTICAL"
                           prefHeight="50.0">
                     <children>
-                        <Label text="Nombre:"/>
-                        <TextField fx:id="Tf_nombre"/>
-                        <Label text="Descripción:"/>
-                        <TextField fx:id="Tf_descripcion" prefHeight="25.0" prefWidth="269.0"/>
-                        <Button mnemonicParsing="false" onAction="#aceptar" text="Guardar">
-                            <FlowPane.margin>
-                                <Insets top="17.0"/>
-                            </FlowPane.margin>
-                        </Button>
+                        <Label text="Código Artículo:"/>
+                        <TextField fx:id="TF_IdArticulo" prefHeight="25.0" prefWidth="204.0" promptText="Id"/>
+                        <Label text="Código Bodega:"/>
+                        <ComboBox fx:id="CB_IdBodega" prefHeight="25.0" prefWidth="194.0" promptText="Bodega"/>
                     </children>
                 </FlowPane>
-                <Label text="Tabla de Categorías"/>
-                <TextField fx:id="Tf_buscar" alignment="CENTER" promptText="Buscar Categoria"/>
-                <TableView fx:id="Tb_categorias" prefHeight="200.0">
+                <TableView fx:id="TB_Inventario" prefHeight="445.0" prefWidth="694.0">
                     <columns>
-                        <TableColumn fx:id="Col_nombre" prefWidth="221.0" text="Nombre"/>
-                        <TableColumn fx:id="Col_descripcion" prefWidth="331.0" text="Descripción"/>
+                        <TableColumn fx:id="Col_IdBodega" prefWidth="166.0" text="Código Bodega"/>
+                        <TableColumn fx:id="Col_IdArticulo" prefWidth="154.0" text="Código Artículo"/>
+                        <TableColumn fx:id="Col_DescArticulo" prefWidth="228.0" text="Descripción Artículo"/>
+                        <TableColumn fx:id="Col_Cantidad" prefWidth="143.0" text="Cantidad"/>
                     </columns>
                 </TableView>
             </children>
+            <BorderPane.margin>
+                <Insets/>
+            </BorderPane.margin>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>

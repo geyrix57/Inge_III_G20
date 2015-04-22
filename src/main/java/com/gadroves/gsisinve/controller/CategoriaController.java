@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -27,7 +26,7 @@ public class CategoriaController implements Initializable {
     @FXML
     TextField Tf_nombre;
     @FXML
-    TextArea Tf_descripcion;
+    TextField Tf_descripcion;
     @FXML
     TextField Tf_buscar;
     @FXML
@@ -67,10 +66,9 @@ public class CategoriaController implements Initializable {
 
     private void initTfBuscar() {
         Tf_buscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(categoria -> {
-                if (newValue == null || newValue.isEmpty()) return true;
-                return categoria.getCatName().toLowerCase().contains(newValue.toLowerCase());
-            });
+            filteredData.setPredicate(categoria ->
+                            newValue == null || newValue.isEmpty() || categoria.getCatName().toLowerCase().contains(newValue.toLowerCase())
+            );
         });
     }
 
