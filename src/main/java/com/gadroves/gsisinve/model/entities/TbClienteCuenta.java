@@ -1,6 +1,7 @@
 package com.gadroves.gsisinve.model.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by geykel on 01/04/2015.
@@ -10,10 +11,8 @@ import javax.persistence.*;
 public class TbClienteCuenta {
     private String id;
     private String nombre;
-    private String email;
-    private String tel;
-    private String direccion;
     private TbCuentaCobrar tbCuentaCobrarById;
+    private Collection<TbContactoCliente> tbContactoClienteById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 12)
@@ -21,8 +20,9 @@ public class TbClienteCuenta {
         return id;
     }
 
-    public void setId(String id) {
+    public TbClienteCuenta setId(String id) {
         this.id = id;
+        return this;
     }
 
     @Basic
@@ -31,62 +31,27 @@ public class TbClienteCuenta {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public TbClienteCuenta setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    @Basic
-    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 50)
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Basic
-    @Column(name = "tel", nullable = true, insertable = true, updatable = true, length = 16)
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    @Basic
-    @Column(name = "direccion", nullable = true, insertable = true, updatable = true, length = 64)
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+        return this;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TbClienteCuenta)) return false;
 
         TbClienteCuenta that = (TbClienteCuenta) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (nombre != null ? !nombre.equals(that.nombre) : that.nombre != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (tel != null ? !tel.equals(that.tel) : that.tel != null) return false;
-        return !(direccion != null ? !direccion.equals(that.direccion) : that.direccion != null);
+        if (!id.equals(that.id)) return false;
+        return nombre.equals(that.nombre);
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (nombre != null ? nombre.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (tel != null ? tel.hashCode() : 0);
-        result = 31 * result + (direccion != null ? direccion.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + nombre.hashCode();
         return result;
     }
 
@@ -95,7 +60,18 @@ public class TbClienteCuenta {
         return tbCuentaCobrarById;
     }
 
-    public void setTbCuentaCobrarById(TbCuentaCobrar tbCuentaCobrarById) {
+    public TbClienteCuenta setTbCuentaCobrarById(TbCuentaCobrar tbCuentaCobrarById) {
         this.tbCuentaCobrarById = tbCuentaCobrarById;
+        return this;
+    }
+
+    @OneToMany(mappedBy = "tbClienteCuentaByIdCliente")
+    public Collection<TbContactoCliente> getTbContactoClienteById() {
+        return tbContactoClienteById;
+    }
+
+    public TbClienteCuenta setTbContactoClienteById(Collection<TbContactoCliente> tbContactoClienteById) {
+        this.tbContactoClienteById = tbContactoClienteById;
+        return this;
     }
 }

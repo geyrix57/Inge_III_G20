@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.*?>
+<BorderPane nodeOrientation="LEFT_TO_RIGHT" styleClass="grid" stylesheets="@../styles/default.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gadroves.gsisinve.controller.ClienteController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Archivo">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#imprimir" text="Imprimir">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP"
+                                                    shortcut="UP"/>
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Editar">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#nuevo" text="Nuevo">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
+                                                    shortcut="UP"/>
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ayuda">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Cliente">
+                    <padding>
+                        <Insets top="10.0"/>
+                    </padding>
+                </Label>
+                <FlowPane alignment="CENTER_LEFT" hgap="20.0" maxHeight="50.0" minHeight="50.0" orientation="VERTICAL"
+                          prefHeight="50.0">
+                    <children>
+                        <Label text="Código:"/>
+                        <TextField fx:id="TF_Codigo" prefHeight="25.0" prefWidth="192.0"/>
+                        <Label text="Nombre:"/>
+                        <TextField fx:id="TF_Nombre" prefHeight="25.0" prefWidth="197.0"/>
+                    </children>
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                </FlowPane>
+                <GridPane alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="51.0" minHeight="46.0" prefHeight="46.0" vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <HBox alignment="CENTER" spacing="30.0" GridPane.rowIndex="2">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#aceptar" text="Guardar"/>
+                                <Button mnemonicParsing="false" onAction="#cancelar" text="Cancelar"/>
+                            </children>
+                            <padding>
+                                <Insets top="10.0"/>
+                            </padding>
+                        </HBox>
+                        <TableView fx:id="TB_InfoContacto" prefHeight="200.0" GridPane.rowIndex="1">
+                            <columns>
+                                <TableColumn fx:id="Col_TipoContacto" prefWidth="167.0" text="Tipo Contacto"/>
+                                <TableColumn fx:id="Col_InfoContacto" prefWidth="390.0" text="Información"/>
+                            </columns>
+                        </TableView>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                            <children>
+                                <ComboBox fx:id="CB_TipoContacto" prefHeight="25.0" prefWidth="124.0"
+                                          promptText="Tipo Contacto"/>
+                                <TextField fx:id="TF_InfoContacto"/>
+                                <Button mnemonicParsing="false" onAction="#agregarInfoContacto" text="Agregar"/>
+                            </children>
+                        </HBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0"/>
+                    </VBox.margin>
+                </GridPane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

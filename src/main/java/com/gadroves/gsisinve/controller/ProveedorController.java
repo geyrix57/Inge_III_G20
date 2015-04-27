@@ -65,22 +65,19 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
         return (Stage) activo.getParent().getScene().getWindow();
     }
 
-    private void closeWindow() {
-        this.getStage().close();
-    }
-
     private void initTbInfoContacto() {
         Tb_InfoContacto.setEditable(true);
         Col_Info.setCellValueFactory(new PropertyValueFactory("valor"));
         Col_Tipo.setCellValueFactory(new PropertyValueFactory("tipo"));
         Col_Info.setCellFactory(TextFieldTableCell.forTableColumn());
-        Col_Info.setOnEditCommit(event -> {
-            event.getTableView().getItems().get(event.getTablePosition().getRow()).setValor(event.getNewValue());
-        });
+        Col_Info.setOnEditCommit(event -> event.getRowValue().setValor(event.getNewValue()));
         Tb_InfoContacto.setOnKeyPressed(event -> {
             TbContactoProveedores cp = Tb_InfoContacto.getSelectionModel().getSelectedItem();
             if (event.getCode().equals(KeyCode.DELETE) && cp != null) {
-                if (this.update) eliminar.add(cp);
+                if (this.update) {
+                    if (agregar.contains(cp)) agregar.remove(cp);
+                    else eliminar.add(cp);
+                }
                 this.InformacionContacto.remove(cp);
             }
         });
@@ -95,58 +92,10 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
         group.selectToggle(activo);
     }
 
-    private void limpiar() {
-        InformacionContacto.clear();
-        nombre.clear();
-        codigo.clear();
-        direccion.clear();
-        Tf_Info.clear();
-        group.selectToggle(activo);
-        update = false;
-    }
-
-    private boolean camposValidos() {
-        return (codigo.getText() != null && !codigo.getText().isEmpty() &&
-                nombre.getText() != null && !nombre.getText().isEmpty() &&
-                direccion.getText() != null && !direccion.getText().isEmpty() &&
-                (activo.isSelected() || inactivo.isSelected()));
-    }
-
-    private void guardarDatos() throws Exception {
-        if (this.camposValidos()) {
-            DBAccess.getInstance().getTransaction().begin();
-            TbProveedor prov = new TbProveedor()
-                    .setCodigo(codigo.getText())
-                    .setDireccion(direccion.getText())
-                    .setNombre(nombre.getText())
-                    .setEstado((boolean) group.getSelectedToggle().getUserData());
-            DBAccess.getInstance().Insert(prov);
-            for (TbContactoProveedores cp : InformacionContacto)
-                DBAccess.getInstance().Insert(cp.setIdProvedor(prov.getCodigo())
-                        .setTbProveedorByIdProvedor(prov));
-            DBAccess.getInstance().getTransaction().commit();
-            this.limpiar();
-        } else
-            throw new Exception("Debe llenar todos los campos.!!");//DialogBox.Error(this.getStage(), "Debe llenar todos los campos.!!");
-    }
-
-    private void actualizarDatos() throws Exception {
-        if (this.camposValidos()) {
-            updateProveedor.setNombre(nombre.getText()).setDireccion(direccion.getText());
-            updateProveedor.getTbContactoProveedoresByCodigo().removeAll(eliminar);
-            updateProveedor.getTbContactoProveedoresByCodigo().addAll(agregar);
-
-            DBAccess.getInstance().getTransaction().begin();
-            DBAccess.getInstance().Update(updateProveedor);
-
-            for (TbContactoProveedores cp : eliminar) DBAccess.getInstance().Delete(cp);
-            for (TbContactoProveedores cp : agregar) DBAccess.getInstance().Insert(cp);
-            for (TbContactoProveedores cp : InformacionContacto)
-                if (!agregar.contains(cp)) DBAccess.getInstance().Update(cp);
-
-            DBAccess.getInstance().getTransaction().commit();
-        } else
-            throw new Exception("Debe llenar todos los campos.!!");//DialogBox.Error(this.getStage(), "Debe llenar todos los campos.!!");
+    private void camposValidos() throws Exception {
+        if (!(codigo.getText() != null && !codigo.getText().isEmpty() && nombre.getText() != null && !nombre.getText().isEmpty() &&
+                direccion.getText() != null && !direccion.getText().isEmpty() && (activo.isSelected() || inactivo.isSelected())))
+            throw new Exception("Debe llenar todos los campos.!!");
     }
 
     private void bindingTbProveedor() {
@@ -175,12 +124,37 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
     @FXML
     private void aceptar() {
         try {
-            if (!this.update)
-                guardarDatos();
-            else
-                actualizarDatos();
+            camposValidos();
+            DBAccess.getInstance().getTransaction().begin();
+            if (this.update) {
+                DBAccess.getInstance().Update(
+                        updateProveedor.setDireccion(direccion.getText())
+                                .setEstado((boolean) group.getSelectedToggle().getUserData())
+                                .setNombre(nombre.getText()));
+                for (TbContactoProveedores cp : eliminar) DBAccess.getInstance().Delete(cp);
+                for (TbContactoProveedores cp : agregar) DBAccess.getInstance().Insert(cp);
+                for (TbContactoProveedores cp : InformacionContacto)
+                    if (!agregar.contains(cp)) DBAccess.getInstance().Update(cp);
+
+                updateProveedor.getTbContactoProveedoresByCodigo().removeAll(eliminar);
+                updateProveedor.getTbContactoProveedoresByCodigo().addAll(agregar);
+            } else {
+                TbProveedor prov = new TbProveedor()
+                        .setCodigo(codigo.getText())
+                        .setDireccion(direccion.getText())
+                        .setNombre(nombre.getText())
+                        .setEstado((boolean) group.getSelectedToggle().getUserData());
+                DBAccess.getInstance().Insert(prov);
+                prov.setTbContactoProveedoresByCodigo(new ArrayList<>());
+                for (TbContactoProveedores cp : InformacionContacto) {
+                    DBAccess.getInstance().Insert(cp.setIdProvedor(prov.getCodigo()).setTbProveedorByIdProvedor(prov));
+                    prov.getTbContactoProveedoresByCodigo().add(cp);
+                }
+            }
+            DBAccess.getInstance().getTransaction().commit();
             DialogBox.Informativo(this.getStage(), "El proveedor se ha guardado correctamente.!");
-            if (this.update) this.closeWindow();
+            if (this.update) this.cancelar();//Cierra ventana
+            else nuevo();
         } catch (Exception e) {
             DialogBox.Excepcion(this.getStage(), "Se ha generedo una excepción", e);
         }
@@ -188,12 +162,23 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
 
     @FXML
     private void cancelar() {
-        this.closeWindow();
+        this.getStage().close();
     }
 
     @FXML
     private void nuevo() {
-        limpiar();
+        InformacionContacto.clear();
+        nombre.clear();
+        codigo.clear();
+        codigo.setEditable(true);
+        direccion.clear();
+        Tf_Info.clear();
+        group.selectToggle(activo);
+        if (update) {
+            agregar.clear();
+            eliminar.clear();
+        }
+        update = false;
     }
 
     @FXML

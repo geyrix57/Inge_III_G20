@@ -128,7 +128,8 @@ public class ArticuloController implements Initializable, InitData<TbArticulo> {
             }
             dbAccess.getTransaction().commit();
             DialogBox.Informativo(getStage(), "El artículo se guardó exitosamente.!!");
-            limpiar();
+            if (this.update) this.cancelar();// Cierra ventana
+            else limpiar();
         } catch (Exception e) {
             DialogBox.Excepcion(getStage(), "Se ha generado una excepción.", e);
         }

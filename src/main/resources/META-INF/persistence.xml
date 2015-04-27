@@ -25,6 +25,7 @@
         <class>com.gadroves.gsisinve.model.entities.TbLineaCompra</class>
         <class>com.gadroves.gsisinve.model.entities.TbCategoria</class>
         <class>com.gadroves.gsisinve.model.entities.TbResolucionGarantia</class>
+        <class>com.gadroves.gsisinve.model.entities.TbContactoCliente</class>
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://db4free.net:3306/sisgradoves"/>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

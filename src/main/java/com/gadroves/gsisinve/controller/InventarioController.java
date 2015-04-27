@@ -55,10 +55,9 @@ public class InventarioController implements Initializable {
         sortedData.comparatorProperty().bind(TB_Inventario.comparatorProperty());
         TB_Inventario.setItems(sortedData);
         TF_IdArticulo.textProperty().addListener((observable, oldValue, newValue) -> {
-            filtered.setPredicate(tbInventario -> {
-                if (newValue == null || newValue.isEmpty()) return true;
-                return tbInventario.getCodeArt().toLowerCase().contains(newValue.toLowerCase());
-            });
+            filtered.setPredicate(tbInventario ->
+                            newValue == null || newValue.isEmpty() || tbInventario.getCodeArt().toLowerCase().contains(newValue.toLowerCase())
+            );
         });
         CB_IdBodega.valueProperty().addListener((observable, oldValue, newValue) -> {
             articulos.clear();
@@ -73,7 +72,6 @@ public class InventarioController implements Initializable {
     private void cargarDatos() {
         articulos.clear();
         datos = DBAccess.getInstance().Stream(TbInventario.class).toList();
-        datos.forEach(System.out::println);
         articulos.addAll(datos);
         CB_IdBodega.getItems().clear();
         CB_IdBodega.getItems().addAll(DBAccess.getInstance().Stream(TbBodega.class).select(tbBodega -> tbBodega.getCode()).toList());

@@ -97,7 +97,7 @@ public class TbCobro {
     }
 
     @ManyToOne
-    @JoinColumn(name = "cuenta_cliente", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false)
+    @JoinColumns({@JoinColumn(name = "cuenta_cliente", referencedColumnName = "cliente", nullable = false, insertable = false, updatable = false), @JoinColumn(name = "cuenta_cliente", referencedColumnName = "cliente", nullable = false)})
     public TbCuentaCobrar getTbCuentaCobrarByCuentaCliente() {
         return tbCuentaCobrarByCuentaCliente;
     }

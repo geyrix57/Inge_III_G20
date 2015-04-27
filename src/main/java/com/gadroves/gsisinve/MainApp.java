@@ -16,9 +16,7 @@ import java.io.IOException;
 public class MainApp extends Application {
 
     public static void main(String[] args) {
-        new Thread(() -> {
-            DBAccess.getInstance();
-        }).start();
+        new Thread(() -> DBAccess.getInstance()).start();
         launch(args);
     }
 
