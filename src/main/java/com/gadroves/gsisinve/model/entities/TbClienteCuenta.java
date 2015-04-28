@@ -1,5 +1,8 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -9,30 +12,38 @@ import java.util.Collection;
 @Entity
 @Table(name = "TB_Cliente_Cuenta", schema = "", catalog = "sisgradoves")
 public class TbClienteCuenta {
-    private String id;
-    private String nombre;
+    private StringProperty id = new SimpleStringProperty();
+    private StringProperty nombre = new SimpleStringProperty();
     private TbCuentaCobrar tbCuentaCobrarById;
     private Collection<TbContactoCliente> tbContactoClienteById;
 
-    @Id
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 12)
-    public String getId() {
+    public StringProperty idProperty() {
         return id;
     }
 
+    public StringProperty nombreProperty() {
+        return nombre;
+    }
+
+    @Id
+    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true, length = 12)
+    public String getId() {
+        return id.get();
+    }
+
     public TbClienteCuenta setId(String id) {
-        this.id = id;
+        this.id.set(id);
         return this;
     }
 
     @Basic
     @Column(name = "nombre", nullable = true, insertable = true, updatable = true, length = 32)
     public String getNombre() {
-        return nombre;
+        return nombre.get();
     }
 
     public TbClienteCuenta setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre.set(nombre);
         return this;
     }
 

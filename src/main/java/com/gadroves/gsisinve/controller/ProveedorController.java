@@ -19,6 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import org.eclipse.persistence.indirection.IndirectList;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class ProveedorController implements Initializable, InitData<TbProveedor>
                         .setNombre(nombre.getText())
                         .setEstado((boolean) group.getSelectedToggle().getUserData());
                 DBAccess.getInstance().Insert(prov);
-                prov.setTbContactoProveedoresByCodigo(new ArrayList<>());
+                prov.setTbContactoProveedoresByCodigo(new IndirectList<>());
                 for (TbContactoProveedores cp : InformacionContacto) {
                     DBAccess.getInstance().Insert(cp.setIdProvedor(prov.getCodigo()).setTbProveedorByIdProvedor(prov));
                     prov.getTbContactoProveedoresByCodigo().add(cp);

@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import org.eclipse.persistence.indirection.IndirectList;
 
 import java.net.URL;
 import java.util.List;
@@ -61,8 +62,11 @@ public class ClienteController implements Initializable, InitData<TbClienteCuent
         TB_InfoContacto.setOnKeyPressed(event -> {
             TbContactoCliente cc = TB_InfoContacto.getSelectionModel().getSelectedItem();
             if (cc != null && event.getCode().equals(KeyCode.DELETE)) {
-                if (update) removeContact.add(cc);
-                else contact.remove(cc);
+                if (update) {
+                    if (addContact.contains(cc)) addContact.remove(cc);
+                    else removeContact.add(cc);
+                }
+                contact.remove(cc);
             }
         });
         TB_InfoContacto.setItems(contact);
@@ -112,15 +116,27 @@ public class ClienteController implements Initializable, InitData<TbClienteCuent
             if (update) {
                 dbAccess.Update(refered.setNombre(TF_Nombre.getText()));
                 for (TbContactoCliente cc : removeContact) dbAccess.Delete(cc);
-                for (TbContactoCliente cc : addContact) {
-                    dbAccess.Insert(cc);
-                }
+                for (TbContactoCliente cc : addContact) dbAccess.Insert(cc);
                 for (TbContactoCliente cc : contact)
                     if (!addContact.contains(cc)) dbAccess.Update(cc);
 
+                refered.getTbContactoClienteById().removeAll(removeContact);
+                refered.getTbContactoClienteById().addAll(addContact);
             } else {
-
+                TbClienteCuenta cc = new TbClienteCuenta()
+                        .setId(TF_Codigo.getText())
+                        .setNombre(TF_Nombre.getText());
+                dbAccess.Insert(cc);
+                cc.setTbContactoClienteById(new IndirectList<>());
+                for (TbContactoCliente c : contact) {
+                    dbAccess.Insert(c.setTbClienteCuentaByIdCliente(cc));
+                    cc.getTbContactoClienteById().add(c);
+                }
             }
+            DialogBox.Informativo(this.getStage(), "El proveedor se ha guardado correctamente.!");
+            if (this.update) this.cancelar();//Cierra ventana
+            else nuevo();
+            dbAccess.getTransaction().commit();
         } catch (Exception e) {
             DialogBox.Excepcion(this.getStage(), "Se ha generedo una excepción.", e);
         }

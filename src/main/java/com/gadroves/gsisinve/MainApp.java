@@ -8,6 +8,7 @@ import com.gadroves.gsisinve.UI.CustomWindow;
 import com.gadroves.gsisinve.model.DBAccess;
 import com.gadroves.gsisinve.utils.R;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        primaryStage.setOnHiding(event -> Platform.exit());
         new CustomWindow(primaryStage, R.loadScreen("main")).show();
     }
 

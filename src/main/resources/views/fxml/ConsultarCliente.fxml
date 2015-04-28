@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <BorderPane styleClass="grid" stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.gadroves.gsisinve.controller.ConsultProveedorController">
+            fx:controller="com.gadroves.gsisinve.controller.ConsultarClienteController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
@@ -33,14 +33,12 @@
         <VBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
             <children>
                 <Label text="Tabla Proveedores"/>
-                <TextField fx:id="Tf_buscar" alignment="CENTER" prefHeight="25.0" prefWidth="239.0"
-                           promptText="Código/Nombre del Proveedor"/>
-                <TableView fx:id="Tb_InfoProveedor">
+                <TextField fx:id="TF_Buscar" alignment="CENTER" prefHeight="25.0" prefWidth="239.0"
+                           promptText="Código/Nombre del Cliente"/>
+                <TableView fx:id="Tb_InfoCliente" prefHeight="400.0" prefWidth="472.0">
                     <columns>
                         <TableColumn fx:id="Col_codigo" prefWidth="119.0" text="Código"/>
-                        <TableColumn fx:id="Col_nombre" prefWidth="159.0" text="Nombre"/>
-                        <TableColumn fx:id="Col_direccion" prefWidth="298.0" text="Dirección"/>
-                        <TableColumn fx:id="Col_estado" prefWidth="163.0" text="Activo"/>
+                        <TableColumn fx:id="Col_nombre" prefWidth="351.0" text="Nombre"/>
                     </columns>
                 </TableView>
             </children>

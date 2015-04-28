@@ -74,6 +74,12 @@ public class AdminPanelController implements Initializable {
     @FXML
     private void openInventario() { openWindow("inventario"); }
 
+    @FXML
+    private void openCliente() { openWindow("cliente"); }
+
+    @FXML
+    private void openConsultarCliente() { openWindow("consultarCliente"); }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.browser.getEngine().load("https://calendar.google.com");
