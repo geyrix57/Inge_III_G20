@@ -238,7 +238,34 @@
                         </TitledPane>
                         <TitledPane styleClass="grid" text="Compras" textFill="WHITE">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="grid" />
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"
+                                            styleClass="grid">
+                                    <children>
+                                        <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0"
+                                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                              AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <Button mnemonicParsing="false" onAction="#openCompra" text="Registrar">
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0"/>
+                                                    </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#openConsultarCompra"
+                                                        text="Buscar">
+                                                    <cursor>
+                                                        <Cursor fx:constant="HAND"/>
+                                                    </cursor>
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0"/>
+                                                    </font>
+                                                </Button>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </AnchorPane>
                             </content>
                             <font>
                                 <Font name="System Bold" size="13.0" />

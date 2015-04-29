@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.*?>
+<BorderPane stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Archivo">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Salir">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="ESCAPE" control="DOWN" meta="UP" shift="UP"
+                                                    shortcut="UP"/>
+                            </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Guardar">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP"
+                                                    shortcut="UP"/>
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Editar">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Nuevo">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP"
+                                                    shortcut="UP"/>
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ayuda">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="15.0" styleClass="grid" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Registro Compra"/>
+                <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="50.0" minHeight="50.0"
+                          orientation="VERTICAL" prefHeight="50.0">
+                    <children>
+                        <Label text="Código Proveedor:"/>
+                        <TextField prefHeight="25.0" prefWidth="162.0"/>
+                        <Label text="Consecutivo:"/>
+                        <TextField prefHeight="25.0" prefWidth="186.0"/>
+                        <Label text="Fecha:"/>
+                        <DatePicker/>
+                    </children>
+                </FlowPane>
+                <Separator/>
+                <FlowPane alignment="CENTER" hgap="15.0" maxHeight="50.0" minHeight="50.0" orientation="VERTICAL"
+                          prefHeight="50.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Label text="Código Artículo:"/>
+                        <TextField prefHeight="25.0" prefWidth="158.0"/>
+                        <Label text="Cantidad:"/>
+                        <TextField prefHeight="25.0" prefWidth="69.0"/>
+                        <Label text="Precio:"/>
+                        <TextField prefHeight="25.0" prefWidth="106.0"/>
+                        <Label text="Impuesto:"/>
+                        <TextField prefHeight="25.0" prefWidth="63.0"/>
+                        <Label text="Descuento:"/>
+                        <TextField prefHeight="25.0" prefWidth="74.0"/>
+                        <Button mnemonicParsing="false" text="Agregar">
+                            <FlowPane.margin>
+                                <Insets top="19.0"/>
+                            </FlowPane.margin>
+                        </Button>
+                    </children>
+                </FlowPane>
+                <TableView prefHeight="250.0">
+                    <columns>
+                        <TableColumn prefWidth="125.0" text="Código"/>
+                        <TableColumn prefWidth="114.0" text="Cantidad"/>
+                        <TableColumn prefWidth="132.0" text="Precio"/>
+                        <TableColumn prefWidth="132.0" text="Impuesto"/>
+                        <TableColumn prefWidth="100.0" text="Descuento"/>
+                    </columns>
+                </TableView>
+                <HBox alignment="TOP_CENTER" spacing="30.0">
+                    <children>
+                        <Button mnemonicParsing="false" text="Guardar"/>
+                        <Button mnemonicParsing="false" text="Cancelar"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+        </VBox>
+    </center>
+</BorderPane>

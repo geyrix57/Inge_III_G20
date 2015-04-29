@@ -14,7 +14,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,10 +35,6 @@ public class ConsultarClienteController implements Initializable {
 
     private ObservableList<TbClienteCuenta> datos = FXCollections.observableArrayList();
     private FilteredList<TbClienteCuenta> filteredData = null;
-
-    private Stage getStage() {
-        return (Stage) TF_Buscar.getParent().getScene().getWindow();
-    }
 
     private void openCliente(TbClienteCuenta cc) {
         try {
