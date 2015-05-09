@@ -7,9 +7,11 @@ package com.gadroves.gsisinve.controller;
 
 import com.gadroves.gsisinve.utils.CustomDate;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,18 +23,16 @@ import java.util.ResourceBundle;
  */
 public class FacturarController implements Initializable {
 
-    @FXML
-    Label fecha;
-    @FXML
-    Label hora;
-    @FXML
-    RadioButton entregasi;
-    @FXML
-    RadioButton entregano;
-    @FXML
-    TextArea direccion;
-    @FXML
-    TextField costenvio;
+    @FXML    Label fecha;
+    @FXML    Label hora;
+    @FXML    RadioButton entregasi;
+    @FXML    RadioButton entregano;
+    @FXML    TextArea direccion;
+    @FXML    TextField costenvio;
+    @FXML    ComboBox<String> CB_TipoPago;
+    @FXML    Label LBL_Abono;
+    @FXML    HBox HBX_Abono;
+    @FXML    TextField TF_Abono;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,6 +54,20 @@ public class FacturarController implements Initializable {
                 }
             }
         });
+        HBX_Abono.setVisible(false);
+        CB_TipoPago.setItems(FXCollections.observableArrayList("Contado", "Credito"));
+        CB_TipoPago.getSelectionModel().selectFirst();
+        LBL_Abono.visibleProperty().bind(HBX_Abono.visibleProperty());
+        CB_TipoPago.getSelectionModel().selectedIndexProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue.intValue() == 0) HBX_Abono.setVisible(false);
+                    else HBX_Abono.setVisible(true);
+                }
+        );
+        TF_Abono.setOnKeyTyped((value) -> {
+                    if (!value.getCharacter().matches("[0-9]+")) value.consume();
+                }
+        );
     }
 
 }
