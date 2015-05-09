@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import org.eclipse.persistence.indirection.IndirectList;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -161,6 +162,8 @@ public class ClienteController implements Initializable, InitData<TbClienteCuent
         TF_Codigo.setText(refered.getId());
         TF_Nombre.setText(refered.getNombre());
         contact.addAll(refered.getTbContactoClienteById());
+        addContact = new ArrayList<>();
+        removeContact = new ArrayList<>();
     }
 
 }

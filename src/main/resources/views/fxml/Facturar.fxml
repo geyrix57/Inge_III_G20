@@ -59,8 +59,8 @@
                       </GridPane>
                       <GridPane hgap="10.0" styleClass="grid" HBox.hgrow="ALWAYS">
                           <columnConstraints>
-                              <ColumnConstraints hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="58.0" />
-                              <ColumnConstraints hgrow="NEVER" maxWidth="223.0" minWidth="196.0" prefWidth="223.0" />
+                              <ColumnConstraints hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="76.0" />
+                              <ColumnConstraints hgrow="NEVER" maxWidth="223.0" minWidth="196.0" prefWidth="205.0" />
                               <ColumnConstraints hgrow="NEVER" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" />
                               <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
                           </columnConstraints>
@@ -70,9 +70,9 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                           <children>
-                              <Label text="Teléfono:" GridPane.rowIndex="2" />
-                              <TextField maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" promptText="Default / Id de Cliente a cargar" GridPane.columnIndex="1" />
-                              <TextField maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Contacto:" GridPane.rowIndex="2" />
+                              <TextField fx:id="TF_ClientID" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" promptText="Default / Id de Cliente a cargar" GridPane.columnIndex="1" />
+                              <TextField fx:id="TF_TelCLient" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label GridPane.rowIndex="1" />
                               <Label text="Cliente:" />
                               <Label prefHeight="19.0" prefWidth="118.0" text="Vendedor:" GridPane.columnIndex="2" />
