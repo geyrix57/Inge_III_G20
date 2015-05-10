@@ -4,15 +4,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.*?>
-<BorderPane stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane stylesheets="@../styles/default.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gadroves.gsisinve.controller.ConsultarCompraController">
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
                 <Menu mnemonicParsing="false" text="Archivo">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Salir">
+                        <MenuItem mnemonicParsing="false" onAction="#cargarDatos" text="Actualizar">
                             <accelerator>
-                                <KeyCodeCombination alt="UP" code="ESCAPE" control="DOWN" meta="UP" shift="UP"
+                                <KeyCodeCombination alt="UP" code="F5" control="DOWN" meta="UP" shift="UP"
                                                     shortcut="UP"/>
                             </accelerator>
                         </MenuItem>
@@ -42,10 +43,10 @@
                           orientation="VERTICAL" prefHeight="50.0">
                     <children>
                         <Label text="Inicio:"/>
-                        <DatePicker/>
+                        <DatePicker fx:id="Fecha_Inicio"/>
                         <Label text="Final:"/>
-                        <DatePicker/>
-                        <Button mnemonicParsing="false" text="Buscar">
+                        <DatePicker fx:id="Fecha_Final"/>
+                        <Button mnemonicParsing="false" onMouseClicked="#buscarPorFechas" text="Buscar">
                             <FlowPane.margin>
                                 <Insets top="19.0"/>
                             </FlowPane.margin>
@@ -54,14 +55,15 @@
                 </FlowPane>
                 <Separator prefWidth="200.0"/>
                 <Label text="Buscar Código Proveedor"/>
-                <TextField alignment="CENTER" promptText="Coódigo Proveedor"/>
-                <TableView>
+                <TextField fx:id="TF_Buscar" alignment="CENTER" promptText="Código Proveedor"/>
+                <TableView fx:id="TB_Factura" onMouseClicked="#doubleClick">
                     <columns>
-                        <TableColumn prefWidth="150.0" text="Fecha"/>
-                        <TableColumn prefWidth="183.0" text="Código Proveedor"/>
-                        <TableColumn prefWidth="140.0" text="Consecutivo"/>
-                        <TableColumn prefWidth="118.0" text="Impuesto"/>
-                        <TableColumn minWidth="0.0" prefWidth="148.0" text="Total"/>
+                        <TableColumn fx:id="Col_Fecha" prefWidth="150.0" text="Fecha"/>
+                        <TableColumn fx:id="Col_CodigoProveedor" prefWidth="161.0" text="Código Proveedor"/>
+                        <TableColumn fx:id="Col_Consecutivo" prefWidth="162.0" text="Consecutivo"/>
+                        <TableColumn fx:id="Col_Impuesto" prefWidth="98.0" text="Impuesto"/>
+                        <TableColumn fx:id="Col_Total" minWidth="0.0" prefWidth="133.0" text="Total"/>
+                        <TableColumn fx:id="Col_Saldo" prefWidth="110.0" text="Saldo"/>
                     </columns>
                 </TableView>
             </children>

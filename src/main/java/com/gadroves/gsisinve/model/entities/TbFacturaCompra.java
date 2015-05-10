@@ -1,5 +1,7 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.*;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -10,13 +12,14 @@ import java.util.Collection;
 @Entity
 @Table(name = "TB_Factura_Compra", schema = "", catalog = "sisgradoves")
 public class TbFacturaCompra {
-    private int id;
-    private String provId;
-    private Date fecha;
-    private double subTotal;
-    private double total;
-    private double imp;
-    private double saldo;
+    private StringProperty id = new SimpleStringProperty();
+    private StringProperty provId = new SimpleStringProperty();
+    private ObjectProperty<Date> fecha = new SimpleObjectProperty<>();
+    private DoubleProperty subTotal = new SimpleDoubleProperty();
+    private DoubleProperty total = new SimpleDoubleProperty();
+    private DoubleProperty imp = new SimpleDoubleProperty();
+    private DoubleProperty saldo = new SimpleDoubleProperty();
+
     private TbProveedor tbProveedorByProvId;
     private Collection<TbFacturasCuentaPagar> tbFacturasCuentaPagarsById;
     private Collection<TbPagoCuentaPagar> tbPagoCuentaPagarsById;
@@ -24,73 +27,97 @@ public class TbFacturaCompra {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
-        return id;
+    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true, length = 32)
+    public String getId() {
+        return id.get();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id.set(id);
+    }
+
+    public StringProperty idProperty() {
+        return id;
     }
 
     @Basic
     @Column(name = "prov_id", nullable = false, insertable = true, updatable = true, length = 32)
     public String getProvId() {
-        return provId;
+        return provId.get();
     }
 
     public void setProvId(String provId) {
-        this.provId = provId;
+        this.provId.set(provId);
+    }
+
+    public StringProperty provIdProperty() {
+        return provId;
     }
 
     @Basic
     @Column(name = "fecha", nullable = false, insertable = true, updatable = true)
     public Date getFecha() {
-        return fecha;
+        return fecha.get();
     }
 
     public void setFecha(Date fecha) {
-        this.fecha = fecha;
+        this.fecha.set(fecha);
     }
 
     @Basic
     @Column(name = "subTotal", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getSubTotal() {
-        return subTotal;
+        return subTotal.get();
     }
 
     public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
+        this.subTotal.set(subTotal);
+    }
+
+    public DoubleProperty subTotalProperty() {
+        return subTotal;
     }
 
     @Basic
     @Column(name = "total", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getTotal() {
-        return total;
+        return total.get();
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        this.total.set(total);
+    }
+
+    public DoubleProperty totalProperty() {
+        return total;
     }
 
     @Basic
     @Column(name = "imp", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getImp() {
-        return imp;
+        return imp.get();
     }
 
     public void setImp(double imp) {
-        this.imp = imp;
+        this.imp.set(imp);
+    }
+
+    public DoubleProperty impProperty() {
+        return imp;
     }
 
     @Basic
     @Column(name = "saldo", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getSaldo() {
-        return saldo;
+        return saldo.get();
     }
 
     public void setSaldo(double saldo) {
-        this.saldo = saldo;
+        this.saldo.set(saldo);
+    }
+
+    public DoubleProperty saldoProperty() {
+        return saldo;
     }
 
     @Override
@@ -100,31 +127,25 @@ public class TbFacturaCompra {
 
         TbFacturaCompra that = (TbFacturaCompra) o;
 
-        if (id != that.id) return false;
-        if (Double.compare(that.subTotal, subTotal) != 0) return false;
-        if (Double.compare(that.total, total) != 0) return false;
-        if (Double.compare(that.imp, imp) != 0) return false;
-        if (Double.compare(that.saldo, saldo) != 0) return false;
-        if (provId != null ? !provId.equals(that.provId) : that.provId != null) return false;
-        return !(fecha != null ? !fecha.equals(that.fecha) : that.fecha != null);
+        if (!id.equals(that.id)) return false;
+        if (!provId.equals(that.provId)) return false;
+        if (!fecha.equals(that.fecha)) return false;
+        if (!subTotal.equals(that.subTotal)) return false;
+        if (!total.equals(that.total)) return false;
+        if (!imp.equals(that.imp)) return false;
+        return saldo.equals(that.saldo);
 
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + (provId != null ? provId.hashCode() : 0);
-        result = 31 * result + (fecha != null ? fecha.hashCode() : 0);
-        temp = Double.doubleToLongBits(subTotal);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(total);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(imp);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(saldo);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = id.hashCode();
+        result = 31 * result + provId.hashCode();
+        result = 31 * result + fecha.hashCode();
+        result = 31 * result + subTotal.hashCode();
+        result = 31 * result + total.hashCode();
+        result = 31 * result + imp.hashCode();
+        result = 31 * result + saldo.hashCode();
         return result;
     }
 

@@ -4,16 +4,14 @@ import com.gadroves.gsisinve.UI.CustomWindow;
 import com.gadroves.gsisinve.model.DBAccess;
 import com.gadroves.gsisinve.model.entities.TbClienteCuenta;
 import com.gadroves.gsisinve.utils.R;
+import com.gadroves.gsisinve.utils.UtilsUI;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  * Created by geykel on 28/04/2015.
  */
-public class ConsultarClienteController implements Initializable {
+public class ConsultarClienteController implements Consultar<TbClienteCuenta> {
 
     @FXML
     TextField TF_Buscar;
@@ -34,11 +32,11 @@ public class ConsultarClienteController implements Initializable {
     TableColumn<TbClienteCuenta, String> Col_nombre;
 
     private ObservableList<TbClienteCuenta> datos = FXCollections.observableArrayList();
-    private FilteredList<TbClienteCuenta> filteredData = null;
 
-    private void openCliente(TbClienteCuenta cc) {
+    @Override
+    public void openRegistryWindow(TbClienteCuenta tbClienteCuenta) {
         try {
-            new CustomWindow(R.loadScreen("cliente", cc))
+            new CustomWindow(R.loadScreen("cliente", tbClienteCuenta))
                     .show()
                     .setMaximize(false);
         } catch (IOException e) {
@@ -46,37 +44,28 @@ public class ConsultarClienteController implements Initializable {
         }
     }
 
-    private void iniTbInfoCliente() {
-        Tb_InfoCliente.setItems(datos);
-        Col_codigo.setCellValueFactory(new PropertyValueFactory<TbClienteCuenta, String>("id"));
-        Col_nombre.setCellValueFactory(new PropertyValueFactory<TbClienteCuenta, String>("nombre"));
-        filteredData = new FilteredList<>(datos, p -> true);
-        SortedList<TbClienteCuenta> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(Tb_InfoCliente.comparatorProperty());
-        Tb_InfoCliente.setItems(sortedData);
-
-        Tb_InfoCliente.setOnMouseClicked(event -> {
-            if (event.getClickCount() > 1) {
-                TbClienteCuenta cp = Tb_InfoCliente.getSelectionModel().getSelectedItem();
-                if (cp != null) this.openCliente(cp);
-            }
-        });
+    @Override
+    public void doubleClick(MouseEvent event) {
+        if (event.getClickCount() > 1) {
+            TbClienteCuenta cp = Tb_InfoCliente.getSelectionModel().getSelectedItem();
+            if (cp != null) openRegistryWindow(cp);
+        }
     }
 
-    @FXML
-    private void cargarDatos() {
+    @Override
+    public void cargarDatos() {
+        datos.clear();
+        TF_Buscar.clear();
         datos.addAll(DBAccess.getInstance().Stream(TbClienteCuenta.class).toList());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        iniTbInfoCliente();
-        TF_Buscar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(clienteCuenta -> {
-                if (newValue == null || newValue.isEmpty()) return true;
-                return clienteCuenta.getId().toLowerCase().contains(newValue.toLowerCase()) ||
-                        clienteCuenta.getNombre().toLowerCase().contains(newValue.toLowerCase());
-            });
+        UtilsUI.setUpColumnsValues(new String[]{"id", "nombre"}, new TableColumn[]{Col_codigo, Col_nombre});
+        UtilsUI.textFieldFilter(Tb_InfoCliente, datos, TF_Buscar, (tbClienteCuenta, str) -> {
+            if (str == null || str.isEmpty()) return true;
+            return tbClienteCuenta.getId().toLowerCase().contains(str.toLowerCase()) ||
+                    tbClienteCuenta.getNombre().toLowerCase().contains(str.toLowerCase());
         });
     }
 }

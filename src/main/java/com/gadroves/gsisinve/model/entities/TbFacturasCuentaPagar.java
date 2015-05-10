@@ -10,7 +10,7 @@ import javax.persistence.*;
 @IdClass(TbFacturasCuentaPagarPK.class)
 public class TbFacturasCuentaPagar {
     private String cuenta;
-    private int factura;
+    private String factura;
     private double monto;
     private CuentaAPagar cuentaAPagarByCuenta;
     private TbFacturaCompra tbFacturaCompraByFactura;
@@ -26,12 +26,12 @@ public class TbFacturasCuentaPagar {
     }
 
     @Id
-    @Column(name = "factura", nullable = false, insertable = true, updatable = true)
-    public int getFactura() {
+    @Column(name = "factura", nullable = false, insertable = true, updatable = true, length = 32)
+    public String getFactura() {
         return factura;
     }
 
-    public void setFactura(int factura) {
+    public void setFactura(String factura) {
         this.factura = factura;
     }
 
@@ -52,9 +52,9 @@ public class TbFacturasCuentaPagar {
 
         TbFacturasCuentaPagar that = (TbFacturasCuentaPagar) o;
 
-        if (factura != that.factura) return false;
         if (Double.compare(that.monto, monto) != 0) return false;
-        return !(cuenta != null ? !cuenta.equals(that.cuenta) : that.cuenta != null);
+        if (!cuenta.equals(that.cuenta)) return false;
+        return factura.equals(that.factura);
 
     }
 
@@ -62,8 +62,8 @@ public class TbFacturasCuentaPagar {
     public int hashCode() {
         int result;
         long temp;
-        result = cuenta != null ? cuenta.hashCode() : 0;
-        result = 31 * result + factura;
+        result = cuenta.hashCode();
+        result = 31 * result + factura.hashCode();
         temp = Double.doubleToLongBits(monto);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;

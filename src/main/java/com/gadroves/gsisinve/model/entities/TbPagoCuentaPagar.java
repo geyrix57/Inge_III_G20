@@ -11,7 +11,7 @@ import java.sql.Date;
 public class TbPagoCuentaPagar {
     private String cuentaPago;
     private double monto;
-    private Integer factura;
+    private String factura;
     private Date fechaPago;
     private int pagoId;
     private CuentaAPagar cuentaAPagarByCuentaPago;
@@ -38,12 +38,12 @@ public class TbPagoCuentaPagar {
     }
 
     @Basic
-    @Column(name = "factura", nullable = false, insertable = true, updatable = true)
-    public Integer getFactura() {
+    @Column(name = "factura", nullable = false, insertable = true, updatable = true, length = 32)
+    public String getFactura() {
         return factura;
     }
 
-    public void setFactura(Integer factura) {
+    public void setFactura(String factura) {
         this.factura = factura;
     }
 

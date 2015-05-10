@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class TbLineaCompraPK implements Serializable {
     private int numero;
-    private int facOrigen;
+    private String facOrigen;
 
     @Column(name = "numero", nullable = false, insertable = true, updatable = true)
     @Id
@@ -21,13 +21,13 @@ public class TbLineaCompraPK implements Serializable {
         this.numero = numero;
     }
 
-    @Column(name = "fac_origen", nullable = false, insertable = true, updatable = true)
+    @Column(name = "fac_origen", nullable = false, insertable = true, updatable = true, length = 32)
     @Id
-    public int getFacOrigen() {
+    public String getFacOrigen() {
         return facOrigen;
     }
 
-    public void setFacOrigen(int facOrigen) {
+    public void setFacOrigen(String facOrigen) {
         this.facOrigen = facOrigen;
     }
 
@@ -39,15 +39,14 @@ public class TbLineaCompraPK implements Serializable {
         TbLineaCompraPK that = (TbLineaCompraPK) o;
 
         if (numero != that.numero) return false;
-        if (facOrigen != that.facOrigen) return false;
+        return !(facOrigen != null ? !facOrigen.equals(that.facOrigen) : that.facOrigen != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = numero;
-        result = 31 * result + facOrigen;
+        result = 31 * result + (facOrigen != null ? facOrigen.hashCode() : 0);
         return result;
     }
 }
