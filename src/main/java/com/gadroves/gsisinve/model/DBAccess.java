@@ -61,4 +61,8 @@ public final class DBAccess {
         em.close();
         entityManagerFactory.close();
     }
+
+    public EntityManager getEm() {
+        return em;
+    }
 }

@@ -184,7 +184,7 @@
                                               <Insets right="5.0" />
                                           </HBox.margin>
                                       </Label>
-                                      <TextField fx:id="costenvio" prefHeight="25.0" prefWidth="193.0" />
+                                      <TextField fx:id="TF_CostEnvio" prefHeight="25.0" prefWidth="193.0" />
                                   </children>
                               </HBox>
                           </children>
