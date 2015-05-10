@@ -3,10 +3,7 @@ package com.gadroves.gsisinve.model;
 import org.jinq.jpa.JinqJPAStreamProvider;
 import org.jinq.orm.stream.JinqStream;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 
 /**
  * Created by geykel on 8/04/2015.
@@ -61,8 +58,7 @@ public final class DBAccess {
         em.close();
         entityManagerFactory.close();
     }
-
-    public EntityManager getEm() {
-        return em;
+    public <U> TypedQuery<U>  sqlQuery(String sql,Class<U> uClass){
+        return  em.createQuery(sql, uClass);
     }
 }

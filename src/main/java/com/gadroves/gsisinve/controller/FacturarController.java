@@ -28,11 +28,14 @@ import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
 import org.jinq.orm.stream.JinqStream;
 
-import javax.persistence.EntityManager;
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+//import java.sql.Date;
 
 /**
  * FXML Controller class
@@ -209,7 +212,7 @@ public class FacturarController implements Initializable {
     }
     @FXML
     private void Facturar(){
-        EntityManager em = dbAccess.getEm();
+        //EntityManager em = dbAccess.getEm();
         //Hay Items?
         if(TB_LineasCompra.getItems().size() < 1){
             DialogBox.Error((Stage)HBX_Abono.getScene().getWindow(),"La Factura debe contener almenos un elemento");
@@ -233,8 +236,12 @@ public class FacturarController implements Initializable {
             cLienteFactura.setId(clienteCuenta.getId());
             cLienteFactura.setContact(TF_TelCLient.getText());
         }
-        int lastId = (int)em.createNativeQuery("SELECT LAST_INSERT_ID() FROM TB_Factura_Venta").getSingleResult();
-
+        //int lastId = (int)em.createNativeQuery("SELECT LAST_INSERT_ID() FROM TB_Factura_Venta").getSingleResult();
+        TbFacturaVenta facturaVenta = new TbFacturaVenta();
+        facturaVenta.setAddress(cLienteFactura.getAddress());
+        java.util.Date d1 = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        java.sql.Date date = new  java.sql.Date(d1.getTime());
+        facturaVenta.setFacDate(date);
     }
 }
 class myStringConverter extends StringConverter<Double>{
