@@ -11,8 +11,8 @@ public class TbLineaFacPK implements Serializable {
     private int facId;
     private String artId;
 
-    @Column(name = "fac_id", nullable = false, insertable = true, updatable = true)
     @Id
+    @Column(name = "fac_id", nullable = false, insertable = true, updatable = true)
     public int getFacId() {
         return facId;
     }
@@ -21,8 +21,8 @@ public class TbLineaFacPK implements Serializable {
         this.facId = facId;
     }
 
-    @Column(name = "art_id", nullable = false, insertable = true, updatable = true, length = 32)
     @Id
+    @Column(name = "art_id", nullable = false, insertable = true, updatable = true, length = 32)
     public String getArtId() {
         return artId;
     }

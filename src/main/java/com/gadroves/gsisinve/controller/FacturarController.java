@@ -6,18 +6,24 @@
 package com.gadroves.gsisinve.controller;
 
 import com.gadroves.gsisinve.model.DBAccess;
-import com.gadroves.gsisinve.model.entities.TbCLienteFactura;
-import com.gadroves.gsisinve.model.entities.TbClienteCuenta;
-import com.gadroves.gsisinve.model.entities.TbContactoCliente;
+import com.gadroves.gsisinve.model.entities.*;
 import com.gadroves.gsisinve.utils.CustomDate;
 import com.gadroves.gsisinve.utils.DialogBox;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import org.jinq.orm.stream.JinqStream;
 
 import java.net.URL;
@@ -51,13 +57,24 @@ public class FacturarController implements Initializable {
     @FXML    TextField TF_ClientID;
     @FXML    TextField TF_NombClient;
     @FXML    TextField TF_TelCLient;
-
+    @FXML    TableView<TbLineaFac> TB_LineasCompra;
+        //@FXML    TableColumn<TbLineaFac, String> TC_CodArt;
+        @FXML    TableColumn<TbLineaFac, Integer> TC_ArtCant;
+        @FXML    TableColumn<TbLineaFac, String>  TC_ArtDesc;
+        @FXML    TableColumn<TbLineaFac, Double>  TC_ArtPrec;
+        @FXML    TableColumn<TbLineaFac, Double>  TC_ArtDis;
+        @FXML    TableColumn<TbLineaFac, Double>  TC_ArtTot;
+    @FXML    Label LBL_SubTotal;
+    @FXML    TextField TF_NewCod;
+    @FXML    Label LBL_Total;
     /**************Bussiness Elements*********************************/
     DBAccess dbAccess;
     TbCLienteFactura cLienteFactura;
+    DoubleProperty subTotal = new SimpleDoubleProperty();
     /*****************************************************************/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         dbAccess = DBAccess.getInstance();
         CustomDate customdate = new CustomDate(fecha.textProperty(), hora.textProperty());
         customdate.start();
@@ -90,11 +107,10 @@ public class FacturarController implements Initializable {
         TF_Abono.setOnKeyTyped(value -> {
             if (!value.getCharacter().matches("[0-9]+")) value.consume();
         });
-        TF_ClientID.setOnAction(value->{
+        TF_ClientID.setOnAction(value -> {
             String cid = TF_ClientID.getText();
-            //System.out.println(cid);
-            JinqStream<TbClienteCuenta> stream = (dbAccess.Stream(TbClienteCuenta.class).where(c->c.getId().equals(cid)));
-            if(stream.count() < 1) {
+            JinqStream<TbClienteCuenta> stream = (dbAccess.Stream(TbClienteCuenta.class).where(c -> c.getId().equals(cid)));
+            if (stream.count() < 1) {
                 DialogBox.Error((Stage) HBX_Abono.getScene().getWindow(), "No Existe Cliente");
                 return;
             }
@@ -102,12 +118,83 @@ public class FacturarController implements Initializable {
             String tel = "No Tiene Tel";
             TF_NombClient.setText(clienteCuenta.getNombre());
             List<TbContactoCliente> contactoClienteList = clienteCuenta.getTbContactoClienteById().stream().filter(t -> !t.getTipo().equals(dir)).collect(Collectors.toList());
-            List<TbContactoCliente> contactoAddClienteList = clienteCuenta.getTbContactoClienteById().stream().filter(t->t.getTipo().equals(dir)).collect(Collectors.toList());
-            if(contactoClienteList.size() > 0) tel = contactoClienteList.get(0).getValor();
+            List<TbContactoCliente> contactoAddClienteList = clienteCuenta.getTbContactoClienteById().stream().filter(t -> t.getTipo().equals(dir)).collect(Collectors.toList());
+            if (contactoClienteList.size() > 0) tel = contactoClienteList.get(0).getValor();
             TF_TelCLient.setText(tel);
-
         });
+        /** Table Column **/
+        TB_LineasCompra.setEditable(true);
+        TC_ArtDis.setCellValueFactory(new PropertyValueFactory<TbLineaFac, Double>("disc"));
+        TC_ArtCant.setCellValueFactory(new PropertyValueFactory<TbLineaFac, Integer>("quant"));
+        TC_ArtDesc.setCellValueFactory(new PropertyValueFactory<TbLineaFac, String>("descripcion"));
+        TC_ArtTot.setCellValueFactory(new PropertyValueFactory<TbLineaFac, Double>("total"));
+        TC_ArtPrec.setCellValueFactory(new PropertyValueFactory<TbLineaFac, Double>("p_unitario"));
+        TC_ArtDis.setCellFactory(TextFieldTableCell.<TbLineaFac, Double>forTableColumn(new myStringConverter()));
+        TC_ArtCant.setCellFactory(TextFieldTableCell.<TbLineaFac, Integer>forTableColumn(new myStringIntConverter()));
+        TB_LineasCompra.getItems().addListener(
+                (ListChangeListener.Change<? extends TbLineaFac> c) -> {
+                    updateSubTotal();
+                    while (c.next()) {
+                        c.getAddedSubList().forEach(lf -> lf.totalProperty().addListener(
+                                (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+                                    updateSubTotal();
+                                }));
+                    }
+                });
+        TB_LineasCompra.setOnKeyPressed(value -> {
+            if (KeyCode.DELETE == value.getCode()) deleteFromTVLineasFactura();
+        });
+        LBL_SubTotal.setText("0");
+        TF_NewCod.setOnAction((ActionEvent event) -> {
+                    String artId = TF_NewCod.getText();
+                    JinqStream<TbArticulo> artSearch = dbAccess.Stream(TbArticulo.class).where(a -> a.getId().equals(artId));
+                    if (artSearch.count() != 1) {
+                        DialogBox.Error((Stage) HBX_Abono.getScene().getWindow(), "NO Existe Articulo");
+                        TF_NewCod.clear();
+                        return;
+                    }
+                    TbArticulo articulo = artSearch.getOnlyValue();
+                    if (TB_LineasCompra.getItems().stream().filter(a -> a.getArtId().equals(articulo.getId())).count() > 0)
+                        TB_LineasCompra.getItems().stream().filter(a -> a.getArtId().equals(articulo.getId())).forEach(lf -> lf.setQuant(lf.getQuant() + 1));
+                    else TB_LineasCompra.getItems().add(new TbLineaFac(articulo));
+                    TF_NewCod.clear();
+                }
+        );
+        LBL_SubTotal.textProperty().bind(subTotal.asString());
+        LBL_Total.textProperty().bind(subTotal.asString());
+    }
+    @FXML void deleteFromTVLineasFactura(){
+        int lineaFac = TB_LineasCompra.getSelectionModel().getSelectedIndex();
+        if(lineaFac > -1){
+            TB_LineasCompra.getItems().remove(lineaFac);
+        }
+    }
+    private void  updateSubTotal(){
+        double val = TB_LineasCompra.getItems().stream().mapToDouble(f->f.getTotal()).sum();
+        subTotal.setValue(val);
+    }
+}
+class myStringConverter extends StringConverter<Double>{
 
+        @Override
+        public String toString(Double object) {
+            return object.toString();
+        }
+
+        @Override
+        public Double fromString(String string) {
+            return  Double.valueOf(string);
+        }
+}
+class myStringIntConverter extends StringConverter<Integer>{
+
+    @Override
+    public String toString(Integer object) {
+        return object.toString();
     }
 
+    @Override
+    public Integer fromString(String string) {
+        return  Integer.valueOf(string);
+    }
 }
