@@ -81,7 +81,7 @@ public class ConsultarFacturaController implements Initializable {
             }
             TbFacturaVenta facturaVenta = dbAccess.Stream(TbFacturaVenta.class).where(c->c.getId() == facid).getOnlyValue();
             int factnum = facturaVenta.getId();
-            TbCLienteFactura cLienteFactura = dbAccess.Stream(TbCLienteFactura.class).where(c->c.getFacId() == factnum).getOnlyValue();
+            TbCLienteFactura cLienteFactura = facturaVenta.getTbCLienteFacturaById();//= dbAccess.Stream(TbCLienteFactura.class).where(c->c.getFacId() == factnum).getOnlyValue();
             FactClientUnion clientUnion = new FactClientUnion(cLienteFactura,facturaVenta);
             TV_Facturas.getItems().clear();
             TF_FacId.clear();
