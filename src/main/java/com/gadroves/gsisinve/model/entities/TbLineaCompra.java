@@ -15,7 +15,7 @@ public class TbLineaCompra {
     private double precio;
     private double imp;
     private double descuento;
-    private int facOrigen;
+    private String facOrigen;
     private TbArticuloProveedor tbArticuloProveedorByCodArt;
     private TbFacturaCompra tbFacturaCompraByFacOrigen;
 
@@ -80,12 +80,12 @@ public class TbLineaCompra {
     }
 
     @Id
-    @Column(name = "fac_origen", nullable = false, insertable = true, updatable = true)
-    public int getFacOrigen() {
+    @Column(name = "fac_origen", nullable = false, insertable = true, updatable = true, length = 32)
+    public String getFacOrigen() {
         return facOrigen;
     }
 
-    public void setFacOrigen(int facOrigen) {
+    public void setFacOrigen(String facOrigen) {
         this.facOrigen = facOrigen;
     }
 
@@ -101,8 +101,8 @@ public class TbLineaCompra {
         if (Double.compare(that.precio, precio) != 0) return false;
         if (Double.compare(that.imp, imp) != 0) return false;
         if (Double.compare(that.descuento, descuento) != 0) return false;
-        if (facOrigen != that.facOrigen) return false;
-        return !(codArt != null ? !codArt.equals(that.codArt) : that.codArt != null);
+        if (!codArt.equals(that.codArt)) return false;
+        return facOrigen.equals(that.facOrigen);
 
     }
 
@@ -111,7 +111,7 @@ public class TbLineaCompra {
         int result;
         long temp;
         result = numero;
-        result = 31 * result + (codArt != null ? codArt.hashCode() : 0);
+        result = 31 * result + codArt.hashCode();
         result = 31 * result + cantidad;
         temp = Double.doubleToLongBits(precio);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
@@ -119,7 +119,7 @@ public class TbLineaCompra {
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         temp = Double.doubleToLongBits(descuento);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + facOrigen;
+        result = 31 * result + facOrigen.hashCode();
         return result;
     }
 

@@ -51,8 +51,4 @@ public class R {
         return loadScreen;
     }
 
-    //Lo voy a dejar asi por el momento pero hay que cambiarlo
-    public static InputStream getDBPropertiesAsStream() {
-        return R.class.getClassLoader().getResourceAsStream("database/connection.properties");
-    }
 }

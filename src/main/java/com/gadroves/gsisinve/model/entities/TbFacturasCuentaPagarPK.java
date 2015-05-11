@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class TbFacturasCuentaPagarPK implements Serializable {
     private String cuenta;
-    private int factura;
+    private String factura;
 
     @Column(name = "cuenta", nullable = false, insertable = true, updatable = true, length = 32)
     @Id
@@ -21,13 +21,13 @@ public class TbFacturasCuentaPagarPK implements Serializable {
         this.cuenta = cuenta;
     }
 
-    @Column(name = "factura", nullable = false, insertable = true, updatable = true)
+    @Column(name = "factura", nullable = false, insertable = true, updatable = true, length = 32)
     @Id
-    public int getFactura() {
+    public String getFactura() {
         return factura;
     }
 
-    public void setFactura(int factura) {
+    public void setFactura(String factura) {
         this.factura = factura;
     }
 
@@ -38,16 +38,15 @@ public class TbFacturasCuentaPagarPK implements Serializable {
 
         TbFacturasCuentaPagarPK that = (TbFacturasCuentaPagarPK) o;
 
-        if (factura != that.factura) return false;
         if (cuenta != null ? !cuenta.equals(that.cuenta) : that.cuenta != null) return false;
+        return !(factura != null ? !factura.equals(that.factura) : that.factura != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         int result = cuenta != null ? cuenta.hashCode() : 0;
-        result = 31 * result + factura;
+        result = 31 * result + (factura != null ? factura.hashCode() : 0);
         return result;
     }
 }
