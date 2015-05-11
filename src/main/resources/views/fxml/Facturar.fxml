@@ -46,7 +46,7 @@
                           </rowConstraints>
                           <children>
                               <Label text="N° Factura" />
-                              <Label text="####" GridPane.columnIndex="1" />
+                              <Label fx:id="LBL_FacNum" text="####" GridPane.columnIndex="1" />
                               <Label text="Fecha:" GridPane.rowIndex="1" />
                               <Label id=".grid" fx:id="fecha" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Hora" GridPane.rowIndex="2" />
@@ -75,10 +75,10 @@
                               <TextField fx:id="TF_TelCLient" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label GridPane.rowIndex="1" />
                               <Label text="Cliente:" />
-                              <Label prefHeight="19.0" prefWidth="118.0" text="Vendedor:" GridPane.columnIndex="2" />
-                              <Label text="Código:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                              <Label text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <Label id="grid" text="Label" GridPane.columnIndex="3" />
+                              <Label prefHeight="19.0" prefWidth="118.0" text="Vendedor:" visible="false" GridPane.columnIndex="2" />
+                              <Label text="Código:" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label text="Label" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                              <Label id="grid" text="Label" visible="false" GridPane.columnIndex="3" />
                         <Label fx:id="LBL_NombClient" text="Nombre:" GridPane.rowIndex="1" />
                         <TextField fx:id="TF_NombClient" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                           </children>
@@ -116,8 +116,8 @@
                           <children>
                         <FlowPane alignment="BOTTOM_RIGHT" columnHalignment="RIGHT" prefHeight="200.0" prefWidth="200.0" rowValignment="BOTTOM">
                            <children>
-                                      <Button mnemonicParsing="false" text="Cancelar" />
-                                      <Button mnemonicParsing="false" text="Aceptar">
+                                      <Button mnemonicParsing="false" onAction="#test" text="Cancelar" />
+                                      <Button mnemonicParsing="false" onAction="#Facturar" text="Aceptar">
                                  <FlowPane.margin>
                                     <Insets left="10.0" />
                                  </FlowPane.margin>

@@ -58,7 +58,10 @@ public final class DBAccess {
         em.close();
         entityManagerFactory.close();
     }
-    public <U> TypedQuery<U>  sqlQuery(String sql,Class<U> uClass){
+    public <U> TypedQuery<U> TypedsqlQuery(String sql, Class<U> uClass){
         return  em.createQuery(sql, uClass);
+    }
+    public  Query nativeSqlQuery(String sql){
+        return em.createNativeQuery(sql);
     }
 }

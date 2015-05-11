@@ -9,12 +9,15 @@ import com.gadroves.gsisinve.model.DBAccess;
 import com.gadroves.gsisinve.model.entities.*;
 import com.gadroves.gsisinve.utils.CustomDate;
 import com.gadroves.gsisinve.utils.DialogBox;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,8 +29,11 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import javafx.util.converter.NumberStringConverter;
+import org.controlsfx.dialog.Dialogs;
 import org.jinq.orm.stream.JinqStream;
 
+import javax.persistence.Query;
+import java.math.BigInteger;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -35,6 +41,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 //import java.sql.Date;
 
 /**
@@ -72,16 +79,20 @@ public class FacturarController implements Initializable {
     @FXML    Label LBL_SubTotal;
     @FXML    TextField TF_NewCod;
     @FXML    Label LBL_Total;
+    @FXML    Label LBL_FacNum;
     /**************Bussiness Elements*********************************/
     DBAccess dbAccess;
     TbCLienteFactura cLienteFactura;
     TbClienteCuenta clienteCuenta;
     DoubleProperty subTotal = new SimpleDoubleProperty();
+    DoubleProperty Total = new SimpleDoubleProperty();
+    String codBodega = "0";
     /*****************************************************************/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         dbAccess = DBAccess.getInstance();
+        LBL_FacNum.setText(Integer.toString(NextAuto()));
         CustomDate customdate = new CustomDate(fecha.textProperty(), hora.textProperty());
         customdate.start();
         ToggleGroup group = new ToggleGroup();
@@ -170,7 +181,8 @@ public class FacturarController implements Initializable {
         DoubleProperty envio = new SimpleDoubleProperty(0);
         StringConverter<Number> converter = new NumberStringConverter();
         Bindings.bindBidirectional(TF_CostEnvio.textProperty(),envio,converter);
-        LBL_Total.textProperty().bind(subTotal.add(envio).asString());
+        Total.bind(subTotal.add(envio));
+        LBL_Total.textProperty().bind(Total.asString());
     }
     @FXML void deleteFromTVLineasFactura(){
         int lineaFac = TB_LineasCompra.getSelectionModel().getSelectedIndex();
@@ -214,10 +226,22 @@ public class FacturarController implements Initializable {
     private void Facturar(){
         //EntityManager em = dbAccess.getEm();
         //Hay Items?
+        /**Service<Void> service = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        return null;
+                    }
+                };
+            }
+        };**/
         if(TB_LineasCompra.getItems().size() < 1){
             DialogBox.Error((Stage)HBX_Abono.getScene().getWindow(),"La Factura debe contener almenos un elemento");
             return;
         }
+        Stream<TbLineaFac> lineaFacStream = TB_LineasCompra.getItems().stream();
         //se cargo una cuenta
         if(clienteCuenta == null)
             if(TF_NombClient.getText().trim().equals("")) TF_NombClient.setText("default Client");
@@ -236,12 +260,93 @@ public class FacturarController implements Initializable {
             cLienteFactura.setId(clienteCuenta.getId());
             cLienteFactura.setContact(TF_TelCLient.getText());
         }
-        //int lastId = (int)em.createNativeQuery("SELECT LAST_INSERT_ID() FROM TB_Factura_Venta").getSingleResult();
+        //TypedQuery<Integer> lasid = dbAccess.TypedsqlQuery("LAST_INSERT_ID()",Integer.class);
         TbFacturaVenta facturaVenta = new TbFacturaVenta();
         facturaVenta.setAddress(cLienteFactura.getAddress());
         java.util.Date d1 = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         java.sql.Date date = new  java.sql.Date(d1.getTime());
         facturaVenta.setFacDate(date);
+        facturaVenta.setImpuestos(0);
+        facturaVenta.setSub(subTotal.doubleValue());
+        facturaVenta.setTotal(Total.doubleValue());
+        /*******************Transacction********************************/
+        Service<Void> service = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        dbAccess.getTransaction().begin();
+                        try {
+                            updateTitle("Guardando Factura");
+                            updateProgress(0, 100);
+                            updateMessage("Guardando Factura");
+                            dbAccess.Insert(facturaVenta);
+                            dbAccess.getTransaction().commit();
+                            updateProgress(10, 100);
+                            dbAccess.getTransaction().begin();
+                            Query lasid = dbAccess.nativeSqlQuery("SELECT LAST_INSERT_ID()");
+                            int idFac = ((BigInteger) lasid.getSingleResult()).intValue();
+                            lineaFacStream.forEach(lf -> lf.setFacId(idFac));
+                            updateMessage("Guardando Componetes de Factura");
+                            updateProgress(15,100);
+                            TB_LineasCompra.getItems().stream().forEach(lf -> {
+                                try {
+                                    dbAccess.Insert(lf);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                            cLienteFactura.setFacId(idFac);
+                            dbAccess.Insert(cLienteFactura);
+                            /****Mod inventario*/
+                            updateMessage("Modificando Inventario");
+                            updateProgress(90,100);
+                            Query update;
+                            for (TbLineaFac lineaFac : TB_LineasCompra.getItems()) {
+                                update = dbAccess.nativeSqlQuery("UPDATE sisgradoves.TB_Inventario SET  quant = quant - " + lineaFac.getQuant() + " WHERE  code_art = \'" + lineaFac.getArtId() + "\'  AND code_bod = \'" + codBodega + "\';");
+                                update.executeUpdate();
+                            }
+                            /*********************/
+                            updateMessage("Persistiendo Cambios");
+                            dbAccess.getTransaction().commit();
+                            updateProgress(95, 100);
+                            updateMessage("Limpiado Interfaz");
+                            updateMessage("Generando Factura");
+                            //TODO Generar Factura
+                            Platform.runLater(() -> cleanAllFields());
+                            Platform.runLater(() -> LBL_FacNum.setText(String.valueOf(NextAuto())));
+                            Platform.runLater(() -> DialogBox.Informativo((Stage) HBX_Abono.getScene().getWindow(), "Listo"));
+                            updateProgress(100,100);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                        return null;
+                    }
+                };
+            }
+        };
+        /*****************************************************************/
+        Dialogs.create().title("Nueva Factura").message("GenerandoFactura").owner((Stage)HBX_Abono.getScene().getWindow()).showWorkerProgress(service);
+        service.start();
+    }
+    void cleanAllFields(){
+        TF_NombClient.clear();
+        subTotal.setValue(0);
+        this.direccion.clear();
+        this.TF_ClientID.clear();
+        this.TF_CostEnvio.setText("0");
+        TB_LineasCompra.getItems().clear();
+        TF_TelCLient.clear();
+
+    }
+    @FXML void test(){
+        cleanAllFields();
+    }
+    int NextAuto(){
+        Query nextAuto = dbAccess.nativeSqlQuery("SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'TB_Factura_Venta'");
+        return ((BigInteger)nextAuto.getSingleResult()).intValue();
     }
 }
 class myStringConverter extends StringConverter<Double>{

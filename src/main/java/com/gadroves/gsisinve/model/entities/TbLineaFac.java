@@ -157,7 +157,8 @@ public class TbLineaFac {
     }
 
     public void setTotal(double total) {
-        this.total.set(total);
+        //A Bounded Value Cannot Be Setted
+        //this.total.set(total);
     }
 
     @Override
