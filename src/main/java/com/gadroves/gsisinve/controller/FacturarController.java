@@ -313,7 +313,7 @@ public class FacturarController implements Initializable {
                             updateProgress(95, 100);
                             updateMessage("Limpiado Interfaz");
                             updateMessage("Generando Factura");
-                            //TODO Generar Factura
+                            //TODO Generar PDF Factura
                             Platform.runLater(() -> cleanAllFields());
                             Platform.runLater(() -> LBL_FacNum.setText(String.valueOf(NextAuto())));
                             Platform.runLater(() -> DialogBox.Informativo((Stage) HBX_Abono.getScene().getWindow(), "Listo"));

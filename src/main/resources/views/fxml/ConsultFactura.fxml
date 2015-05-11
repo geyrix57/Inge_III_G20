@@ -1,101 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="800.0" styleClass="grid" xmlns="http://javafx.com/javafx/8">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="grid" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gadroves.gsisinve.controller.ConsultarFacturaController">
     <stylesheets>
-        <URL value="@../styles/default.css"/>
+        <URL value="@../styles/default.css" />
     </stylesheets>
 
     <top>
-        <BorderPane prefHeight="77.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-            <top>
-                <MenuBar prefHeight="0.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <VBox>
+         <children>
+                <MenuBar prefHeight="0.0" prefWidth="800.0">
                     <menus>
                         <Menu mnemonicParsing="false" text="Archivo">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Salir"/>
-                            </items>
-                        </Menu>
-                        <Menu mnemonicParsing="false" text="Editar">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete"/>
+                                <MenuItem mnemonicParsing="false" onAction="#Salir" text="Salir" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Ayuda">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="?"/>
+                                <MenuItem mnemonicParsing="false" text="?" />
                             </items>
                         </Menu>
                     </menus>
                 </MenuBar>
-            </top>
-            <left>
-                <HBox prefHeight="80.0" prefWidth="290.0" spacing="15.0" styleClass="grid"
-                      BorderPane.alignment="CENTER">
-                    <children>
-                        <Label text="Buscar:"/>
-                        <TextField prefHeight="25.0" prefWidth="183.0"/>
-                    </children>
-                    <padding>
-                        <Insets left="15.0" top="15.0"/>
-                    </padding>
-                </HBox>
-            </left>
-            <center>
-                <HBox prefHeight="99.0" prefWidth="525.0" styleClass="grid" BorderPane.alignment="CENTER">
-                    <children>
-                        <VBox prefHeight="52.0" prefWidth="268.0">
-                            <children>
-                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-                                    <children>
-                                        <Label prefHeight="19.0" prefWidth="98.0" text="Fecha Inicial:"/>
-                                        <DatePicker/>
-                                    </children>
-                                    <padding>
-                                        <Insets bottom="15.0" top="15.0"/>
-                                    </padding>
-                                </HBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-                                    <children>
-                                        <Label prefHeight="19.0" prefWidth="102.0" text="Fecha Final:"/>
-                                        <DatePicker prefHeight="25.0" prefWidth="178.0"/>
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </children>
-                </HBox>
-            </center>
-        </BorderPane>
+            <HBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+               <children>
+                      <HBox prefHeight="80.0" prefWidth="436.0" spacing="15.0" styleClass="grid" HBox.hgrow="ALWAYS">
+                          <children>
+                              <Label text="Buscar:" />
+                              <TextField fx:id="TF_FacId" prefHeight="25.0" prefWidth="269.0" />
+                          </children>
+                          <padding>
+                              <Insets left="15.0" top="15.0" />
+                          </padding>
+                      </HBox>
+                      <HBox prefHeight="80.0" prefWidth="340.0" styleClass="grid" HBox.hgrow="ALWAYS">
+                          <children>
+                              <VBox fx:id="VBox_Fechas" prefHeight="149.0" prefWidth="352.0" HBox.hgrow="ALWAYS">
+                                  <children>
+                                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                                          <children>
+                                              <Label prefHeight="19.0" prefWidth="98.0" text="Fecha Inicial:" />
+                                              <DatePicker minWidth="198.0" prefHeight="25.0" prefWidth="198.0">
+                                       <HBox.margin>
+                                          <Insets left="4.0" />
+                                       </HBox.margin>
+                                    </DatePicker>
+                                          </children>
+                                          <padding>
+                                              <Insets bottom="15.0" top="15.0" />
+                                          </padding>
+                                      </HBox>
+                                      <HBox prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                                          <children>
+                                              <Label prefHeight="19.0" prefWidth="102.0" text="Fecha Final:" />
+                                              <DatePicker minWidth="198.0" prefHeight="25.0" prefWidth="198.0" />
+                                          </children>
+                                      </HBox>
+                                  </children>
+                              </VBox>
+                          </children>
+                      </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
     </top>
     <center>
-        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <center>
-                <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <columns>
-                        <TableColumn prefWidth="100.0" text="N° Facturas"/>
-                        <TableColumn prefWidth="50.0" text="Fecha"/>
-                        <TableColumn prefWidth="136.0" text="Cod. Cliente"/>
-                        <TableColumn prefWidth="247.0" text="Nombre Cliente"/>
-                        <TableColumn prefWidth="206.0" text="Total"/>
-                    </columns>
-                </TableView>
-            </center>
-            <padding>
-                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
-            </padding>
-            <top>
-                <Label text="Tabla Facturas" BorderPane.alignment="CENTER">
+      <VBox prefHeight="496.0" prefWidth="800.0">
+         <children>
+                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="50.0" minWidth="0.0" prefHeight="8.0" prefWidth="800.0" text="Factura" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                     <padding>
-                        <Insets bottom="30.0"/>
+                        <Insets bottom="30.0" />
                     </padding>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
                 </Label>
-            </top>
-        </BorderPane>
+                <TableView fx:id="TV_Facturas" prefHeight="68.0" prefWidth="760.0" VBox.vgrow="NEVER">
+                    <columns>
+                        <TableColumn fx:id="TC_NumFac" prefWidth="100.0" text="N° Factura" />
+                        <TableColumn fx:id="TC_Fecha" prefWidth="50.0" text="Fecha" />
+                  <TableColumn fx:id="TC_Impuestos" prefWidth="75.0" text="Impuestos" />
+                  <TableColumn fx:id="TC_SubTotal" prefWidth="75.0" text="Sub Total" />
+                        <TableColumn fx:id="TC_Total" prefWidth="206.0" text="Total" />
+                  <TableColumn fx:id="TC_Cliente" prefWidth="75.0" text="Cliente" />
+                    </columns>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" />
+               </VBox.margin>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+                </TableView>
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" minHeight="20.0" minWidth="0.0" prefHeight="20.0" prefWidth="800.0" text="Articulos" textAlignment="CENTER" />
+             <TableView fx:id="TB_LineasCompra" prefHeight="268.0" prefWidth="760.0">
+                 <columns>
+                     <TableColumn fx:id="TC_ArtDesc" prefWidth="246.0" text="Descripción" />
+                     <TableColumn fx:id="TC_ArtCant" prefWidth="72.0" text="Cantidad" />
+                     <TableColumn fx:id="TC_ArtPrec" minWidth="0.0" prefWidth="95.0" text="Precio" />
+                     <TableColumn fx:id="TC_ArtDis" prefWidth="128.0" text="Descuento" />
+                     <TableColumn fx:id="TC_ArtTot" prefWidth="160.0" text="Total" />
+                 </columns>
+                 <columnResizePolicy>
+                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                 </columnResizePolicy>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+             </TableView>
+         </children>
+      </VBox>
     </center>
 </BorderPane>

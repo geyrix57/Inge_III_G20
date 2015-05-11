@@ -1,5 +1,7 @@
 package com.gadroves.gsisinve.model.entities;
 
+import javafx.beans.property.*;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -10,12 +12,13 @@ import java.util.Collection;
 @Entity
 @Table(name = "TB_Factura_Venta", schema = "", catalog = "sisgradoves")
 public class TbFacturaVenta {
-    private int id;
+    private IntegerProperty id = new SimpleIntegerProperty();
     private Date facDate;
-    private double sub;
-    private double total;
-    private double impuestos;
-    private String address;
+    private DoubleProperty sub = new SimpleDoubleProperty();
+    private DoubleProperty total = new SimpleDoubleProperty();
+    private DoubleProperty impuestos = new SimpleDoubleProperty();
+    private StringProperty address = new SimpleStringProperty();
+    //private StringProperty dateText = new SimpleStringProperty();
 
     private TbCLienteFactura tbCLienteFacturaById;
     private Collection<TbCobro> tbCobrosById;
@@ -26,11 +29,11 @@ public class TbFacturaVenta {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public int getId() {
-        return id;
+        return id.getValue();
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id.setValue(id);
     }
 
     @Basic
@@ -46,41 +49,41 @@ public class TbFacturaVenta {
     @Basic
     @Column(name = "sub", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getSub() {
-        return sub;
+        return sub.doubleValue();
     }
 
     public void setSub(double sub) {
-        this.sub = sub;
+        this.sub.setValue(sub);
     }
 
     @Basic
     @Column(name = "total", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getTotal() {
-        return total;
+        return total.doubleValue();
     }
 
     public void setTotal(double total) {
-        this.total = total;
+        this.total.setValue(total);
     }
 
     @Basic
     @Column(name = "address", nullable = true, insertable = true, updatable = true, length = 255)
     public String getAddress() {
-        return address;
+        return address.get();
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        this.address.setValue(address);
     }
 
     @Basic
     @Column(name = "impuestos", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getImpuestos() {
-        return impuestos;
+        return impuestos.getValue();
     }
 
     public void setImpuestos(double impuestos) {
-        this.impuestos = impuestos;
+        this.impuestos.setValue(impuestos);
     }
 
     @Override
@@ -91,25 +94,58 @@ public class TbFacturaVenta {
         TbFacturaVenta that = (TbFacturaVenta) o;
 
         if (id != that.id) return false;
-        if (Double.compare(that.sub, sub) != 0) return false;
-        if (Double.compare(that.total, total) != 0) return false;
-        if (Double.compare(that.impuestos, impuestos) != 0) return false;
+        if (Double.compare(that.sub.get(), sub.get()) != 0) return false;
+        if (Double.compare(that.total.get(), total.get()) != 0) return false;
+        if (Double.compare(that.impuestos.get(), impuestos.get()) != 0) return false;
         if (!facDate.equals(that.facDate)) return false;
         return address.equals(that.address);
-
     }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public DoubleProperty subProperty() {
+        return sub;
+    }
+
+    public DoubleProperty totalProperty() {
+        return total;
+    }
+
+    public DoubleProperty impuestosProperty() {
+        return impuestos;
+    }
+
+    public StringProperty addressProperty() {
+        return address;
+    }
+
+    /*public String getDateText() {
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        dateText.setValue(dateFormat.format(this.facDate));
+        return dateText.get();
+    }
+
+    public StringProperty dateTextProperty() {
+        return dateText;
+    }
+
+    public void setDateText(String dateText) {
+        this.dateText.set(dateText);
+    }*/
 
     @Override
     public int hashCode() {
         int result;
         long temp;
-        result = id;
+        result = id.get();
         result = 31 * result + facDate.hashCode();
-        temp = Double.doubleToLongBits(sub);
+        temp = Double.doubleToLongBits(sub.getValue());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(total);
+        temp = Double.doubleToLongBits(total.getValue());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(impuestos);
+        temp = Double.doubleToLongBits(impuestos.getValue());
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + address.hashCode();
         return result;
