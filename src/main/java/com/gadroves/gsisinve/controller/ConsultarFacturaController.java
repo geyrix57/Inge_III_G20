@@ -69,6 +69,7 @@ public class ConsultarFacturaController implements Initializable {
         /****************/
         TF_FacId.setOnKeyTyped(k->{if(!k.getCharacter().matches("[0-9]+")) k.consume();});
         TF_FacId.setOnAction(event -> {
+            if(TF_FacId.getText().trim().equals("")) return;
             int facid = Integer.valueOf(TF_FacId.getText());
             long count = dbAccess.Stream(TbFacturaVenta.class).where(c->c.getId() == facid).count();
             if(count != 1) {
