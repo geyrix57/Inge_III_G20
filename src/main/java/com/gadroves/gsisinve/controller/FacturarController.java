@@ -124,9 +124,10 @@ public class FacturarController implements Initializable {
         CB_TipoPago.getSelectionModel().selectFirst();
         LBL_Abono.visibleProperty().bind(HBX_Abono.visibleProperty());
         CB_TipoPago.getSelectionModel().selectedIndexProperty().addListener(
+                //TODO restore to true
                 (observable, oldValue, newValue) -> {
                     if (newValue.intValue() == 0) HBX_Abono.setVisible(false);
-                    else HBX_Abono.setVisible(true);
+                    else HBX_Abono.setVisible(false);
                 }
         );
         TF_Abono.setOnKeyTyped(value -> {
