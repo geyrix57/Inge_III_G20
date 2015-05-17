@@ -27,7 +27,7 @@ public class TbFacturaVenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true)
     public int getId() {
         return id.getValue();
     }

@@ -26,14 +26,14 @@ public class TbFacturaCompra {
     private Collection<TbLineaCompra> tbLineaComprasById;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true, length = 32)
     public String getId() {
         return id.get();
     }
 
-    public void setId(String id) {
+    public TbFacturaCompra setId(String id) {
         this.id.set(id);
+        return this;
     }
 
     public StringProperty idProperty() {
@@ -46,8 +46,9 @@ public class TbFacturaCompra {
         return provId.get();
     }
 
-    public void setProvId(String provId) {
+    public TbFacturaCompra setProvId(String provId) {
         this.provId.set(provId);
+        return this;
     }
 
     public StringProperty provIdProperty() {
@@ -60,8 +61,9 @@ public class TbFacturaCompra {
         return fecha.get();
     }
 
-    public void setFecha(Date fecha) {
+    public TbFacturaCompra setFecha(Date fecha) {
         this.fecha.set(fecha);
+        return this;
     }
 
     @Basic
@@ -70,8 +72,9 @@ public class TbFacturaCompra {
         return subTotal.get();
     }
 
-    public void setSubTotal(double subTotal) {
+    public TbFacturaCompra setSubTotal(double subTotal) {
         this.subTotal.set(subTotal);
+        return this;
     }
 
     public DoubleProperty subTotalProperty() {
@@ -84,8 +87,9 @@ public class TbFacturaCompra {
         return total.get();
     }
 
-    public void setTotal(double total) {
+    public TbFacturaCompra setTotal(double total) {
         this.total.set(total);
+        return this;
     }
 
     public DoubleProperty totalProperty() {
@@ -98,8 +102,9 @@ public class TbFacturaCompra {
         return imp.get();
     }
 
-    public void setImp(double imp) {
+    public TbFacturaCompra setImp(double imp) {
         this.imp.set(imp);
+        return this;
     }
 
     public DoubleProperty impProperty() {
@@ -112,8 +117,9 @@ public class TbFacturaCompra {
         return saldo.get();
     }
 
-    public void setSaldo(double saldo) {
+    public TbFacturaCompra setSaldo(double saldo) {
         this.saldo.set(saldo);
+        return this;
     }
 
     public DoubleProperty saldoProperty() {
