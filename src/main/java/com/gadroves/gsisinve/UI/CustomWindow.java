@@ -45,7 +45,7 @@ public class CustomWindow {
     public CustomWindow show() throws IOException {
         build();
         this.stage.show();
-        showEffect();
+        //showEffect();
         new ResizeListener(this.stage, stage.getHeight(), stage.getWidth());
         return this;
     }
