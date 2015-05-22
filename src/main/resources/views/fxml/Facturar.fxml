@@ -61,8 +61,8 @@
                           <columnConstraints>
                               <ColumnConstraints hgrow="NEVER" maxWidth="130.0" minWidth="10.0" prefWidth="76.0" />
                               <ColumnConstraints hgrow="NEVER" maxWidth="223.0" minWidth="196.0" prefWidth="205.0" />
-                              <ColumnConstraints hgrow="NEVER" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" />
-                              <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+                              <ColumnConstraints hgrow="NEVER" maxWidth="154.0" minWidth="65.0" prefWidth="88.0" />
+                              <ColumnConstraints hgrow="NEVER" maxWidth="150.0" minWidth="61.0" prefWidth="127.0" />
                           </columnConstraints>
                           <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -75,12 +75,12 @@
                               <TextField fx:id="TF_TelCLient" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label GridPane.rowIndex="1" />
                               <Label text="Cliente:" />
-                              <Label prefHeight="19.0" prefWidth="118.0" text="Vendedor:" visible="false" GridPane.columnIndex="2" />
+                              <Label prefHeight="19.0" prefWidth="118.0" text="Autorizacion" GridPane.columnIndex="2" />
                               <Label text="Código:" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <Label text="Label" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                              <Label id="grid" text="Label" visible="false" GridPane.columnIndex="3" />
                         <Label fx:id="LBL_NombClient" text="Nombre:" GridPane.rowIndex="1" />
                         <TextField fx:id="TF_NombClient" maxHeight="25.0" maxWidth="200.0" minHeight="25.0" minWidth="200.0" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="TF_Autorizacion" GridPane.columnIndex="3" />
                           </children>
                           <opaqueInsets>
                               <Insets />

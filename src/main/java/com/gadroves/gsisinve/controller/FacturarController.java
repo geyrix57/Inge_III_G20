@@ -80,6 +80,7 @@ public class FacturarController implements Initializable {
     @FXML    TextField TF_NewCod;
     @FXML    Label LBL_Total;
     @FXML    Label LBL_FacNum;
+    @FXML    TextField TF_Autorizacion;
     /**************Bussiness Elements*********************************/
     DBAccess dbAccess;
     TbCLienteFactura cLienteFactura;
@@ -127,7 +128,7 @@ public class FacturarController implements Initializable {
                 //TODO restore to true
                 (observable, oldValue, newValue) -> {
                     if (newValue.intValue() == 0) HBX_Abono.setVisible(false);
-                    else HBX_Abono.setVisible(false);
+                    else HBX_Abono.setVisible(true);
                 }
         );
         TF_Abono.setOnKeyTyped(value -> {
@@ -270,6 +271,7 @@ public class FacturarController implements Initializable {
         facturaVenta.setImpuestos(0);
         facturaVenta.setSub(subTotal.doubleValue());
         facturaVenta.setTotal(Total.doubleValue());
+        facturaVenta.setAutorization(TF_Autorizacion.getText());
         /*******************Transacction********************************/
         Service<Void> service = new Service<Void>() {
             @Override

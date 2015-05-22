@@ -18,6 +18,7 @@ public class TbFacturaVenta {
     private DoubleProperty total = new SimpleDoubleProperty();
     private DoubleProperty impuestos = new SimpleDoubleProperty();
     private StringProperty address = new SimpleStringProperty();
+    private StringProperty autorization = new SimpleStringProperty("");
     //private StringProperty dateText = new SimpleStringProperty();
 
     private TbCLienteFactura tbCLienteFacturaById;
@@ -89,16 +90,40 @@ public class TbFacturaVenta {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TbFacturaVenta)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         TbFacturaVenta that = (TbFacturaVenta) o;
 
-        if (id != that.id) return false;
-        if (Double.compare(that.sub.get(), sub.get()) != 0) return false;
-        if (Double.compare(that.total.get(), total.get()) != 0) return false;
-        if (Double.compare(that.impuestos.get(), impuestos.get()) != 0) return false;
-        if (!facDate.equals(that.facDate)) return false;
-        return address.equals(that.address);
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (facDate != null ? !facDate.equals(that.facDate) : that.facDate != null) return false;
+        if (sub != null ? !sub.equals(that.sub) : that.sub != null) return false;
+        if (total != null ? !total.equals(that.total) : that.total != null) return false;
+        if (impuestos != null ? !impuestos.equals(that.impuestos) : that.impuestos != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (autorization != null ? !autorization.equals(that.autorization) : that.autorization != null) return false;
+        if (tbCLienteFacturaById != null ? !tbCLienteFacturaById.equals(that.tbCLienteFacturaById) : that.tbCLienteFacturaById != null)
+            return false;
+        if (tbCobrosById != null ? !tbCobrosById.equals(that.tbCobrosById) : that.tbCobrosById != null) return false;
+        if (tbGarantiasById != null ? !tbGarantiasById.equals(that.tbGarantiasById) : that.tbGarantiasById != null)
+            return false;
+        return !(tbLineaFacsById != null ? !tbLineaFacsById.equals(that.tbLineaFacsById) : that.tbLineaFacsById != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (facDate != null ? facDate.hashCode() : 0);
+        result = 31 * result + (sub != null ? sub.hashCode() : 0);
+        result = 31 * result + (total != null ? total.hashCode() : 0);
+        result = 31 * result + (impuestos != null ? impuestos.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (autorization != null ? autorization.hashCode() : 0);
+        result = 31 * result + (tbCLienteFacturaById != null ? tbCLienteFacturaById.hashCode() : 0);
+        result = 31 * result + (tbCobrosById != null ? tbCobrosById.hashCode() : 0);
+        result = 31 * result + (tbGarantiasById != null ? tbGarantiasById.hashCode() : 0);
+        result = 31 * result + (tbLineaFacsById != null ? tbLineaFacsById.hashCode() : 0);
+        return result;
     }
 
     public IntegerProperty idProperty() {
@@ -121,34 +146,19 @@ public class TbFacturaVenta {
         return address;
     }
 
-    /*public String getDateText() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        dateText.setValue(dateFormat.format(this.facDate));
-        return dateText.get();
+
+    @Basic
+    @Column(name = "autorizacion", nullable = true, insertable = true, updatable = true, length = 32)
+    public String getAutorization() {
+        return autorization.get();
     }
 
-    public StringProperty dateTextProperty() {
-        return dateText;
+    public StringProperty autorizationProperty() {
+        return autorization;
     }
 
-    public void setDateText(String dateText) {
-        this.dateText.set(dateText);
-    }*/
-
-    @Override
-    public int hashCode() {
-        int result;
-        long temp;
-        result = id.get();
-        result = 31 * result + facDate.hashCode();
-        temp = Double.doubleToLongBits(sub.getValue());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(total.getValue());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        temp = Double.doubleToLongBits(impuestos.getValue());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + address.hashCode();
-        return result;
+    public void setAutorization(String autorization) {
+        this.autorization.set(autorization);
     }
 
     @OneToOne(mappedBy = "tbFacturaVentaByFacId")

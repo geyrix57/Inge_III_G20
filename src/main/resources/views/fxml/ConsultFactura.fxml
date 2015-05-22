@@ -94,6 +94,7 @@
                   <TableColumn fx:id="TC_SubTotal" prefWidth="75.0" text="Sub Total" />
                         <TableColumn fx:id="TC_Total" prefWidth="206.0" text="Total" />
                   <TableColumn fx:id="TC_Cliente" prefWidth="75.0" text="Cliente" />
+                  <TableColumn fx:id="TC_Autorizacion" prefWidth="75.0" text="Autorizacion" />
                     </columns>
                <VBox.margin>
                   <Insets bottom="20.0" left="20.0" right="20.0" />

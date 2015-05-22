@@ -33,6 +33,7 @@ public class ConsultarFacturaController implements Initializable {
         @FXML    TableColumn<FactClientUnion,String> TC_SubTotal;
         @FXML    TableColumn<FactClientUnion,String> TC_Total;
         @FXML    TableColumn<FactClientUnion,String> TC_Cliente;
+        @FXML    TableColumn<FactClientUnion,String>TC_Autorizacion;
     @FXML    VBox VBox_Fechas;
     @FXML    TextField TF_FacId;
 
@@ -54,7 +55,7 @@ public class ConsultarFacturaController implements Initializable {
         TC_SubTotal.setCellValueFactory(param -> param.getValue().getFacturaVenta().subProperty().asString());
         TC_Total.setCellValueFactory(param -> param.getValue().getFacturaVenta().totalProperty().asString());
         TC_Cliente.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getcLienteFactura().getName()));
-
+        TC_Autorizacion.setCellValueFactory(param -> param.getValue().getFacturaVenta().autorizationProperty());
         /***************Lineas Factura Table ************************************************/
         TC_ArtDis.setCellValueFactory(new PropertyValueFactory<>("disc"));
         TC_ArtCant.setCellValueFactory(new PropertyValueFactory<>("quant"));
