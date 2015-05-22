@@ -9,6 +9,11 @@ import com.gadroves.gsisinve.model.DBAccess;
 import com.gadroves.gsisinve.model.entities.*;
 import com.gadroves.gsisinve.utils.CustomDate;
 import com.gadroves.gsisinve.utils.DialogBox;
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -22,6 +27,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
@@ -33,6 +41,10 @@ import org.controlsfx.dialog.Dialogs;
 import org.jinq.orm.stream.JinqStream;
 
 import javax.persistence.Query;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
 import java.sql.Date;
@@ -42,6 +54,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.List;
 //import java.sql.Date;
 
 /**
@@ -313,10 +326,11 @@ public class FacturarController implements Initializable {
                             /*********************/
                             updateMessage("Persistiendo Cambios");
                             dbAccess.getTransaction().commit();
+                            facturaVenta.setTbLineaFacsById(TB_LineasCompra.getItems());
                             updateProgress(95, 100);
                             updateMessage("Limpiado Interfaz");
                             updateMessage("Generando Factura");
-                            //TODO Generar PDF Factura
+                            PrintToPDF(facturaVenta,cLienteFactura);
                             Platform.runLater(() -> cleanAllFields());
                             Platform.runLater(() -> LBL_FacNum.setText(String.valueOf(NextAuto())));
                             Platform.runLater(() -> DialogBox.Informativo((Stage) HBX_Abono.getScene().getWindow(), "Listo"));
@@ -350,6 +364,114 @@ public class FacturarController implements Initializable {
     int NextAuto(){
         Query nextAuto = dbAccess.nativeSqlQuery("SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = 'TB_Factura_Venta'");
         return ((BigInteger)nextAuto.getSingleResult()).intValue();
+    }
+
+    void PrintToPDF(TbFacturaVenta facturaVenta,TbCLienteFactura cLienteFactura) throws DocumentException, IOException {
+        Font header = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
+        Font normalBold = new Font(Font.FontFamily.HELVETICA,12,Font.BOLD);
+        Font normal = new Font(Font.FontFamily.HELVETICA,12);
+        String fileName = "Factura_"+facturaVenta.getId()+".pdf" ;
+        // step 1
+        Document document = new Document();
+        // step 2
+        PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        // step 3
+        document.open();
+        // step 4
+        document.add(new Paragraph("Gadroves S.A Factura De Venta",header));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Factura N°"+facturaVenta.getId(),normalBold));
+        document.add(new Chunk("Cliente:            ",normalBold));
+        document.add(new Chunk(" "));
+        document.add(new Chunk(cLienteFactura.getName(),normal));
+
+        document.add(new Paragraph());
+        document.add(new Chunk("Dirección:        ",normalBold));
+        document.add(new Chunk(" "));
+        document.add(new Chunk(cLienteFactura.getAddress(),normal));
+
+        document.add(new Paragraph());
+        document.add(new Chunk("Identificacion: ",normalBold));
+        document.add(new Chunk(" "));
+        document.add(new Chunk(cLienteFactura.getId(),normal));
+
+        document.add(new Paragraph());
+        document.add(new Chunk("Credito:            ",normalBold));
+        document.add(new Chunk(" "));
+        document.add(new Chunk(Boolean.FALSE.toString(),normal));
+        document.add(new Paragraph());
+
+        for(int i = 0;i < 3; i++) document.add(new Paragraph(" "));
+        createItemsTable(document,facturaVenta);
+        document.add(new Paragraph(" "));
+        Paragraph subs = new Paragraph();
+
+        subs.setAlignment(Element.ALIGN_RIGHT);
+        subs.setIndentationRight(40);
+        subs.add(new Chunk( "Subtotal:  "+ String.format("%1$"+10+"s", String.valueOf(facturaVenta.getSub())) ));
+        subs.add(Chunk.NEWLINE);
+        subs.add(new Chunk( "Impuestos:  "+ String.format("%1$"+10+"s", String.valueOf(facturaVenta.getImpuestos())) ));
+        subs.add(Chunk.NEWLINE);
+        subs.add(new Chunk( "Total:       "+ String.format("%1$"+10+"s", String.valueOf(facturaVenta.getTotal())) ));
+        subs.add(Chunk.NEWLINE);
+        document.add(subs);
+        // step 5
+
+        document.close();
+        Desktop.getDesktop().open(new File(fileName));
+    }
+
+    private void createItemsTable(Document doc, TbFacturaVenta facturaVenta) throws DocumentException {
+        PdfPTable table = new PdfPTable(4);
+
+        //float[] columnWidths = new float[] {30f, 10f, 10f, 10f};
+
+        //table.setWidths(columnWidths);
+        //table.addCell(new PdfPCell(new Phrase("Cell 1")));
+        //table.addCell(new PdfPCell(new Phrase("Cell 2")));
+        //table.addCell(new PdfPCell(new Phrase("Cell 3")));
+        //table.addCell(new PdfPCell(new Phrase("Cell 4")));
+
+        //
+        // Defiles the relative width of the columns
+        //
+
+
+        PdfPCell c1 = new PdfPCell(new Phrase("Descripcion"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Cantidad"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Precio Unitario"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        c1 = new PdfPCell(new Phrase("Valor"));
+        c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.addCell(c1);
+
+        //table.setHeaderRows(1);
+        PdfPCell desc;
+        PdfPCell cant;
+        PdfPCell pu;
+        PdfPCell val;
+        for(TbLineaFac lineaFac : facturaVenta.getTbLineaFacsById()){
+            desc = new PdfPCell(new Phrase(lineaFac.getDescripcion()));
+            cant = new PdfPCell(new Phrase(String.valueOf(lineaFac.getQuant())));
+            pu = new PdfPCell(new Phrase(String.valueOf(lineaFac.getP_unitario())));
+            val = new PdfPCell(new Phrase(String.valueOf(lineaFac.getTotal())));
+            table.addCell(desc);
+            table.addCell(cant);
+            table.addCell(pu);
+            table.addCell(val);
+        }
+        float[] columnWidths = new float[] {40f, 10f, 10f, 10f};
+        table.setWidths(columnWidths);
+        doc.add(table);
+
     }
 }
 class myStringConverter extends StringConverter<Double>{
