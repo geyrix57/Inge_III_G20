@@ -331,7 +331,7 @@ public class FacturarController implements Initializable {
                             updateMessage("Limpiado Interfaz");
                             updateMessage("Generando Factura");
                             PrintToPDF(facturaVenta,cLienteFactura);
-                            Platform.runLater(() -> cleanAllFields());
+                            Platform.runLater(FacturarController.this::cleanAllFields);
                             Platform.runLater(() -> LBL_FacNum.setText(String.valueOf(NextAuto())));
                             Platform.runLater(() -> DialogBox.Informativo((Stage) HBX_Abono.getScene().getWindow(), "Listo"));
                             updateProgress(100,100);
@@ -423,19 +423,6 @@ public class FacturarController implements Initializable {
 
     private void createItemsTable(Document doc, TbFacturaVenta facturaVenta) throws DocumentException {
         PdfPTable table = new PdfPTable(4);
-
-        //float[] columnWidths = new float[] {30f, 10f, 10f, 10f};
-
-        //table.setWidths(columnWidths);
-        //table.addCell(new PdfPCell(new Phrase("Cell 1")));
-        //table.addCell(new PdfPCell(new Phrase("Cell 2")));
-        //table.addCell(new PdfPCell(new Phrase("Cell 3")));
-        //table.addCell(new PdfPCell(new Phrase("Cell 4")));
-
-        //
-        // Defiles the relative width of the columns
-        //
-
 
         PdfPCell c1 = new PdfPCell(new Phrase("Descripcion"));
         c1.setHorizontalAlignment(Element.ALIGN_CENTER);

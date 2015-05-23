@@ -90,6 +90,11 @@ public class AdminPanelController implements Initializable {
         openWindow("consultarCompra");
     }
 
+    @FXML
+    private void openFacturasporFecha(){
+        openWindow("facturaporfecha");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.browser.getEngine().load("https://calendar.google.com");

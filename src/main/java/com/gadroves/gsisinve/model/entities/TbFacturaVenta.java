@@ -26,6 +26,19 @@ public class TbFacturaVenta {
     private Collection<TbGarantia> tbGarantiasById;
     private Collection<TbLineaFac> tbLineaFacsById;
 
+    public TbFacturaVenta() {
+    }
+
+    public TbFacturaVenta(Integer id, Date facDate, Double sub, Double total, Double impuestos, String address, String autorization) {
+        this.id.setValue( id);
+        this.facDate = facDate;
+        this.sub.setValue(sub);
+        this.total.setValue(total);
+        this.impuestos.setValue(impuestos);
+        this.address.setValue(address);
+        this.autorization.setValue(autorization);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "\"id\"", nullable = false, insertable = true, updatable = true)
