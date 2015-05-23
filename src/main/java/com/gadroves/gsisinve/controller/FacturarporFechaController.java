@@ -145,7 +145,7 @@ public class FacturarporFechaController implements Initializable {
             table.addCell(Auth);
         }
        // float[] columnWidths = new float[] {10f,10f,10f,10f,10f,10f};
-       // table.setWidths(columnWidths);
+        table.setWidthPercentage(90);
         document.add(table);
         /*--------------------------------------------------------*/
         document.close();
