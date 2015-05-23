@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -94,7 +95,8 @@ public class FacturarporFechaController implements Initializable {
         Paragraph title = new Paragraph("Gadroves S.A Reporte Facturas",header);
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
-        document.add(new Chunk("DE "+ DP_FInicial.getValue().toString() + " A " + DP_FFinal.getValue().toString(),normalBold));
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        document.add(new Chunk("DE "+ DP_FInicial.getValue().format(dateTimeFormatter) + " A " + DP_FFinal.getValue().format(dateTimeFormatter),normalBold));
         document.add(new Paragraph(" ")); document.add(new Paragraph(" "));
         /****************Tabla************************************/
         PdfPTable table = new PdfPTable(6);
@@ -145,7 +147,8 @@ public class FacturarporFechaController implements Initializable {
             table.addCell(Auth);
         }
        // float[] columnWidths = new float[] {10f,10f,10f,10f,10f,10f};
-        table.setWidthPercentage(90);
+        table.setWidths(new int[]{15,15,15,15,15,25});
+        table.setWidthPercentage(100);
         document.add(table);
         /*--------------------------------------------------------*/
         document.close();
