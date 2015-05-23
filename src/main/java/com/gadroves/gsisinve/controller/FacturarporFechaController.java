@@ -94,7 +94,7 @@ public class FacturarporFechaController implements Initializable {
         Paragraph title = new Paragraph("Gadroves S.A Reporte Facturas",header);
         title.setAlignment(Element.ALIGN_CENTER);
         document.add(title);
-        document.add(new Chunk("DE "+ DP_FInicial.getValue().toString() + " A " + DP_FFinal.getValue().toString(),normal));
+        document.add(new Chunk("DE "+ DP_FInicial.getValue().toString() + " A " + DP_FFinal.getValue().toString(),normalBold));
         document.add(new Paragraph(" ")); document.add(new Paragraph(" "));
         /****************Tabla************************************/
         PdfPTable table = new PdfPTable(6);
